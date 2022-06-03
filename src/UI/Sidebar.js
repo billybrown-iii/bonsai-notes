@@ -4,19 +4,28 @@ import { Node, createDummyHomeNode} from '../Classes/node.js'
 import './Sidebar.css';
 
 function Sidebar(){
-
-    const dummyNode = createDummyHomeNode();
     
-    const listOfNodes = dummyNode.nodes.map((item) => {
+    const parent = createDummyHomeNode();
+
+    const list = parent.nodes.map((item) => {
         return (
-            <div>{item.title}</div>
+            <div className="node">{item.title}</div>
         )
     })
 
+    const addNode = () => {
+        const newNode = new Node("new");
+        parent.nodes.push(newNode);
+        console.log(parent.nodes.length);
+    }
+
     return (
         <div id="sidebar">
-            <div id="title">Sidebar! - {1}</div>
-            <div>{listOfNodes}</div>
+            <div id="back-button">{parent.title}</div>
+            <div id="sidebar-btns">
+                <div onClick={addNode} id="new-node">+</div>
+            </div>
+            <div>{list}</div>
         </div>
     )
 }

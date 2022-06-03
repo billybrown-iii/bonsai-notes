@@ -1,18 +1,18 @@
 class Node {
-    constructor(title){
+    constructor(title, parent){
         this.title = title;
+        this.parent = parent;
     }
     nodes = [];
     pages = [];
-    parent;
 }
 
 
 const createDummyHomeNode = () => {
-    let testNode = new Node();
-    testNode.nodes.push(new Node("node1"))
-    testNode.nodes.push(new Node("node2"))
-    testNode.nodes.push(new Node("node3"))
+    let testNode = new Node("Home");
+    testNode.nodes.push(new Node("node1", testNode))
+    testNode.nodes.push(new Node("node2", testNode))
+    testNode.nodes.push(new Node("node3", testNode))
     return testNode;
 }
 

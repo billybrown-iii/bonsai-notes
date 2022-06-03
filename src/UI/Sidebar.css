@@ -1,6 +1,32 @@
 #sidebar {
     height: 500px;
     width: 30%;
-    border: 2px solid green;
+    border: 2px solid rgb(134, 186, 134);
+    border-left: none;
+}
+
+#back-button {
+    margin: 5px auto;
+    width: 90%;
+    border: 2px solid rgb(190, 190, 190);
+    border-radius: 8px;
+    font-size: 1.1em;
+}
+
+#sidebar-btns {
+    border: 1px solid white;
+}
+
+#new-node {
+    width: 48%;
+    border: 2px solid magenta;
+}
+
+.node {
+    width: 80%;
+    margin: 10px auto;
+    padding: 5px 0;
+    border: 4px solid rgb(106, 172, 172);
+    border-radius: 12px;
 }
 
