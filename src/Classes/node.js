@@ -1,24 +1,25 @@
+// 6/4/22 - removed circular parent reference
 class Node {
-    constructor(title, parent){
+    constructor(title){
         this.title = title;
-        this.parent = parent;
     }
     nodes = [];
     pages = [];
 }
 
+const testNode0 = new Node()
+
 
 const createDummyHomeNode = () => {
     let testNode = new Node("Home");
-    testNode.nodes.push(new Node("node1", testNode))
-    testNode.nodes.push(new Node("node2", testNode))
-    testNode.nodes.push(new Node("node3", testNode))
+    testNode.nodes.push(new Node("node1"))
+    testNode.nodes.push(new Node("node2"))
+    testNode.nodes.push(new Node("node3"))
     return testNode;
 }
 
 const dummyHomeNode = createDummyHomeNode();
 
-console.log(dummyHomeNode);
 
 const test2 = "test"
 
