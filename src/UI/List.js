@@ -1,19 +1,14 @@
 
 const List = (props) => {
-    const {nodeRefs, setNodeRefs} = props;
+    const {nodeRefs, addNode} = props;
 
-    const addNode = (title) => {
-        if (title.length === 0) title = "New Node";
-        setNodeRefs(nodeRefs.slice(0, nodeRefs.length - 1).concat({title: title}))
-    }
-
-    const list = nodeRefs.map((item) => {
+    const list = nodeRefs.map((item, index) => {
         if (item.isNew){
             return (
-                <div className="node new-node">
+                <div className="node new-node" key={index}>
                     <input 
                      type="text" 
-                     placeholder="New Node" 
+                     placeholder="New Node"
                      autoFocus 
                      onBlur={(e) => {addNode(e.target.value)}}   
                      onKeyPress={(e) => {
@@ -23,7 +18,9 @@ const List = (props) => {
                 </div>
             )
         } else return (
-            <div className="node">{item.title}</div>
+            <div 
+             onClick={() => {console.log("navigate to node!")}}
+             className="node" key={index}>{item.title}</div>
         )
     })
 

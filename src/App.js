@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import logo from './logo.svg';
 import Sidebar from './UI/Sidebar';
 import './App.css';
 
