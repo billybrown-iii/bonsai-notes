@@ -1,6 +1,6 @@
 
 const List = (props) => {
-    const {nodeRefs, addNode} = props;
+    const {nodeRefs, addNode, path, setPath} = props;
 
     const list = nodeRefs.map((item, index) => {
         if (item.isNew){
@@ -12,6 +12,7 @@ const List = (props) => {
                      autoFocus 
                      onBlur={(e) => {addNode(e.target.value)}}   
                      onKeyPress={(e) => {
+                         // @ts-ignore
                          if (e.key === "Enter") addNode(e.target.value)
                      }} 
                      />
@@ -19,7 +20,7 @@ const List = (props) => {
             )
         } else return (
             <div 
-             onClick={() => {console.log("navigate to node!")}}
+             onClick={() => {setPath([...path, item.title])}}
              className="node" key={index}>{item.title}</div>
         )
     })

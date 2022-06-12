@@ -1,27 +1,40 @@
-import { useState } from 'react';
-import { Node, createDummyHomeNode } from '../Classes/Node.js'
+import { useState, useEffect } from 'react';
+import { Node, createDummyHomeNode, navObj } from '../Classes/Node.js'
 import NodeRef from '../Classes/NodeRef.js'
 import List from './List.js'
 
 import './Sidebar.css';
 
-const dummyHomeNode = createDummyHomeNode();
-dummyHomeNode.createChildNode("Node 4")
+const homeNode = createDummyHomeNode();
+homeNode.createChildNode("Node 4")
 
-console.log(dummyHomeNode)
-
-let path = ['home'] // add ids into this array as you navigate through the homeNode object
+// console.log(homeNode)
 
 function Sidebar(){
 
-    const [parentNodeRef, setParentNodeRef] = useState(new NodeRef(dummyHomeNode.title))
+    // in state, track path or parent?
+    // everything should bubble out from a central variable.
 
-    const [navPath, setNavPath] = useState(['home']);
+    // change path, change parent, change nodeRefs.  ideally, it'd all cascade forth.
 
-    // const parentNodeRef = navToNode(navPath)
+    const [path, setPath] = useState(["Home"]);
 
-    const startNodeRefs = dummyHomeNode.nodes.slice().map((item) => new NodeRef(item.title));
+    const parent = navObj(homeNode, path);
+
+
+
+    // console.log(parent)
+
+
+    const nodeRefGen = (node) => {return node.nodes.slice().map((item) => new NodeRef(item.title, item.path))}
+
+    const startNodeRefs = nodeRefGen(parent);
     const [nodeRefs, setNodeRefs] = useState(startNodeRefs);
+    
+
+    useEffect(() => {
+        setNodeRefs(nodeRefGen(parent))
+    }, [path])
 
     const newNode = () => {
         const newNodeRef = new NodeRef("New Node", null, true)
@@ -31,10 +44,10 @@ function Sidebar(){
     const addNode = (title) => {
         if (title.length === 0) title = "New Node";
 
-        if (dummyHomeNode.nodes.every((node) => node.title !== title)){
+        if (parent.nodes.every((node) => node.title !== title)){
             setNodeRefs(nodeRefs.slice(0, nodeRefs.length - 1).concat(new NodeRef(title)))
-            dummyHomeNode.createChildNode(title);
-            console.log(dummyHomeNode.nodes);
+            parent.createChildNode(title);
+            console.log(parent.nodes);
         } else {
             setNodeRefs(nodeRefs.slice(0, nodeRefs.length - 1))
             alert("use a different name");
@@ -45,11 +58,11 @@ function Sidebar(){
 
     return (
         <div id="sidebar">
-            <div id="back-button">{parentNodeRef.title}</div>
+            <div id="back-button" onClick={() => {setPath(path.slice(0, path.length - 1))}}>{parent.title}</div>
             <div id="sidebar-btns">
                 <div onClick={newNode} id="new-node">+</div>
             </div>
-            <div><List nodeRefs={nodeRefs} addNode={addNode}/></div>
+            <div><List nodeRefs={nodeRefs} addNode={addNode} path={path} setPath={setPath}/></div>
         </div>
     )
 }
