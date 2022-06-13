@@ -1,5 +1,3 @@
-
-
 class Node {
     /**
      * 
@@ -27,7 +25,12 @@ const createDummyHomeNode = () => {
     return testNode;
 }
 
-
+/**
+ * Takes in the home node and a path, returns destination node
+ * @param {object} obj 
+ * @param {array} path 
+ * @returns object
+ */
 const navObj = (obj, path) => {
     let copy = path.slice(1);
     let destination = obj; 
@@ -39,8 +42,6 @@ const navObj = (obj, path) => {
     return destination;
 }
 
-// const navToNode = (path) => {
 
-// }
 
 export {Node, createDummyHomeNode, navObj};

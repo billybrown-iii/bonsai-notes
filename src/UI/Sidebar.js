@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Node, createDummyHomeNode, navObj } from '../Classes/Node.js'
-import NodeRef from '../Classes/NodeRef.js'
+import { NodeRef, nodeRefGen } from '../Classes/NodeRef.js'
 import List from './List.js'
 
 import './Sidebar.css';
@@ -12,26 +12,13 @@ homeNode.createChildNode("Node 4")
 
 function Sidebar(){
 
-    // in state, track path or parent?
-    // everything should bubble out from a central variable.
-
-    // change path, change parent, change nodeRefs.  ideally, it'd all cascade forth.
-
     const [path, setPath] = useState(["Home"]);
 
     const parent = navObj(homeNode, path);
 
-
-
-    // console.log(parent)
-
-
-    const nodeRefGen = (node) => {return node.nodes.slice().map((item) => new NodeRef(item.title, item.path))}
-
     const startNodeRefs = nodeRefGen(parent);
     const [nodeRefs, setNodeRefs] = useState(startNodeRefs);
     
-
     useEffect(() => {
         setNodeRefs(nodeRefGen(parent))
     }, [path])

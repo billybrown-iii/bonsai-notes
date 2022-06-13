@@ -14,4 +14,11 @@ class NodeRef {
     }
 }
 
-export default NodeRef;
+/**
+ * Takes in a parent node and generates nodeRefs for UI display.
+ * @param {object} node 
+ * @returns object
+ */
+const nodeRefGen = (node) => {return node.nodes.slice().map((item) => new NodeRef(item.title, item.path))}
+
+export { NodeRef, nodeRefGen };
