@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { navObj } from '../Classes/Node.js';
 import { NodeRef, nodeRefGen } from '../Classes/NodeRef.js';
 import {PageRef, pageRefGen} from '../Classes/PageRef.js';
 import NodeList from './NodeList.js';
@@ -9,14 +8,8 @@ import './Sidebar.css';
 
 // const homeNode = createDummyHomeNode();
 
-
-
-
 function Sidebar(props){
-    const { homeNode, showPage } = props;
-    const [path, setPath] = useState(["Home"]);
-
-    const parent = navObj(homeNode, path);
+    const { homeNode, showPage, path, setPath, parent } = props;
 
     const startNodeRefs = nodeRefGen(homeNode);
     const startPageRefs = pageRefGen(homeNode);
@@ -80,8 +73,8 @@ function Sidebar(props){
             setPageRefs(pageRefs.slice(0, pageRefs.length - 1).concat(new PageRef(title, parent.path)));
             parent.createPage(title);
             // *** test ***
-            // parent.pages.find((page) => page.title === title).content = "new page!"
-            // console.log(parent.pages);
+            parent.pages.find((page) => page.title === title).content = "new page!"
+            console.log(parent.pages);
         } else {
             setPageRefs(pageRefs.slice(0, pageRefs.length - 1));
             alert("use a different name");

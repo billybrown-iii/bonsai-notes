@@ -18,10 +18,34 @@ class Node {
      */
     createChildNode = (title) => {this.nodes.push(new Node(title, this.path))}
     createPage = (title) => {this.pages.push(new Page(title, this.path))}
+
+    /**
+     * 
+     * @param {array} path 
+     * @returns 
+     */
+    navObj = (path) => {
+        // only work on home level
+        if (this.path.length > 1) throw "used at invalid depth";
+
+        let copy = path.slice(1);
+        let destination = this;
+        while (copy.length > 0){
+            destination = destination.nodes.find(node => node.title === copy[0]);
+            copy.shift();
+        }
+        return destination;
+    }
+
+    // TODO findPage
+    findPage = (title) => {
+        return this.pages.find((page) => page.title === title);
+    }
 }
 
 const createDummyHomeNode = () => {
     let testNode = new Node("Home", []);
+
     testNode.createChildNode("Node 1")  // path = ["Home", "Node 1"]
     testNode.createChildNode("Node 2")
     testNode.createChildNode("Node 3")
@@ -36,17 +60,17 @@ const createDummyHomeNode = () => {
  * @param {string[]} path - A string array representing a path
  * @returns Node
  */
-const navObj = (home, path) => {
-    let copy = path.slice(1);
-    let destination = home; 
-    while (copy.length > 0){
-        destination = destination.nodes.find(item => item.title === copy[0]);
-        copy.shift();
-    }
+// const navObj = (home, path) => {
+//     let copy = path.slice(1);
+//     let destination = home; 
+//     while (copy.length > 0){
+//         destination = destination.nodes.find(item => item.title === copy[0]);
+//         copy.shift();
+//     }
 
-    return destination;
-}
+//     return destination;
+// }
 
 
 
-export {Node, createDummyHomeNode, navObj};
+export {Node, createDummyHomeNode};
