@@ -1,6 +1,6 @@
 export default function PageList (props) {
 
-    const { pageRefs, addPage } = props;
+    const { pageRefs, addPage, showPage } = props;
 
     // add capability for adding new pages
     const pages = pageRefs.map((item, index) => {
@@ -22,7 +22,7 @@ export default function PageList (props) {
         } else {
             // on click, show an editor that's populated with the page's content.
             // it should either spawn a new editor, or show/hide.
-            return <div onClick={() => {console.log("show page")}} className="page" key={index}>{item.title}</div>
+            return <div onClick={() => {showPage(item.path, item.title)}} className="page" key={index}>{item.title}</div>
         }
     })
 

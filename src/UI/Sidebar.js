@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Node, createDummyHomeNode, navObj } from '../Classes/Node.js';
+import { navObj } from '../Classes/Node.js';
 import { NodeRef, nodeRefGen } from '../Classes/NodeRef.js';
 import {PageRef, pageRefGen} from '../Classes/PageRef.js';
 import NodeList from './NodeList.js';
@@ -7,18 +7,19 @@ import PageList from './PageList.js'
 
 import './Sidebar.css';
 
-const homeNode = createDummyHomeNode();
-homeNode.createChildNode("Node 4");
+// const homeNode = createDummyHomeNode();
 
-console.log(homeNode);
 
-const startNodeRefs = nodeRefGen(homeNode);
-const startPageRefs = pageRefGen(homeNode);
 
-function Sidebar(){
+
+function Sidebar(props){
+    const { homeNode, showPage } = props;
     const [path, setPath] = useState(["Home"]);
 
     const parent = navObj(homeNode, path);
+
+    const startNodeRefs = nodeRefGen(homeNode);
+    const startPageRefs = pageRefGen(homeNode);
 
     const [nodeRefs, setNodeRefs] = useState(startNodeRefs);
     const [pageRefs, setPageRefs] = useState(startPageRefs);
@@ -52,7 +53,7 @@ function Sidebar(){
         if (parent.nodes.every((node) => node.title !== title)){
             setNodeRefs(nodeRefs.slice(0, nodeRefs.length - 1).concat(new NodeRef(title, parent.path)));
             parent.createChildNode(title);
-            console.log(parent.nodes);
+            // console.log(parent.nodes);
         } else {
             setNodeRefs(nodeRefs.slice(0, nodeRefs.length - 1));
             alert("use a different name");
@@ -78,7 +79,9 @@ function Sidebar(){
         if (parent.pages.every((page) => page.title !== title)){
             setPageRefs(pageRefs.slice(0, pageRefs.length - 1).concat(new PageRef(title, parent.path)));
             parent.createPage(title);
-            console.log(parent.pages);
+            // *** test ***
+            // parent.pages.find((page) => page.title === title).content = "new page!"
+            // console.log(parent.pages);
         } else {
             setPageRefs(pageRefs.slice(0, pageRefs.length - 1));
             alert("use a different name");
@@ -97,7 +100,7 @@ function Sidebar(){
             <div id="sidebar-list">
                 <NodeList nodeRefs={nodeRefs} addNode={addNode} path={path} setPath={setPath}/>
                 <hr />
-                <PageList pageRefs={pageRefs} addPage={addPage}/>
+                <PageList pageRefs={pageRefs} addPage={addPage} showPage={showPage}/>
             </div>
         </div>
     )

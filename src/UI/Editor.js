@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { navObj } from '../Classes/Node.js';
 import { Editor } from '@tinymce/tinymce-react';
 import './Editor.css'
 
-export default function App({initialValue}) {
+export default function App({initialValue, pagePath, showEditor, homeNode}) {
   const editorRef = useRef(null);
   const [dirty, setDirty] = useState(false);
   useEffect(() => setDirty(false), [initialValue]);
@@ -15,7 +16,8 @@ export default function App({initialValue}) {
       console.log(content);
     }
   };
-  return (
+  if (showEditor) {
+    return (
     <div id="editor">
       <Editor
         tinymceScriptSrc={process.env.PUBLIC_URL + '/tinymce/tinymce.min.js'}
@@ -30,4 +32,7 @@ export default function App({initialValue}) {
       {dirty && <p>You have unsaved content!</p>}
     </div>
   );
+        } else {
+          return;
+        }
 }

@@ -1,4 +1,5 @@
 
+/** List of nodeRefs to be displayed in UI */
 const NodeList = (props) => {
     const {nodeRefs, addNode, path, setPath} = props;
 
@@ -12,7 +13,7 @@ const NodeList = (props) => {
                      autoFocus 
                      onBlur={(e) => {addNode(e.target.value)}}   
                      onKeyPress={(e) => {
-                         // @ts-ignore
+                         //@ts-ignore
                          if (e.key === "Enter") addNode(e.target.value)
                      }} 
                      />

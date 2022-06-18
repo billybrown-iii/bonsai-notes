@@ -32,13 +32,13 @@ const createDummyHomeNode = () => {
 
 /**
  * Takes in the home node and a path, returns destination node
- * @param {object} obj 
- * @param {array} path 
- * @returns object
+ * @param {Node} home - The parent node
+ * @param {string[]} path - A string array representing a path
+ * @returns Node
  */
-const navObj = (obj, path) => {
+const navObj = (home, path) => {
     let copy = path.slice(1);
-    let destination = obj; 
+    let destination = home; 
     while (copy.length > 0){
         destination = destination.nodes.find(item => item.title === copy[0]);
         copy.shift();
