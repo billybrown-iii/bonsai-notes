@@ -1,16 +1,13 @@
 
-/** Node References, to be tracked in React state. */
+/** Node references, tracked in state for UI purposes. */
 class NodeRef {
     /**
-     * 
      * @param {string} title 
-     * @param {array} [path]
-     * @param {boolean} [isNew] 
+     * @param {array} [parentPath]
      */
-    constructor(title, path, isNew){
+    constructor(title, parentPath){
         this.title = title;
-        this.path = path;
-        this.isNew = isNew;
+        this.path = [...parentPath, title];
     }
 }
 
@@ -19,6 +16,6 @@ class NodeRef {
  * @param {object} node 
  * @returns object
  */
-const nodeRefGen = (node) => {return node.nodes.slice().map((item) => new NodeRef(item.title, item.path))}
+const nodeRefGen = (node) => {return node.nodes.slice().map((item) => new NodeRef(item.title, node.path))}
 
 export { NodeRef, nodeRefGen };

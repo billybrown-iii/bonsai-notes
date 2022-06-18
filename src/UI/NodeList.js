@@ -1,11 +1,11 @@
 
-const List = (props) => {
+const NodeList = (props) => {
     const {nodeRefs, addNode, path, setPath} = props;
 
-    const list = nodeRefs.map((item, index) => {
-        if (item.isNew){
+    const nodes = nodeRefs.map((item, index) => {
+        if (item.path[0] === null){
             return (
-                <div className="node new-node" key={index}>
+                <div className="node" key={index}>
                     <input 
                      type="text" 
                      placeholder="New Node"
@@ -20,14 +20,12 @@ const List = (props) => {
             )
         } else return (
             <div 
-             onClick={() => {setPath([...path, item.title])}}
+             onClick={() => {setPath(item.path)}}
              className="node" key={index}>{item.title}</div>
         )
     })
 
-    return (
-        <div>{list}</div>
-    )
+    return <div>{nodes}</div>
 }
 
-export default List;
+export default NodeList;

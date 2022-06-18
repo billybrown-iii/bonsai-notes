@@ -5,11 +5,12 @@ import './App.css';
 function App() {
 
   // const [depth, setDepth] = useState(0);
+  // const [ showEditor, setShowEditor ] = useState(false);
 
   return (
     <div className="App">
       <Sidebar />
-      <Editor />
+      <Editor initialValue={""}/>
     </div>
   );
 }
