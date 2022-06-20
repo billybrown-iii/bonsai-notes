@@ -35,7 +35,7 @@ function Sidebar(props){
     }
 
     /**
-     * Adds new node to nodeRefs and parent object
+     * Adds new nodeRef to UI and new node to parent object
      * @param {string} title 
      */
     const addNode = (title) => {

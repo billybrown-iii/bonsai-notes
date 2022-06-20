@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import './Editor.css'
 
-export default function ({ initialValue, pagePath, homeNode, parent }) {
-  // initialValue = homeNode.navObj(pagePath.path).findPage(pagePath.title)
+export default function MyEditor({ selectedPage, homeNode, parent }) {
+  const currentPage = parent.findPage(selectedPage.title);
+  const initialValue = currentPage.content;
   const editorRef = useRef(null);
   const [dirty, setDirty] = useState(false);
   useEffect(() => setDirty(false), [initialValue]);
@@ -13,10 +14,10 @@ export default function ({ initialValue, pagePath, homeNode, parent }) {
       setDirty(false);
       editorRef.current.setDirty(false);
       // an application would save the editor content to the server here
-      console.log(content);
+      // console.log(content);
+      currentPage.content = content;
     }
   };
-  if (pagePath) {
     return (
       <div id="editor">
         <Editor
@@ -32,7 +33,4 @@ export default function ({ initialValue, pagePath, homeNode, parent }) {
         {dirty && <p>You have unsaved content!</p>}
       </div>
   );
-  } else {
-    return;
-  }
 }
