@@ -39,7 +39,7 @@ export default function MyEditor({ selectedPage, parent }) {
           initialValue={initialValue}
           onInit={(evt, editor) => editorRef.current = editor}
           onDirty={() => setDirty(true)}
-          // onEditorChange={save}
+          // onEditorChange={() => {setDirty(true)}}
         />
         <button onClick={save} disabled={!dirty}>Save</button>
         <button onClick={() => {editorRef.current.setContent("3333")}} >Test</button>

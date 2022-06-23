@@ -1,36 +1,33 @@
 import { useState, useEffect } from 'react';
-import { NodeRef, nodeRefGen } from '../Classes/NodeRef.js';
-import {PageRef, pageRefGen} from '../Classes/PageRef.js';
+import NodeRef from '../Classes/NodeRef.js';
+import PageRef from '../Classes/PageRef.js';
 import NodeList from './NodeList.js';
 import PageList from './PageList.js'
-
 import './Sidebar.css';
 
-function Sidebar(props){
+export default function Sidebar(props){
     const { setSelectedPage, path, setPath, parent } = props;
 
-    const startNodeRefs = nodeRefGen(parent);
-    const startPageRefs = pageRefGen(parent);
-
-    const [nodeRefs, setNodeRefs] = useState(startNodeRefs);
-    const [pageRefs, setPageRefs] = useState(startPageRefs);
+    const [nodeRefs, setNodeRefs] = useState(parent.nodeRefGen());
+    const [pageRefs, setPageRefs] = useState(parent.pageRefGen());
     
+    // When the path changes, update displayed nodes/pages and hide the editor.
     useEffect(() => {
-        setNodeRefs(nodeRefGen(parent));
-        setPageRefs(pageRefGen(parent));
-        setSelectedPage(false);
+        setNodeRefs(parent.nodeRefGen());
+        setPageRefs(parent.pageRefGen());
+        setSelectedPage(null);
     }, [path])
-
-    /** Adds a temporary placeholder nodeRef, pending naming and confirmation */
-    const newNode = () => {
-        const newNodeRef = new NodeRef("New Node", [null]);
-        setNodeRefs([...nodeRefs, newNodeRef]);
-    }
 
     const truncateSpaces = (str) => {
         if (str[0].match(/\s/)) str = str.slice(1);
         if (str[str.length - 1].match(/\s/)) str = str.slice(0, str.length - 1);
         return str;
+    }
+
+    /** Adds a temporary placeholder nodeRef, pending naming and confirmation */
+    const newNode = () => {
+        const newNodeRef = new NodeRef("New Node", [null]);
+        setNodeRefs([...nodeRefs, newNodeRef]);
     }
 
     /**
@@ -39,7 +36,6 @@ function Sidebar(props){
      */
     const addNode = (title) => {
         if (title.length === 0) title = "New Node";
-
         title = truncateSpaces(title);
 
         if (parent.nodes.every((node) => node.title !== title)){
@@ -54,7 +50,7 @@ function Sidebar(props){
 
     /** Adds a temporary placeholder pageRef. */
     const newPage = () => {
-        // implement page titles later
+        // to do: implement page titles
         const newPageRef = new PageRef("New Page", null);
         setPageRefs([...pageRefs, newPageRef]);
     }
@@ -65,15 +61,11 @@ function Sidebar(props){
      */
     const addPage = (title) => {
         if (title.length === 0) title = "New Page";
-
         title = truncateSpaces(title);
 
         if (parent.pages.every((page) => page.title !== title)){
             setPageRefs(pageRefs.slice(0, pageRefs.length - 1).concat(new PageRef(title, parent.path)));
             parent.createPage(title);
-            // *** test ***
-            parent.pages.find((page) => page.title === title).content = "new page!"
-            console.log(parent.pages);
         } else {
             setPageRefs(pageRefs.slice(0, pageRefs.length - 1));
             alert("use a different name");
@@ -82,22 +74,19 @@ function Sidebar(props){
 
     return (
         <div id="sidebar">
-            <div id="back-button" onClick={() => {
-                if (path.length > 1) setPath(path.slice(0, path.length - 1))
-                }}>🔙</div>
+            <div id="back-button" 
+             onClick={() => { if (path.length > 1) setPath(path.slice(0, path.length - 1))}
+            }>🔙</div>
             <div id="sidebar-node-title">{parent.title}</div>
             <div id="sidebar-btns">
                 <div onClick={newNode} id="new-node-btn">New Node</div>
                 <div onClick={newPage} id="new-page-btn">New Page</div>
             </div>
-            
             <div id="sidebar-list">
-                <NodeList nodeRefs={nodeRefs} addNode={addNode} path={path} setPath={setPath}/>
+                <NodeList nodeRefs={nodeRefs} addNode={addNode} setPath={setPath}/>
                 <hr />
                 <PageList pageRefs={pageRefs} addPage={addPage} setSelectedPage={setSelectedPage}/>
             </div>
         </div>
     )
 }
-
-export default Sidebar;

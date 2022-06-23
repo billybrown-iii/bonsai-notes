@@ -1,5 +1,6 @@
-export default function PageList (props) {
 
+
+export default function PageList (props) {
     const { pageRefs, addPage, setSelectedPage } = props;
 
     const pages = pageRefs.map((item, index) => {
@@ -23,6 +24,5 @@ export default function PageList (props) {
             return <div onClick={() => {setSelectedPage(item.title)}} className="page" key={index}>{item.title}</div>
         }
     })
-
     return <div>{pages}</div>
 }

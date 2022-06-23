@@ -1,9 +1,10 @@
 import Page from "./Page";
-// import NodeRef from "./NodeRef";
+import NodeRef from "./NodeRef";
+import PageRef from "./PageRef";
 
 class Node {
     /**
-     * Every node has a full path including itself.  This is in contrast to pages, which only track their parent's path.
+     * Folder-like containers.  Can contain nodes and/or pages.
      * @param {string} title 
      * @param {array} parentPath 
      */
@@ -14,10 +15,12 @@ class Node {
     nodes = [];
     pages = [];
     /**
-     * 
      * @param {string} title 
      */
     createChildNode = (title) => {this.nodes.push(new Node(title, this.path))}
+    /**
+     * @param {string} title 
+     */
     createPage = (title) => {this.pages.push(new Page(title, this.path))}
 
     /**
@@ -42,7 +45,17 @@ class Node {
         return this.pages.find((page) => page.title === title);
     }
 
-    // nodeRefGen = (node) => {return node.nodes.slice().map((item) => new NodeRef(item.title, node.path))}
+    /**
+     * Generates nodeRefs for UI display.
+     * @returns array
+     */
+    nodeRefGen = () => {return this.nodes.slice().map((item) => new NodeRef(item.title, this.path))}
+
+    /**
+     * Generates pageRefs for UI display.
+     * @returns array
+     */
+    pageRefGen = () => {return this.pages.slice().map((item) => new PageRef(item.title, item.path))}
 }
 
 const createDummyHomeNode = () => {

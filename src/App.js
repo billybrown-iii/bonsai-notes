@@ -13,14 +13,14 @@ console.log(homeNode);
 function App() {
 
   const [ path, setPath ] = useState(["Home"]);
-  const [ selectedPage, setSelectedPage ] = useState(false);
+  const [ selectedPage, setSelectedPage ] = useState(null);
   const parent = homeNode.navObj(path);
 
   return (
     <div className="App">
-      <Sidebar path={path} setPath={setPath} parent={parent} homeNode={homeNode} setSelectedPage={setSelectedPage}/>
+      <Sidebar path={path} setPath={setPath} parent={parent} setSelectedPage={setSelectedPage}/>
       <Editor selectedPage={selectedPage} parent={parent}/>
-      <div onClick={() => {console.log(parent)}}>click me</div>
+      <div onClick={() => {console.log(parent)}}>test</div>
     </div>
   );
 }

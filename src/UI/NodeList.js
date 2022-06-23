@@ -1,7 +1,7 @@
 
 /** List of nodeRefs to be displayed in UI */
-const NodeList = (props) => {
-    const {nodeRefs, addNode, path, setPath} = props;
+export default function NodeList(props){
+    const {nodeRefs, addNode, setPath} = props;
 
     const nodes = nodeRefs.map((item, index) => {
         if (item.path[0] === null){
@@ -28,5 +28,3 @@ const NodeList = (props) => {
 
     return <div>{nodes}</div>
 }
-
-export default NodeList;
