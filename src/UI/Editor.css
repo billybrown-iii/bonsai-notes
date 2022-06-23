@@ -2,3 +2,7 @@
     width: 60%;
     /* visibility: hidden; */
 }
+
+.hidden {
+    display: none;
+}

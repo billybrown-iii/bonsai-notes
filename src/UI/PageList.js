@@ -1,9 +1,9 @@
 export default function PageList (props) {
 
-    const { pageRefs, addPage, showPage } = props;
+    const { pageRefs, addPage, setSelectedPage } = props;
 
-    // add capability for adding new pages
     const pages = pageRefs.map((item, index) => {
+        // Condition for placeholder page
         if (item.path === null){
             return (
                 <div className="page" key={index}>
@@ -20,9 +20,7 @@ export default function PageList (props) {
                 </div>
             )
         } else {
-            // on click, show an editor that's populated with the page's content.
-            // it should either spawn a new editor, or show/hide.
-            return <div onClick={() => {showPage(item.path, item.title)}} className="page" key={index}>{item.title}</div>
+            return <div onClick={() => {setSelectedPage(item.title)}} className="page" key={index}>{item.title}</div>
         }
     })
 

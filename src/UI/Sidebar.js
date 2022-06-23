@@ -6,13 +6,11 @@ import PageList from './PageList.js'
 
 import './Sidebar.css';
 
-// const homeNode = createDummyHomeNode();
-
 function Sidebar(props){
-    const { homeNode, showPage, path, setPath, parent } = props;
+    const { setSelectedPage, path, setPath, parent } = props;
 
-    const startNodeRefs = nodeRefGen(homeNode);
-    const startPageRefs = pageRefGen(homeNode);
+    const startNodeRefs = nodeRefGen(parent);
+    const startPageRefs = pageRefGen(parent);
 
     const [nodeRefs, setNodeRefs] = useState(startNodeRefs);
     const [pageRefs, setPageRefs] = useState(startPageRefs);
@@ -20,6 +18,7 @@ function Sidebar(props){
     useEffect(() => {
         setNodeRefs(nodeRefGen(parent));
         setPageRefs(pageRefGen(parent));
+        setSelectedPage(false);
     }, [path])
 
     /** Adds a temporary placeholder nodeRef, pending naming and confirmation */
@@ -83,7 +82,9 @@ function Sidebar(props){
 
     return (
         <div id="sidebar">
-            <div id="back-button" onClick={() => {setPath(path.slice(0, path.length - 1))}}>🔙</div>
+            <div id="back-button" onClick={() => {
+                if (path.length > 1) setPath(path.slice(0, path.length - 1))
+                }}>🔙</div>
             <div id="sidebar-node-title">{parent.title}</div>
             <div id="sidebar-btns">
                 <div onClick={newNode} id="new-node-btn">New Node</div>
@@ -93,7 +94,7 @@ function Sidebar(props){
             <div id="sidebar-list">
                 <NodeList nodeRefs={nodeRefs} addNode={addNode} path={path} setPath={setPath}/>
                 <hr />
-                <PageList pageRefs={pageRefs} addPage={addPage} showPage={showPage}/>
+                <PageList pageRefs={pageRefs} addPage={addPage} setSelectedPage={setSelectedPage}/>
             </div>
         </div>
     )

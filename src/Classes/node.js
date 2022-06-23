@@ -1,4 +1,5 @@
 import Page from "./Page";
+// import NodeRef from "./NodeRef";
 
 class Node {
     /**
@@ -20,9 +21,9 @@ class Node {
     createPage = (title) => {this.pages.push(new Page(title, this.path))}
 
     /**
-     * 
+     * Takes in a path, returns the child object that the path refers to.
      * @param {array} path 
-     * @returns 
+     * @returns object
      */
     navObj = (path) => {
         // only work on home level
@@ -37,10 +38,11 @@ class Node {
         return destination;
     }
 
-    // TODO findPage
     findPage = (title) => {
         return this.pages.find((page) => page.title === title);
     }
+
+    // nodeRefGen = (node) => {return node.nodes.slice().map((item) => new NodeRef(item.title, node.path))}
 }
 
 const createDummyHomeNode = () => {
@@ -53,24 +55,5 @@ const createDummyHomeNode = () => {
     testNode.createPage("Page 2")
     return testNode;
 }
-
-/**
- * Takes in the home node and a path, returns destination node
- * @param {Node} home - The parent node
- * @param {string[]} path - A string array representing a path
- * @returns Node
- */
-// const navObj = (home, path) => {
-//     let copy = path.slice(1);
-//     let destination = home; 
-//     while (copy.length > 0){
-//         destination = destination.nodes.find(item => item.title === copy[0]);
-//         copy.shift();
-//     }
-
-//     return destination;
-// }
-
-
 
 export {Node, createDummyHomeNode};
