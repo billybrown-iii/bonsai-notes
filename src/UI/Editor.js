@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
-import './Editor.css'
 
-export default function MyEditor({ selectedPage, parent }) {
+export default function MyEditor({ selectedPage, parent, isDark, counter }) {
 
   const currentPage = parent.findPage(selectedPage);
   const initialValue = currentPage?.content;
   const editorRef = useRef(null);
   const [dirty, setDirty] = useState(false);
-  
+
   useEffect(() => setDirty(false), [initialValue]);
   useEffect(() => {
     if (editorRef.current) {
@@ -30,21 +29,24 @@ export default function MyEditor({ selectedPage, parent }) {
   };
 
     return (
-      <div className={(selectedPage ? null : "hidden")} id="editor">
-        <Editor
-          tinymceScriptSrc={process.env.PUBLIC_URL + '/tinymce/tinymce.min.js'}
-          init={{
-            skin: 'oxide-dark',
-            content_css: 'dark'}}
-          initialValue={initialValue}
-          onInit={(evt, editor) => editorRef.current = editor}
-          onDirty={() => setDirty(true)}
-          // onEditorChange={() => {setDirty(true)}}
-        />
-        <button onClick={save} disabled={!dirty}>Save</button>
-        <button onClick={() => {editorRef.current.setContent("3333")}} >Test</button>
-        {dirty && <p>You have unsaved content!</p>}
-      </div>
+      <>
+        <div className={(selectedPage ? null : "hidden")} id="editor" key={counter}>
+          <Editor
+            tinymceScriptSrc={process.env.PUBLIC_URL + '/tinymce/tinymce.min.js'}
+            init={{
+              skin: (isDark ? 'oxide-dark' : 'oxide'),
+              content_css: (isDark ? 'dark' : 'default')}}
+            initialValue={initialValue}
+            onInit={(evt, editor) => editorRef.current = editor}
+            onDirty={() => setDirty(true)}
+            // onEditorChange={() => {setDirty(true)}}
+          />
+          <button onClick={save} disabled={!dirty}>Save</button>
+          <button onClick={() => {editorRef.current.setContent("qq")}} >Test</button>
+          {dirty && <p>You have unsaved content!</p>}
+        </div>
+      </>
+
   );
 
 

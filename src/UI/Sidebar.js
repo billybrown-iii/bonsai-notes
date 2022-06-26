@@ -3,7 +3,6 @@ import NodeRef from '../Classes/NodeRef.js';
 import PageRef from '../Classes/PageRef.js';
 import NodeList from './NodeList.js';
 import PageList from './PageList.js'
-import './Sidebar.css';
 
 export default function Sidebar(props){
     const { setSelectedPage, path, setPath, parent } = props;
@@ -73,19 +72,20 @@ export default function Sidebar(props){
     }
 
     return (
-        <div id="sidebar">
+        <div id="sidebar" className="h-full w-1/3 border-r-2 border-zinc-500 dark:border-slate-100 text-lg">
             <div id="back-button" 
-             onClick={() => { if (path.length > 1) setPath(path.slice(0, path.length - 1))}
-            }>🔙</div>
-            <div id="sidebar-node-title">{parent.title}</div>
-            <div id="sidebar-btns">
-                <div onClick={newNode} id="new-node-btn">New Node</div>
-                <div onClick={newPage} id="new-page-btn">New Page</div>
-            </div>
+             onClick={() => { if (path.length > 1) setPath(path.slice(0, path.length - 1))}}
+             className="p-5 bg-gray-100"
+             >{"^ " + parent.title}</div>
+             {/* <hr className='w-5/6 border-t-2 border-black'/> */}
             <div id="sidebar-list">
                 <NodeList nodeRefs={nodeRefs} addNode={addNode} setPath={setPath}/>
                 <hr />
                 <PageList pageRefs={pageRefs} addPage={addPage} setSelectedPage={setSelectedPage}/>
+            </div>
+            <div id="sidebar-btns">
+                <div onClick={newNode} id="new-node-btn" className="">New Node</div>
+                <div onClick={newPage} id="new-page-btn">New Page</div>
             </div>
         </div>
     )
