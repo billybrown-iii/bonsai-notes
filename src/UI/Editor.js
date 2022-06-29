@@ -16,7 +16,7 @@ export default function PrimaryEditor({ selectedPage, parent }) {
       editorRef.current.setContent((currentPage ? currentPage.content : ""));
       setDirty(false);
     }
-  }, [selectedPage, currentPage]);
+  }, [currentPage]);
   
   const save = () => {
     if (editorRef.current) {

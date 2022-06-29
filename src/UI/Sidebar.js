@@ -15,7 +15,8 @@ export default function Sidebar(props){
         setNodeRefs(parent.nodeRefGen());
         setPageRefs(parent.pageRefGen());
         setSelectedPage(null);
-    }, [path])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [parent])
 
     const truncateSpaces = (str) => {
         if (str[0].match(/\s/)) str = str.slice(1);

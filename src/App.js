@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Node, createDummyHomeNode } from './Classes/Node.js';
+import { useState } from 'react';
+import { createDummyHomeNode } from './Classes/Node.js';
 import Sidebar from './UI/Sidebar';
 import Editor from './UI/Editor';
 import './App.css';

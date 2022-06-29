@@ -30,7 +30,7 @@ class Node {
      */
     navObj = (path) => {
         // only work on home level
-        if (this.path.length > 1) throw "used at invalid depth";
+        if (this.path.length > 1) throw new Error("used at invalid depth");
 
         let copy = path.slice(1);
         let destination = this;
