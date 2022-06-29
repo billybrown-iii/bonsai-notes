@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 
-export default function MyEditor({ selectedPage, parent, isDark, counter }) {
+export default function PrimaryEditor({ selectedPage, parent }) {
 
   const currentPage = parent.findPage(selectedPage);
   const initialValue = currentPage?.content;
@@ -9,12 +9,14 @@ export default function MyEditor({ selectedPage, parent, isDark, counter }) {
   const [dirty, setDirty] = useState(false);
 
   useEffect(() => setDirty(false), [initialValue]);
+
+  // if user selects a different page, switch to that page's content
   useEffect(() => {
     if (editorRef.current) {
       editorRef.current.setContent((currentPage ? currentPage.content : ""));
       setDirty(false);
     }
-  }, [selectedPage]);
+  }, [selectedPage, currentPage]);
   
   const save = () => {
     if (editorRef.current) {
@@ -28,9 +30,20 @@ export default function MyEditor({ selectedPage, parent, isDark, counter }) {
     }
   };
 
+  const element = document.getElementById("html");
+  const isDark = element.classList.contains("dark");
+  const [key, setKey] = useState(0);
+
+  // TODO solve bug where you lose unsaved content
+  const toggleDarkTheme = () => {
+    save();
+    (isDark ? element.classList.remove("dark") : element.classList.add("dark"));
+    setKey((prev) => prev + 1);
+  }
+
     return (
       <>
-        <div className={(selectedPage ? null : "hidden")} id="editor" key={counter}>
+        <div className={(selectedPage ? null : "hidden")} id="editor" key={key}>
           <Editor
             tinymceScriptSrc={process.env.PUBLIC_URL + '/tinymce/tinymce.min.js'}
             init={{
@@ -45,6 +58,7 @@ export default function MyEditor({ selectedPage, parent, isDark, counter }) {
           <button onClick={() => {editorRef.current.setContent("qq")}} >Test</button>
           {dirty && <p>You have unsaved content!</p>}
         </div>
+        <div onClick={toggleDarkTheme} className="absolute top-0 right-4 h-16">Dark Theme</div>
       </>
 
   );

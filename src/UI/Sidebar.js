@@ -72,21 +72,24 @@ export default function Sidebar(props){
     }
 
     return (
-        <div id="sidebar" className="h-full w-1/3 border-r-2 border-zinc-500 dark:border-slate-100 text-lg">
+        <div id="sidebar" className="h-full w-1/4 border-r-2 border-zinc-500 dark:border-slate-100 select-none">
             <div id="back-button" 
              onClick={() => { if (path.length > 1) setPath(path.slice(0, path.length - 1))}}
-             className="p-5 bg-gray-100"
-             >{"^ " + parent.title}</div>
+             className="p-5 bg-slate-200 dark:bg-zinc-700"
+             ><div className='ml-3 text-lg'>{"^ " + parent.title}</div></div>
+            
+            <div id="sidebar-btns" className="flex justify-end">
+                <div onClick={newNode} id="new-node-btn" className="px-3 border-2 border-zinc-900">New Node</div>
+                <div onClick={newPage} id="new-page-btn" className="px-3 border-2 border-zinc-900">New Page</div>
+            </div>
              {/* <hr className='w-5/6 border-t-2 border-black'/> */}
+            
             <div id="sidebar-list">
                 <NodeList nodeRefs={nodeRefs} addNode={addNode} setPath={setPath}/>
                 <hr />
                 <PageList pageRefs={pageRefs} addPage={addPage} setSelectedPage={setSelectedPage}/>
             </div>
-            <div id="sidebar-btns">
-                <div onClick={newNode} id="new-node-btn" className="">New Node</div>
-                <div onClick={newPage} id="new-page-btn">New Page</div>
-            </div>
+
         </div>
     )
 }

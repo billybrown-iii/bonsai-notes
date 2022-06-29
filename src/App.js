@@ -16,24 +16,12 @@ function App() {
   const [ selectedPage, setSelectedPage ] = useState(null);
   const parent = homeNode.navObj(path);
 
-  const element = document.getElementById("html");
-  const isDark = element.classList.contains("dark");
-  const [key, setKey] = useState(0);
-
-  // TODO solve bug where you lose unsaved content
-  const toggleDarkTheme = () => {
-    (isDark ? element.classList.remove("dark") : element.classList.add("dark"));
-    setKey((prev) => prev + 1);
-  }
-
   return (
-    <div className={"h-screen bg-slate-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50"}>
+    <div className={"h-screen bg-slate-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50"}>
       <div id="main" className='flex h-full'>
         <Sidebar path={path} setPath={setPath} parent={parent} setSelectedPage={setSelectedPage}/>
-        <Editor selectedPage={selectedPage} parent={parent} isDark={isDark} counter={key}/>
+        <Editor selectedPage={selectedPage} parent={parent} />
       </div>
-
-      <div onClick={toggleDarkTheme} className="absolute top-0 right-4 h-16">Dark Theme</div>
     </div>
   );
 }
