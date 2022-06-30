@@ -9,13 +9,10 @@ export default function Sidebar({ setSelectedPage, path, setPath, parent }){
     const [nodeRefs, setNodeRefs] = useState(parent.nodeRefGen());
     const [pageRefs, setPageRefs] = useState(parent.pageRefGen());
     
-    // When the path changes, update displayed nodes/pages and hide the editor.
+    // When the path changes, update displayed nodes/pages.
     useEffect(() => {
         setNodeRefs(parent.nodeRefGen());
         setPageRefs(parent.pageRefGen());
-        setSelectedPage(null);
-        // setSelectedPage is a generic setState hook, will never change
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parent])
 
     const truncateSpaces = (str) => {
@@ -75,7 +72,10 @@ export default function Sidebar({ setSelectedPage, path, setPath, parent }){
     return (
         <div id="sidebar" className="h-full w-1/3 border-r-2 border-zinc-500 dark:border-slate-100 select-none">
             <div id="back-button" 
-             onClick={() => { if (path.length > 1) setPath(path.slice(0, path.length - 1))}}
+             onClick={() => { 
+                setSelectedPage(null);
+                if (path.length > 1) setPath(path.slice(0, path.length - 1))
+             }}
              className="p-5 bg-slate-200 dark:bg-zinc-700"
              ><div className='ml-3 text-lg'>{"^ " + parent.title}</div></div>
             
@@ -86,7 +86,7 @@ export default function Sidebar({ setSelectedPage, path, setPath, parent }){
              {/* <hr className='w-5/6 border-t-2 border-black'/> */}
             
             <div id="sidebar-list">
-                <NodeList nodeRefs={nodeRefs} addNode={addNode} setPath={setPath}/>
+                <NodeList setPath={setPath} setSelectedPage={setSelectedPage} nodeRefs={nodeRefs} addNode={addNode} />
                 <hr />
                 <PageList pageRefs={pageRefs} addPage={addPage} setSelectedPage={setSelectedPage}/>
             </div>

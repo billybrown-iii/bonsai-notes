@@ -1,7 +1,6 @@
 
 /** List of nodeRefs to be displayed in UI */
-export default function NodeList(props){
-    const {nodeRefs, addNode, setPath} = props;
+export default function NodeList({setPath, setSelectedPage, nodeRefs, addNode}){
 
     const nodeStyles = "w-5/6 m-auto my-3 p-3 pl-6 border-4 border-zinc-900 dark:border-slate-100 rounded-2xl";
 
@@ -23,7 +22,10 @@ export default function NodeList(props){
             )
         } else return (
             <div 
-             onClick={() => {setPath(item.path)}}
+             onClick={() => {
+                setSelectedPage(null);
+                setPath(item.path);
+             }}
              className={nodeStyles} key={index}>{item.title}</div>
         )
     })

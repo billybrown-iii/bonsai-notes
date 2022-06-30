@@ -1,7 +1,6 @@
 
 
-export default function PageList (props) {
-    const { pageRefs, addPage, setSelectedPage } = props;
+export default function PageList ({ pageRefs, addPage, setSelectedPage }) {
 
     const pageStyles = "w-5/6 m-auto my-3 p-3 pl-6 border-2 border-zinc-900 dark:border-slate-100 rounded";
 
