@@ -4,8 +4,7 @@ import PageRef from '../Classes/PageRef.js';
 import NodeList from './NodeList.js';
 import PageList from './PageList.js'
 
-export default function Sidebar(props){
-    const { setSelectedPage, path, setPath, parent } = props;
+export default function Sidebar({ setSelectedPage, path, setPath, parent }){
 
     const [nodeRefs, setNodeRefs] = useState(parent.nodeRefGen());
     const [pageRefs, setPageRefs] = useState(parent.pageRefGen());
@@ -15,7 +14,8 @@ export default function Sidebar(props){
         setNodeRefs(parent.nodeRefGen());
         setPageRefs(parent.pageRefGen());
         setSelectedPage(null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // setSelectedPage is a generic setState hook, will never change
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parent])
 
     const truncateSpaces = (str) => {
@@ -73,15 +73,15 @@ export default function Sidebar(props){
     }
 
     return (
-        <div id="sidebar" className="h-full w-1/4 border-r-2 border-zinc-500 dark:border-slate-100 select-none">
+        <div id="sidebar" className="h-full w-1/3 border-r-2 border-zinc-500 dark:border-slate-100 select-none">
             <div id="back-button" 
              onClick={() => { if (path.length > 1) setPath(path.slice(0, path.length - 1))}}
              className="p-5 bg-slate-200 dark:bg-zinc-700"
              ><div className='ml-3 text-lg'>{"^ " + parent.title}</div></div>
             
             <div id="sidebar-btns" className="flex justify-end">
-                <div onClick={newNode} id="new-node-btn" className="px-3 border-2 border-zinc-900">New Node</div>
-                <div onClick={newPage} id="new-page-btn" className="px-3 border-2 border-zinc-900">New Page</div>
+                <div onClick={newNode} id="new-node-btn" className="px-3 border-2 border-r-0 border-zinc-900 dark:border-slate-100">New Node</div>
+                <div onClick={newPage} id="new-page-btn" className="px-3 border-2 border-zinc-900 dark:border-slate-100">New Page</div>
             </div>
              {/* <hr className='w-5/6 border-t-2 border-black'/> */}
             
