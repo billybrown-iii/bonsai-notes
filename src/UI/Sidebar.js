@@ -45,9 +45,9 @@ export default function Sidebar({ setSelectedPage, path, setPath, parent }){
         }
     }
 
+
     /** Adds a temporary placeholder pageRef. */
     const newPage = () => {
-        // to do: implement page titles
         const newPageRef = new PageRef("New Page", null);
         setPageRefs([...pageRefs, newPageRef]);
     }
@@ -57,15 +57,26 @@ export default function Sidebar({ setSelectedPage, path, setPath, parent }){
      * @param {string} title 
      */
     const addPage = (title) => {
-        if (title.length === 0) title = "New Page";
+        if (title.length === 0) title = "Page 1";
+
         title = truncateSpaces(title);
 
         if (parent.pages.every((page) => page.title !== title)){
             setPageRefs(pageRefs.slice(0, pageRefs.length - 1).concat(new PageRef(title, parent.path)));
             parent.createPage(title);
         } else {
-            setPageRefs(pageRefs.slice(0, pageRefs.length - 1));
-            alert("use a different name");
+            if (title === "Page 1") {
+                let latestPage = 2;
+                for (let i = 0; i < pageRefs.length; i++){
+                    if (pageRefs[i].title === "Page " + latestPage) {
+                        latestPage++;
+                        i = -1;
+                    }
+                }
+                title = "Page " + latestPage;
+            }
+            setPageRefs(pageRefs.slice(0, pageRefs.length - 1).concat(new PageRef(title, parent.path)));
+            parent.createPage(title);
         }
     }
 
@@ -82,13 +93,14 @@ export default function Sidebar({ setSelectedPage, path, setPath, parent }){
             <div id="sidebar-btns" className="flex justify-end">
                 <div onClick={newNode} id="new-node-btn" className="px-3 border-2 border-r-0 border-zinc-900 dark:border-slate-100">New Node</div>
                 <div onClick={newPage} id="new-page-btn" className="px-3 border-2 border-zinc-900 dark:border-slate-100">New Page</div>
+                
             </div>
              {/* <hr className='w-5/6 border-t-2 border-black'/> */}
             
             <div id="sidebar-list">
                 <NodeList setPath={setPath} setSelectedPage={setSelectedPage} nodeRefs={nodeRefs} addNode={addNode} />
                 <hr />
-                <PageList pageRefs={pageRefs} addPage={addPage} setSelectedPage={setSelectedPage}/>
+                <PageList pageRefs={pageRefs} addPage={addPage} setSelectedPage={setSelectedPage} />
             </div>
 
         </div>

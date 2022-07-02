@@ -43,6 +43,10 @@ export default function PrimaryEditor({ selectedPage, parent }) {
     return (
       <>
         <div className={(selectedPage ? "" : "hidden") + " w-2/3 h-5/6"} id="editor" key={key}>
+          <input 
+            type="text"
+            className="w-full py-3 px-4 text-lg" 
+          ></input>
           <Editor
             tinymceScriptSrc={process.env.PUBLIC_URL + '/tinymce/tinymce.min.js'}
             init={{

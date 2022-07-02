@@ -9,7 +9,10 @@ export default function PageList ({ pageRefs, addPage, setSelectedPage }) {
         if (item.path === null){
             return (
                 <div className={pageStyles} key={index}>
-                    <input 
+                    <input
+                     className="border-2 border-zinc-500 rounded-xl py-2 px-5 dark:bg-zinc-600" 
+                     // TODO fix issue where you can click buttons when blurring
+                     id="new-pg"
                      type="text" 
                      placeholder="New Page"
                      autoFocus 

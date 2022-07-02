@@ -12,6 +12,14 @@ code {
     monospace;
 }
 
+input:focus {
+  outline: none;
+}
+
+.tox-tinymce {
+  border-top-left-radius: 0px !important;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
