@@ -16,8 +16,13 @@ input:focus {
   outline: none;
 }
 
+#title {
+  border: 2px solid #eee
+}
+
 .tox-tinymce {
   border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
 }
 
 @tailwind base;

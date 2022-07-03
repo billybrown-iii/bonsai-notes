@@ -4,16 +4,21 @@ import PageRef from '../Classes/PageRef.js';
 import NodeList from './NodeList.js';
 import PageList from './PageList.js'
 
-export default function Sidebar({ setSelectedPage, path, setPath, parent }){
+export default function Sidebar({ path, setPath, parent, selectedPage, setSelectedPage }){
 
     const [nodeRefs, setNodeRefs] = useState(parent.nodeRefGen());
     const [pageRefs, setPageRefs] = useState(parent.pageRefGen());
     
-    // When the path changes, update displayed nodes/pages.
+    // When the path or page title changes, update displayed nodes/pages.
     useEffect(() => {
         setNodeRefs(parent.nodeRefGen());
         setPageRefs(parent.pageRefGen());
-    }, [parent])
+    }, [parent, selectedPage])
+
+    // When the page title updates, regenerate pageRefs
+    // useEffect(() => {
+    //     setPageRefs(parent.pageRefGen());
+    // }, [selectedPage, parent])
 
     const truncateSpaces = (str) => {
         if (str[0].match(/\s/)) str = str.slice(1);
