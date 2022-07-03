@@ -16,12 +16,16 @@ export default function PageList ({ pageRefs, addPage, setSelectedPage }) {
                      type="text" 
                      placeholder="New Page"
                      autoFocus 
-                     onBlur={(e) => {addPage(e.target.value)}}   
+                     onBlur={(e) => {
+                         
+                         addPage(e.target.value)
+                        }}   
                      onKeyPress={(e) => {
                          // @ts-ignore
                          if (e.key === "Enter") addPage(e.target.value)
                      }} 
                      />
+                    
                 </div>
             )
         } else {

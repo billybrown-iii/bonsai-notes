@@ -38,7 +38,6 @@ export default function Sidebar({ setSelectedPage, path, setPath, parent }){
         if (parent.nodes.every((node) => node.title !== title)){
             setNodeRefs(nodeRefs.slice(0, nodeRefs.length - 1).concat(new NodeRef(title, parent.path)));
             parent.createChildNode(title);
-            // console.log(parent.nodes);
         } else {
             setNodeRefs(nodeRefs.slice(0, nodeRefs.length - 1));
             alert("use a different name");
