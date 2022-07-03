@@ -15,11 +15,6 @@ export default function Sidebar({ path, setPath, parent, selectedPage, setSelect
         setPageRefs(parent.pageRefGen());
     }, [parent, selectedPage])
 
-    // When the page title updates, regenerate pageRefs
-    // useEffect(() => {
-    //     setPageRefs(parent.pageRefGen());
-    // }, [selectedPage, parent])
-
     const truncateSpaces = (str) => {
         if (str[0].match(/\s/)) str = str.slice(1);
         if (str[str.length - 1].match(/\s/)) str = str.slice(0, str.length - 1);

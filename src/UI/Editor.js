@@ -15,9 +15,12 @@ export default function PrimaryEditor({ selectedPage, setSelectedPage, parent })
    */
   const titleChange = (e) => {
     const newTitle = e.target.value;
-    currentPage.title = newTitle;
     setPageTitle(newTitle);
-    setSelectedPage(newTitle);
+  }
+
+  const saveTitleChange = () => {
+    currentPage.title = pageTitle;
+    setSelectedPage(pageTitle);
   }
 
   /** We are not currently utilizing the dirty status tracked in state.
@@ -64,8 +67,8 @@ export default function PrimaryEditor({ selectedPage, setSelectedPage, parent })
             id="title"
             value={pageTitle}
             onChange={titleChange}
-            // onBlur={saveTitleChange}
-
+            onBlur={saveTitleChange}
+            onKeyPress={(e) => {if (e.key === "Enter") saveTitleChange()}} 
           ></input>
           <Editor
             tinymceScriptSrc={process.env.PUBLIC_URL + '/tinymce/tinymce.min.js'}
