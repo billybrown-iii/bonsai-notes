@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { truncateSpaces } from '../Misc.js';
 import NodeRef from '../Classes/NodeRef.js';
 import PageRef from '../Classes/PageRef.js';
 import NodeList from './NodeList.js';
@@ -9,17 +10,16 @@ export default function Sidebar({ path, setPath, parent, selectedPage, setSelect
     const [nodeRefs, setNodeRefs] = useState(parent.nodeRefGen());
     const [pageRefs, setPageRefs] = useState(parent.pageRefGen());
     
+    console.log("render.")
+
     // When the path or page title changes, update displayed nodes/pages.
     useEffect(() => {
+        console.log("effect fired")
         setNodeRefs(parent.nodeRefGen());
         setPageRefs(parent.pageRefGen());
     }, [parent, selectedPage])
 
-    const truncateSpaces = (str) => {
-        if (str[0].match(/\s/)) str = str.slice(1);
-        if (str[str.length - 1].match(/\s/)) str = str.slice(0, str.length - 1);
-        return str;
-    }
+
 
     /** Adds a temporary placeholder nodeRef, pending naming and confirmation */
     const newNode = () => {
@@ -56,15 +56,14 @@ export default function Sidebar({ path, setPath, parent, selectedPage, setSelect
      * @param {string} title 
      */
     const addPage = (title) => {
+        title = truncateSpaces(title);
         if (title.length === 0) title = "Page 1";
 
-        title = truncateSpaces(title);
-
-        if (parent.pages.every((page) => page.title !== title)){
+        /** check for dentical page titles in same node */
+        if (!parent.pages.some((page) => page.title === title)){
             setPageRefs(pageRefs.slice(0, pageRefs.length - 1).concat(new PageRef(title, parent.path)));
             parent.createPage(title);
-        } else {
-            if (title === "Page 1") {
+        } else if (title === "Page 1") {
                 let latestPage = 2;
                 for (let i = 0; i < pageRefs.length; i++){
                     if (pageRefs[i].title === "Page " + latestPage) {
@@ -72,10 +71,12 @@ export default function Sidebar({ path, setPath, parent, selectedPage, setSelect
                         i = -1;
                     }
                 }
-                title = "Page " + latestPage;
-            }
+            title = "Page " + latestPage;
             setPageRefs(pageRefs.slice(0, pageRefs.length - 1).concat(new PageRef(title, parent.path)));
             parent.createPage(title);
+        } else {
+            setPageRefs(pageRefs.slice(0, pageRefs.length - 1));
+            alert("There's already a page with this title.  Please use a different name.");
         }
     }
 

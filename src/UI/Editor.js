@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { truncateSpaces } from '../Misc';
 import { Editor } from '@tinymce/tinymce-react';
 
 export default function PrimaryEditor({ selectedPage, setSelectedPage, parent }) {
@@ -11,14 +12,22 @@ export default function PrimaryEditor({ selectedPage, setSelectedPage, parent })
 
   /** 
    * Handles user changing the title text for a page.
-   * Updates controlled conponent state, page title on the object, and SelectedPage
    */
   const titleChange = (e) => {
     const newTitle = e.target.value;
     setPageTitle(newTitle);
   }
-
+  /**
+   * when user blurs or hits enter, save updated page title
+   * // TODO prevent duplicate titles or empty titles
+   */
   const saveTitleChange = () => {
+    let title = truncateSpaces(pageTitle);
+    if (title.length === 0 || (parent.pages.some((page) => page.title === title) && pageTitle !== selectedPage)) {
+      setPageTitle(currentPage.title);
+      alert((title ? "A page with this title already exists.  Please use a different name." : "A title is required."));
+      return;
+    };
     currentPage.title = pageTitle;
     setSelectedPage(pageTitle);
   }
@@ -63,7 +72,7 @@ export default function PrimaryEditor({ selectedPage, setSelectedPage, parent })
         <div className={(selectedPage ? "" : "hidden") + " w-2/3 h-5/6"} id="editor" key={key}>
           <input 
             type="text"
-            className="w-full py-3 px-4 text-lg rounded-tr-xl" 
+            className="w-full py-3 px-4 text-lg rounded-tr-xl border-x-2 border-t-2 border-[#eee] dark:bg-[#222f3e] dark:border-[#171f28] dark:text-zinc-50" 
             id="title"
             value={pageTitle}
             onChange={titleChange}

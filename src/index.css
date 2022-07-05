@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -16,9 +16,9 @@ input:focus {
   outline: none;
 }
 
-#title {
+/* #title {
   border: 2px solid #eee
-}
+} */
 
 .tox-tinymce {
   border-top-left-radius: 0px !important;
