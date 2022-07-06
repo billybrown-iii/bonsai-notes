@@ -2,13 +2,19 @@ import React, { useState, useEffect, useRef } from 'react';
 import { truncateSpaces } from '../Misc';
 import { Editor } from '@tinymce/tinymce-react';
 
-export default function PrimaryEditor({ selectedPage, setSelectedPage, parent }) {
+export default function PrimaryEditor({ selectedPage, setSelectedPage, parent, setPageRefs }) {
 
   const currentPage = parent.findPage(selectedPage);
   const initialValue = currentPage?.content;
   const editorRef = useRef(null);
 
   const [ pageTitle, setPageTitle ] = useState("");
+
+  useEffect(() => {
+    console.log("effect fired.")
+    // set timeout so mouse click (blur event) doesn't interrupt
+    if (selectedPage) setTimeout(() => editorRef.current.focus(), 100);
+  }, [selectedPage])
 
   /** 
    * Handles user changing the title text for a page.
@@ -17,9 +23,9 @@ export default function PrimaryEditor({ selectedPage, setSelectedPage, parent })
     const newTitle = e.target.value;
     setPageTitle(newTitle);
   }
+
   /**
    * when user blurs or hits enter, save updated page title
-   * // TODO prevent duplicate titles or empty titles
    */
   const saveTitleChange = () => {
     let title = truncateSpaces(pageTitle);
@@ -29,6 +35,7 @@ export default function PrimaryEditor({ selectedPage, setSelectedPage, parent })
       return;
     };
     currentPage.title = pageTitle;
+    setPageRefs(parent.pageRefGen());
     setSelectedPage(pageTitle);
   }
 
