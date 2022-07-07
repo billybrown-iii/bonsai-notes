@@ -4,6 +4,9 @@ import NodeRef from '../Classes/NodeRef.js';
 import PageRef from '../Classes/PageRef.js';
 import NodeList from './NodeList.js';
 import PageList from './PageList.js';
+import feather from 'feather-icons';
+
+const backIcon = feather.icons["corner-left-up"].toSvg({"stroke-width": 1});
 
 export default function Sidebar({ path, setPath, parent, pageRefs, setPageRefs, setSelectedPage }){
     const [nodeRefs, setNodeRefs] = useState(parent.nodeRefGen());
@@ -84,9 +87,10 @@ export default function Sidebar({ path, setPath, parent, pageRefs, setPageRefs, 
                 setSelectedPage(null);
                 if (path.length > 1) setPath(path.slice(0, path.length - 1))
              }}
-             className="p-5 bg-slate-200 dark:bg-slate-600"
+             className="flex p-5 bg-slate-200 dark:bg-slate-600"
             >
-                <div className='ml-3 text-lg'>{"^ " + parent.title}</div>
+                {(path.length > 1 ? <div dangerouslySetInnerHTML={{__html: backIcon}}></div> : null)}
+                <div className='ml-3 text-lg'>{" " + parent.title}</div>
             </div>
             
             <div id="sidebar-btns" className="flex justify-end">
