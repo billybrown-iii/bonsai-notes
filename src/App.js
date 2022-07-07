@@ -24,8 +24,9 @@ function App() {
       <div id="main" className='flex flex-wrap h-full w-full max-w-screen-xl m-auto bg-slate-100 dark:bg-gray-700 text-zinc-900 dark:text-zinc-50'>
         <Sidebar path={path} setPath={setPath} parent={parent} pageRefs={pageRefs} setPageRefs={setPageRefs} setSelectedPage={setSelectedPage}/>
         <Editor selectedPage={selectedPage} setSelectedPage={setSelectedPage} parent={parent} setPageRefs={setPageRefs} />
+        {/* TODO issue: nav area gets in the way of clicking UI located beneath. */}
+        {/* <Nav /> */}
       </div>
-      <Nav />
     </div>
   );
 }

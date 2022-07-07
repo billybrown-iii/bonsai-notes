@@ -3,7 +3,7 @@ import { truncateSpaces } from '../Misc.js';
 import NodeRef from '../Classes/NodeRef.js';
 import PageRef from '../Classes/PageRef.js';
 import NodeList from './NodeList.js';
-import PageList from './PageList.js'
+import PageList from './PageList.js';
 
 export default function Sidebar({ path, setPath, parent, pageRefs, setPageRefs, setSelectedPage }){
     const [nodeRefs, setNodeRefs] = useState(parent.nodeRefGen());

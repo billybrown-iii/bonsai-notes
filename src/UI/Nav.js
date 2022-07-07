@@ -2,38 +2,21 @@ import feather from 'feather-icons';
 
 const Nav = () => {
 
-    const icon = feather.icons.circle.toSvg();
-// {
-//    name: 'x',
-//    contents: '<line ... /><line ... />`,
-//    tags: ['cancel', 'close', 'delete', 'remove'],
-//    attrs: {
-//      class: 'feather feather-x',
-//      xmlns: 'http://www.w3.org/2000/svg',
-//      width: 24,
-//      height: 24,
-//      viewBox: '0 0 24 24',
-//      fill: 'none',
-//      stroke: 'currentColor',
-//      'stroke-width': 2,
-//      'stroke-linecap': 'round',
-//      'stroke-linejoin': 'round',
-//    },
-//    toSvg: [Function],
-// }
-
+    const icon = feather.icons.settings.toSvg();
 
     return (
-        <div className="max-w-screen-xl w-full top-0 absolute border-2 border-blue-400">
-            {/* <div className='flex justify-end w-2/3 right-0'>
-                <div 
-                dangerouslySetInnerHTML={{__html: icon}}
-                className=""
-                >
-                </div>
-            </div> */}
+        <div className="absolute flex justify-end max-w-screen-xl w-full top-0">
+            <div className='flex justify-end w-2/3'>
+                <div id="nav-area" className="w-1/3">
+                    <div
+                     dangerouslySetInnerHTML={{__html: icon}}
+                     className="w-fit ml-3 mt-4"
+                    >
+                    </div>
 
-            meow meow
+                </div>
+
+            </div>
         </div>
     )
 }
