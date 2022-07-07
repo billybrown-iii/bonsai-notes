@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import TitleBar from './TitleBar';
 import { truncateSpaces } from '../Misc';
 import { Editor } from '@tinymce/tinymce-react';
 
@@ -12,9 +13,8 @@ export default function PrimaryEditor({ selectedPage, setSelectedPage, parent, s
 
   useEffect(() => {
     console.log("effect fired.")
-    // set timeout so mouse click (blur event) doesn't interrupt
-    if (selectedPage) setTimeout(() => editorRef.current.focus(), 100);
-  }, [selectedPage])
+    if (currentPage?.content.length === 0) editorRef.current.focus();
+  }, [currentPage])
 
   /** 
    * Handles user changing the title text for a page.
@@ -77,15 +77,7 @@ export default function PrimaryEditor({ selectedPage, setSelectedPage, parent, s
     return (
       <>
         <div className={(selectedPage ? "" : "hidden") + " w-2/3 h-5/6"} id="editor" key={key}>
-          <input 
-            type="text"
-            className="w-full py-3 px-4 text-lg rounded-tr-xl border-x-2 border-t-2 border-[#eee] dark:bg-[#222f3e] dark:border-[#171f28] dark:text-zinc-50" 
-            id="title"
-            value={pageTitle}
-            onChange={titleChange}
-            onBlur={saveTitleChange}
-            onKeyPress={(e) => {if (e.key === "Enter") saveTitleChange()}} 
-          ></input>
+          <TitleBar pageTitle={pageTitle} titleChange={titleChange} saveTitleChange={saveTitleChange} />
           <Editor
             tinymceScriptSrc={process.env.PUBLIC_URL + '/tinymce/tinymce.min.js'}
             init={{

@@ -77,6 +77,7 @@ export default function Sidebar({ path, setPath, parent, pageRefs, setPageRefs, 
     }
 
     return (
+        // TODO when create new node or page, scroll to comfortably view
         <div id="sidebar" className="h-full w-1/3 overflow-auto border-r-2 border-zinc-500 dark:border-slate-100 select-none">
             <div id="back-button" 
              onClick={() => { 
@@ -93,7 +94,7 @@ export default function Sidebar({ path, setPath, parent, pageRefs, setPageRefs, 
                 <div onClick={newPage} id="new-page-btn" className="px-3 border-2 border-zinc-900 dark:border-slate-100">New Page</div>
             </div>
             
-            <div id="sidebar-list">
+            <div id="sidebar-list" className='pb-10'>
                 <NodeList setPath={setPath} setSelectedPage={setSelectedPage} nodeRefs={nodeRefs} addNode={addNode} />
                 <hr />
                 <PageList pageRefs={pageRefs} addPage={addPage} setSelectedPage={setSelectedPage} />

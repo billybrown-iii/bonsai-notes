@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { createDummyHomeNode } from './Classes/Node.js';
 import Sidebar from './UI/Sidebar';
 import Editor from './UI/Editor';
+import Nav from './UI/Nav';
 import './App.css';
 
 
@@ -24,6 +25,7 @@ function App() {
         <Sidebar path={path} setPath={setPath} parent={parent} pageRefs={pageRefs} setPageRefs={setPageRefs} setSelectedPage={setSelectedPage}/>
         <Editor selectedPage={selectedPage} setSelectedPage={setSelectedPage} parent={parent} setPageRefs={setPageRefs} />
       </div>
+      <Nav />
     </div>
   );
 }
