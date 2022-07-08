@@ -10,8 +10,8 @@ This is intended to be a maximally easy-to-use and user-friendly note-taking app
 
 Current features (As of 07/04/22):
 
-- Navigation of Nodes and Pages to any depth.
-- Saving of content (until browser refresh).
+- Creation and navigation of Nodes and Pages to any depth.
+- Saving of page title and content (until browser refresh).
 - Dark theme toggle.
 
 ## Dark Theme:
