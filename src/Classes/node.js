@@ -63,7 +63,6 @@ const createDummyHomeNode = () => {
 
     testNode.createChildNode("Node 1")  // path = ["Home", "Node 1"]
     testNode.createChildNode("Node 2")
-    testNode.createChildNode("Node 3")
     testNode.createPage("Page 1")
     testNode.createPage("Page 2")
     return testNode;

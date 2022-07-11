@@ -5,8 +5,10 @@ import PageRef from '../Classes/PageRef.js';
 import NodeList from './NodeList.js';
 import PageList from './PageList.js';
 import feather from 'feather-icons';
+import MiniButton from './MiniButton.js';
 
 const backIcon = feather.icons["corner-left-up"].toSvg({"stroke-width": 1});
+const settingsIcon = feather.icons["settings"].toSvg({"stroke-width": 2});
 
 export default function Sidebar({ path, setPath, parent, pageRefs, setPageRefs, setSelectedPage }){
     const [nodeRefs, setNodeRefs] = useState(parent.nodeRefGen());
@@ -87,10 +89,11 @@ export default function Sidebar({ path, setPath, parent, pageRefs, setPageRefs, 
                 setSelectedPage(null);
                 if (path.length > 1) setPath(path.slice(0, path.length - 1))
              }}
-             className="flex p-5 bg-slate-200 dark:bg-slate-600"
+             className="flex items-center p-4 bg-slate-200 dark:bg-slate-600"
             >
-                {(path.length > 1 ? <div dangerouslySetInnerHTML={{__html: backIcon}}></div> : null)}
+                {(path.length > 1 ? <div className="pb-3" dangerouslySetInnerHTML={{__html: backIcon}}></div> : null)}
                 <div className='ml-3 text-lg'>{" " + parent.title}</div>
+                <div className="ml-auto"><MiniButton icon={settingsIcon}/></div>
             </div>
             
             <div id="sidebar-btns" className="flex justify-end">

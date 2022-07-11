@@ -7,7 +7,6 @@ import './App.css';
 
 
 const homeNode = createDummyHomeNode();
-homeNode.createChildNode("Node 4");
 console.log(homeNode);
 
 function App() {
@@ -16,7 +15,15 @@ function App() {
   const parent = homeNode.navObj(path);
 
     // lift pageRefs state up, since Editor can adjust it by adjusting page title
-    const [pageRefs, setPageRefs] = useState(homeNode.pageRefGen());
+  const [pageRefs, setPageRefs] = useState(homeNode.pageRefGen());
+
+  const deletePage = () => {
+    if (!selectedPage) throw new Error("Attempted to delete page, but no page is selected.")
+    const title = selectedPage;
+    parent.pages = parent.pages.filter((page) => page.title !== title);
+    setPageRefs(parent.pageRefGen());
+    setSelectedPage(null);
+  }
 
   return (
     <div className="h-screen bg-gradient-to-r from-neutral-100 via-neutral-300 to-neutral-100 dark:from-neutral-800 dark:via-neutral-800 dark:to-neutral-800">
@@ -25,7 +32,7 @@ function App() {
         <Sidebar path={path} setPath={setPath} parent={parent} pageRefs={pageRefs} setPageRefs={setPageRefs} setSelectedPage={setSelectedPage}/>
         <Editor selectedPage={selectedPage} setSelectedPage={setSelectedPage} parent={parent} setPageRefs={setPageRefs} />
         {/* TODO issue: nav area gets in the way of clicking UI located beneath. */}
-        <Nav />
+        <Nav selectedPage={selectedPage} deletePage={deletePage}/>
       </div>
     </div>
   );

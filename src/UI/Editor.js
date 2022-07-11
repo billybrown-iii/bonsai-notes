@@ -11,8 +11,8 @@ export default function PrimaryEditor({ selectedPage, setSelectedPage, parent, s
 
   const [ pageTitle, setPageTitle ] = useState("");
 
+  // auto-focus on empty page
   useEffect(() => {
-    console.log("effect fired.")
     if (currentPage?.content.length === 0) editorRef.current.focus();
   }, [currentPage])
 
