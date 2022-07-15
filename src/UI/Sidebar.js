@@ -8,7 +8,8 @@ import feather from 'feather-icons';
 import MiniButton from './MiniButton.js';
 
 const backIcon = feather.icons["corner-left-up"].toSvg({"stroke-width": 1});
-const settingsIcon = feather.icons["settings"].toSvg({"stroke-width": 2});
+const settingsIcon = feather.icons["settings"].toSvg({"stroke-width": 2, "width": "20px"});
+const nodeIcon = feather.icons["cpu"].toSvg({"stroke-width": 1, "width": "20px"});
 
 export default function Sidebar({ path, setPath, parent, pageRefs, setPageRefs, setSelectedPage }){
     const [nodeRefs, setNodeRefs] = useState(parent.nodeRefGen());
@@ -93,10 +94,11 @@ export default function Sidebar({ path, setPath, parent, pageRefs, setPageRefs, 
             >
                 {(path.length > 1 ? <div className="pb-3" dangerouslySetInnerHTML={{__html: backIcon}}></div> : null)}
                 <div className='ml-3 text-lg'>{" " + parent.title}</div>
-                <div className="ml-auto"><MiniButton icon={settingsIcon}/></div>
+                
             </div>
             
             <div id="sidebar-btns" className="flex justify-end">
+            <div className="ml-4 mr-auto mt-2 h-1"><MiniButton icon={settingsIcon}><span></span></MiniButton></div>
                 <div onClick={newNode} id="new-node-btn" className="px-3 border-2 border-r-0 border-zinc-900 dark:border-slate-100">New Node</div>
                 <div onClick={newPage} id="new-page-btn" className="px-3 border-2 border-zinc-900 dark:border-slate-100">New Page</div>
             </div>

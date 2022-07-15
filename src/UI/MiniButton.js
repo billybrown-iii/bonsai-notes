@@ -1,8 +1,12 @@
-const MiniButton = ({ icon }) => {
+const MiniButton = ({ icon, children}) => {
     return (
-        <div className="w-fit p-1.5 border border-zinc-800 rounded-2xl" dangerouslySetInnerHTML={{__html: icon}}>
-
+        <div className="flex border-2 border-zinc-800 dark:border-slate-100 rounded-md p-1 select-none text-sm">
+            <div dangerouslySetInnerHTML={{__html: icon}}></div>
+            {children}
         </div>
+
+
+
     )
 }
 

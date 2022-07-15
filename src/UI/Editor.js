@@ -70,6 +70,7 @@ export default function PrimaryEditor({ selectedPage, setSelectedPage, parent, s
 
   const toggleDarkTheme = () => {
     if (selectedPage) save();
+    (window.localStorage.getItem("theme") === "dark" ? window.localStorage.setItem("theme", "light") : window.localStorage.setItem("theme", "dark"));
     (isDark ? element.classList.remove("dark") : element.classList.add("dark"));
     setKey((prev) => prev + 1);
   }

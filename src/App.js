@@ -5,7 +5,6 @@ import Editor from './UI/Editor';
 import Nav from './UI/Nav';
 import './App.css';
 
-
 const homeNode = createDummyHomeNode();
 console.log(homeNode);
 
