@@ -1,8 +1,10 @@
+import feather from 'feather-icons';
 
+const icon = feather.icons["file"].toSvg({"stroke-width": 1, "width": "24px"});
 
 export default function PageList ({ pageRefs, addPage, setSelectedPage }) {
 
-    const pageStyles = "w-3/4 m-auto my-3 px-6 py-2 border-2 border-zinc-900 dark:border-slate-100 rounded";
+    const pageStyles = "w-3/4 m-auto my-3 px-6 py-2 rounded-md bg-slate-800 dark:hover:bg-slate-700";
 
     const pages = pageRefs.map((item, index) => {
         // Condition for placeholder page

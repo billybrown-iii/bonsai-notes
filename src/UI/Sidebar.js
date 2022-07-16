@@ -9,7 +9,7 @@ import MiniButton from './MiniButton.js';
 
 const backIcon = feather.icons["corner-left-up"].toSvg({"stroke-width": 1});
 const settingsIcon = feather.icons["settings"].toSvg({"stroke-width": 2, "width": "20px"});
-const nodeIcon = feather.icons["cpu"].toSvg({"stroke-width": 1, "width": "20px"});
+
 
 export default function Sidebar({ path, setPath, parent, pageRefs, setPageRefs, setSelectedPage }){
     const [nodeRefs, setNodeRefs] = useState(parent.nodeRefGen());
@@ -102,10 +102,10 @@ export default function Sidebar({ path, setPath, parent, pageRefs, setPageRefs, 
                 <div onClick={newNode} id="new-node-btn" className="px-3 border-2 border-r-0 border-zinc-900 dark:border-slate-100">New Node</div>
                 <div onClick={newPage} id="new-page-btn" className="px-3 border-2 border-zinc-900 dark:border-slate-100">New Page</div>
             </div>
-            
+
             <div id="sidebar-list" className='pb-10'>
                 <NodeList setPath={setPath} setSelectedPage={setSelectedPage} nodeRefs={nodeRefs} addNode={addNode} />
-                <hr />
+                <hr className={(nodeRefs.length > 0 && pageRefs.length > 0 ? null : "hidden")} />
                 <PageList pageRefs={pageRefs} addPage={addPage} setSelectedPage={setSelectedPage} />
             </div>
 

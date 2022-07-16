@@ -4,9 +4,6 @@ const MiniButton = ({ icon, children}) => {
             <div dangerouslySetInnerHTML={{__html: icon}}></div>
             {children}
         </div>
-
-
-
     )
 }
 
