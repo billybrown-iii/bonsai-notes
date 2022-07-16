@@ -16,12 +16,10 @@ function App() {
     // lift pageRefs state up, since Editor can adjust it by adjusting page title
   const [pageRefs, setPageRefs] = useState(homeNode.pageRefGen());
 
-  const deletePage = () => {
-    if (!selectedPage) throw new Error("Attempted to delete page, but no page is selected.")
-    const title = selectedPage;
+  const deletePage = (title) => {
     parent.pages = parent.pages.filter((page) => page.title !== title);
     setPageRefs(parent.pageRefGen());
-    setSelectedPage(null);
+    if (title === selectedPage) setSelectedPage(null);
   }
 
   return (
@@ -30,7 +28,6 @@ function App() {
       <div id="main" className='relative flex flex-wrap h-full w-full max-w-screen-xl m-auto bg-slate-100 dark:bg-gray-900 text-zinc-900 dark:text-zinc-50'>
         <Sidebar path={path} setPath={setPath} parent={parent} pageRefs={pageRefs} setPageRefs={setPageRefs} setSelectedPage={setSelectedPage} deletePage={deletePage}/>
         <Editor selectedPage={selectedPage} setSelectedPage={setSelectedPage} parent={parent} setPageRefs={setPageRefs} />
-        {/* TODO issue: nav area gets in the way of clicking UI located beneath. */}
         {/* <Nav selectedPage={selectedPage} deletePage={deletePage}/> */}
       </div>
     </div>

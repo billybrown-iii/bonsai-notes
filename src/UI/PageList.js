@@ -1,7 +1,10 @@
 import feather from 'feather-icons';
+import { Menu, MenuItem } from '@szhsin/react-menu';
+import '@szhsin/react-menu/dist/index.css';
+import '@szhsin/react-menu/dist/transitions/slide.css';
 
-const icon = feather.icons["file"].toSvg({"stroke-width": 1, "width": "20px"});
-const icon2 = feather.icons["settings"].toSvg({"stroke-width": 2, "width": "20px"});
+const pageIcon = feather.icons["file"].toSvg({"stroke-width": 1, "width": "20px"});
+const settingsIcon = feather.icons["settings"].toSvg({"stroke-width": 2, "width": "20px"});
 
 export default function PageList ({ pageRefs, addPage, setSelectedPage, deletePage }) {
 
@@ -35,14 +38,28 @@ export default function PageList ({ pageRefs, addPage, setSelectedPage, deletePa
                 <div 
                  onClick={() => {setSelectedPage(item.title)}} 
                  className={pageStyles} 
-                 key={index}><span className='mr-2' dangerouslySetInnerHTML={{__html: icon}} />{item.title}
-                 <span onClick={(e) => {
-                     e.stopPropagation();
-                     deletePage();
-                     }} className='hidden group-hover:block h-fit ml-auto -mr-3 -my-1 dark:text-slate-300 dark:hover:bg-slate-600 rounded-md p-1 px-1.5' dangerouslySetInnerHTML={{__html: icon2}} /></div>
+                 key={index}
+                >
+                    <span className='mr-2' dangerouslySetInnerHTML={{__html: pageIcon}} />
+                    {item.title}
+                    <div
+                     className='invisible group-hover:visible h-fit ml-auto -mr-3 -my-1 dark:text-slate-300 dark:hover:bg-slate-600 rounded-md' 
+                     onClick={(e) => e.stopPropagation()}
+                    >
+                        <Menu 
+                         menuButton={<div className="p-1 px-1.5" dangerouslySetInnerHTML={{__html: settingsIcon}} />}
+                         transition
+                         portal={true}
+                         offsetX={20}
+                         offsetY={-2}
+                        >
+                            <MenuItem onClick={() => deletePage(item.title)}>Delete</MenuItem>
+                        </Menu>
+                    </div>
+                </div>
             )
         }
     })
 
-    return <div>{pages}</div>
+    return <div id="page-list">{pages}</div>
 }
