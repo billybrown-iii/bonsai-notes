@@ -25,13 +25,13 @@ function App() {
   }
 
   return (
-    <div className="h-screen bg-gradient-to-r from-neutral-100 via-neutral-300 to-neutral-100 dark:from-neutral-800 dark:via-neutral-800 dark:to-neutral-800">
+    <div className="h-screen bg-gradient-to-r from-neutral-100 via-neutral-300 to-neutral-100 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-900">
       {/* <div className=' bg-gradient-to-r from-slate-600'>Hello</div> */}
       <div id="main" className='relative flex flex-wrap h-full w-full max-w-screen-xl m-auto bg-slate-100 dark:bg-gray-900 text-zinc-900 dark:text-zinc-50'>
-        <Sidebar path={path} setPath={setPath} parent={parent} pageRefs={pageRefs} setPageRefs={setPageRefs} setSelectedPage={setSelectedPage}/>
+        <Sidebar path={path} setPath={setPath} parent={parent} pageRefs={pageRefs} setPageRefs={setPageRefs} setSelectedPage={setSelectedPage} deletePage={deletePage}/>
         <Editor selectedPage={selectedPage} setSelectedPage={setSelectedPage} parent={parent} setPageRefs={setPageRefs} />
         {/* TODO issue: nav area gets in the way of clicking UI located beneath. */}
-        <Nav selectedPage={selectedPage} deletePage={deletePage}/>
+        {/* <Nav selectedPage={selectedPage} deletePage={deletePage}/> */}
       </div>
     </div>
   );

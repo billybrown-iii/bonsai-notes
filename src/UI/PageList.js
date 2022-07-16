@@ -1,10 +1,11 @@
 import feather from 'feather-icons';
 
-const icon = feather.icons["file"].toSvg({"stroke-width": 1, "width": "24px"});
+const icon = feather.icons["file"].toSvg({"stroke-width": 1, "width": "20px"});
+const icon2 = feather.icons["settings"].toSvg({"stroke-width": 2, "width": "20px"});
 
-export default function PageList ({ pageRefs, addPage, setSelectedPage }) {
+export default function PageList ({ pageRefs, addPage, setSelectedPage, deletePage }) {
 
-    const pageStyles = "w-3/4 m-auto my-3 px-6 py-2 rounded-md bg-slate-800 dark:hover:bg-slate-700";
+    const pageStyles = "group flex w-3/4 m-auto my-3 px-6 py-2 rounded-md bg-slate-800 dark:hover:bg-slate-700";
 
     const pages = pageRefs.map((item, index) => {
         // Condition for placeholder page
@@ -30,7 +31,16 @@ export default function PageList ({ pageRefs, addPage, setSelectedPage }) {
                 </div>
             )
         } else {
-            return <div onClick={() => {setSelectedPage(item.title)}} className={pageStyles} key={index}>{item.title}</div>
+            return (
+                <div 
+                 onClick={() => {setSelectedPage(item.title)}} 
+                 className={pageStyles} 
+                 key={index}><span className='mr-2' dangerouslySetInnerHTML={{__html: icon}} />{item.title}
+                 <span onClick={(e) => {
+                     e.stopPropagation();
+                     deletePage();
+                     }} className='hidden group-hover:block h-fit ml-auto -mr-3 -my-1 dark:text-slate-300 dark:hover:bg-slate-600 rounded-md p-1 px-1.5' dangerouslySetInnerHTML={{__html: icon2}} /></div>
+            )
         }
     })
 

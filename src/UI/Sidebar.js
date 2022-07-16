@@ -11,7 +11,7 @@ const backIcon = feather.icons["corner-left-up"].toSvg({"stroke-width": 1});
 const settingsIcon = feather.icons["settings"].toSvg({"stroke-width": 2, "width": "20px"});
 
 
-export default function Sidebar({ path, setPath, parent, pageRefs, setPageRefs, setSelectedPage }){
+export default function Sidebar({ path, setPath, parent, pageRefs, setPageRefs, setSelectedPage, deletePage }){
     const [nodeRefs, setNodeRefs] = useState(parent.nodeRefGen());
     
     // When the parent changes, update displayed nodes/pages.
@@ -90,7 +90,7 @@ export default function Sidebar({ path, setPath, parent, pageRefs, setPageRefs, 
                 setSelectedPage(null);
                 if (path.length > 1) setPath(path.slice(0, path.length - 1))
              }}
-             className="flex items-center p-4 bg-slate-200 dark:bg-slate-600"
+             className="flex items-center p-4 bg-slate-200 dark:bg-gray-700 dark:hover:bg-gray-600"
             >
                 {(path.length > 1 ? <div className="pb-3" dangerouslySetInnerHTML={{__html: backIcon}}></div> : null)}
                 <div className='ml-3 text-lg'>{" " + parent.title}</div>
@@ -106,7 +106,7 @@ export default function Sidebar({ path, setPath, parent, pageRefs, setPageRefs, 
             <div id="sidebar-list" className='pb-10'>
                 <NodeList setPath={setPath} setSelectedPage={setSelectedPage} nodeRefs={nodeRefs} addNode={addNode} />
                 <hr className={(nodeRefs.length > 0 && pageRefs.length > 0 ? null : "hidden")} />
-                <PageList pageRefs={pageRefs} addPage={addPage} setSelectedPage={setSelectedPage} />
+                <PageList pageRefs={pageRefs} addPage={addPage} setSelectedPage={setSelectedPage} deletePage={deletePage} />
             </div>
 
         </div>
