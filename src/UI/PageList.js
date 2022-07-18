@@ -1,14 +1,14 @@
 import feather from 'feather-icons';
-import { Menu, MenuItem } from '@szhsin/react-menu';
-import '@szhsin/react-menu/dist/index.css';
-import '@szhsin/react-menu/dist/transitions/slide.css';
+import SettingsButton from './SettingsButton';
+import { MenuItem } from '@szhsin/react-menu';
+
 
 const pageIcon = feather.icons["file"].toSvg({"stroke-width": 1, "width": "20px"});
-const settingsIcon = feather.icons["settings"].toSvg({"stroke-width": 2, "width": "20px"});
+
 
 export default function PageList ({ pageRefs, addPage, setSelectedPage, deletePage }) {
 
-    const pageStyles = "group flex w-3/4 m-auto my-3 px-6 py-2 rounded-md bg-slate-800 dark:hover:bg-slate-700";
+    const pageStyles = "group flex w-3/4 m-auto my-3 px-6 py-2 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600";
 
     const pages = pageRefs.map((item, index) => {
         // Condition for placeholder page
@@ -42,20 +42,9 @@ export default function PageList ({ pageRefs, addPage, setSelectedPage, deletePa
                 >
                     <span className='mr-2' dangerouslySetInnerHTML={{__html: pageIcon}} />
                     {item.title}
-                    <div
-                     className='invisible group-hover:visible h-fit ml-auto -mr-3 -my-1 dark:text-slate-300 dark:hover:bg-slate-600 rounded-md' 
-                     onClick={(e) => e.stopPropagation()}
-                    >
-                        <Menu 
-                         menuButton={<div className="p-1 px-1.5" dangerouslySetInnerHTML={{__html: settingsIcon}} />}
-                         transition
-                         portal={true}
-                         offsetX={20}
-                         offsetY={-2}
-                        >
-                            <MenuItem onClick={() => deletePage(item.title)}>Delete</MenuItem>
-                        </Menu>
-                    </div>
+                    <SettingsButton>
+                        <MenuItem onClick={() => deletePage(item.title)}>Delete</MenuItem>
+                    </SettingsButton>
                 </div>
             )
         }

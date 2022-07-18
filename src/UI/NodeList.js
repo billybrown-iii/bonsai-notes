@@ -1,11 +1,13 @@
+import { MenuItem } from '@szhsin/react-menu';
 import feather from 'feather-icons';
+import SettingsButton from './SettingsButton';
 
 const icon = feather.icons["box"].toSvg({"stroke-width": 1, "width": "24px"});
 // const icon = ""
 /** List of nodeRefs to be displayed in UI */
-export default function NodeList({setPath, setSelectedPage, nodeRefs, addNode}){
+export default function NodeList({setPath, setSelectedPage, nodeRefs, addNode, deleteNode}){
 
-    const nodeStyles = "flex w-3/4 m-auto my-3 py-4 px-6 rounded-2xl bg-slate-800 dark:hover:bg-slate-700";
+    const nodeStyles = "group flex w-3/4 m-auto my-3 py-4 px-6 rounded-2xl bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600";
 
     const nodes = nodeRefs.map((item, index) => {
         if (item.path[0] === null){
@@ -31,6 +33,9 @@ export default function NodeList({setPath, setSelectedPage, nodeRefs, addNode}){
                 setPath(item.path);
              }}
              className={nodeStyles} key={index}><span className="mr-2" dangerouslySetInnerHTML={{__html: icon}}/>{item.title}
+             <SettingsButton>
+                 <MenuItem onClick={() => deleteNode(item.title)}>Delete</MenuItem>
+             </SettingsButton>
             </div>
         )
     })
