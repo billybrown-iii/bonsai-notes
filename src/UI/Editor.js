@@ -3,17 +3,21 @@ import TitleBar from './TitleBar';
 import { truncateSpaces } from '../Misc';
 import { Editor } from '@tinymce/tinymce-react';
 
-export default function PrimaryEditor({ selectedPage, setSelectedPage, parent, setPageRefs }) {
+export default function PrimaryEditor({ selectedPage, setSelectedPage, parent, setPageRefs, key }) {
 
   const currentPage = parent.findPage(selectedPage);
   const initialValue = currentPage?.content;
   const editorRef = useRef(null);
 
-  const [ pageTitle, setPageTitle ] = useState("");
+  const [ pageTitle, setPageTitle ] = useState((currentPage ? currentPage.title : ""));
+
+  const element = document.getElementById("html");
+  const isDark = element.classList.contains("dark");
+
 
   // auto-focus on empty page
   useEffect(() => {
-    if (currentPage?.content.length === 0) editorRef.current.focus();
+    if (currentPage?.content.length === 0) editorRef.current?.focus();
   }, [currentPage])
 
   /** 
@@ -64,19 +68,7 @@ export default function PrimaryEditor({ selectedPage, setSelectedPage, parent, s
     }
   };
 
-  const element = document.getElementById("html");
-  const isDark = element.classList.contains("dark");
-  const [key, setKey] = useState(0);
-
-  const toggleDarkTheme = () => {
-    if (selectedPage) save();
-    (window.localStorage.getItem("theme") === "dark" ? window.localStorage.setItem("theme", "light") : window.localStorage.setItem("theme", "dark"));
-    (isDark ? element.classList.remove("dark") : element.classList.add("dark"));
-    setKey((prev) => prev + 1);
-  }
-
     return (
-      <>
         <div className={(selectedPage ? "" : "hidden") + " w-2/3 h-5/6"} id="editor" key={key}>
           <TitleBar pageTitle={pageTitle} titleChange={titleChange} saveTitleChange={saveTitleChange} />
           <Editor
@@ -102,8 +94,5 @@ export default function PrimaryEditor({ selectedPage, setSelectedPage, parent, s
           {/* <button onClick={save} disabled={!dirty}>Save</button> */}
           {/* {dirty && <p>You have unsaved content!</p>} */}
         </div>
-        <div onClick={toggleDarkTheme} className="absolute bottom-0 left-4 h-10">Dark Theme</div>
-      </>
-
   );
 }

@@ -4,13 +4,12 @@ import PageRef from '../Classes/PageRef.js';
 import NodeList from './NodeList.js';
 import PageList from './PageList.js';
 import feather from 'feather-icons';
-import MiniButton from './MiniButton.js';
 
-const backIcon = feather.icons["corner-left-up"].toSvg({"stroke-width": 1});
-const settingsIcon = feather.icons["settings"].toSvg({"stroke-width": 2, "width": "20px"});
+const backIcon = feather.icons["corner-left-up"].toSvg({"stroke-width": 2});
+const homeIcon = feather.icons["home"].toSvg({"stroke-width": 2});
 
 
-export default function Sidebar({ path, setPath, parent, pageRefs, setPageRefs, setSelectedPage, deletePage }){
+export default function Sidebar({ path, setPath, parent, pageRefs, setPageRefs, selectedPage, setSelectedPage, deletePage }){
     const [nodeRefs, setNodeRefs] = useState(parent.nodeRefGen());
     
     // When the parent changes, update displayed nodes/pages.
@@ -102,6 +101,7 @@ export default function Sidebar({ path, setPath, parent, pageRefs, setPageRefs, 
     return (
         // TODO when create new node or page, scroll to comfortably view
         <div id="sidebar" className="h-full w-1/3 overflow-auto border-r-2 border-zinc-500 dark:border-slate-100 select-none">
+            {/* if you want it to stay on top, you'll need to redo your styling with vw units */}
             <div id="back-button" 
              onClick={() => { 
                 setSelectedPage(null);
@@ -109,7 +109,7 @@ export default function Sidebar({ path, setPath, parent, pageRefs, setPageRefs, 
              }}
              className="flex items-center p-4 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
             >
-                {(path.length > 1 ? <div className="pb-3 -my-1" dangerouslySetInnerHTML={{__html: backIcon}}></div> : null)}
+                <div className="-my-1" dangerouslySetInnerHTML={{__html: (path.length > 1 ? backIcon : homeIcon)}} />
                 <div className='ml-2 text-lg'>{" " + parent.title}</div>
                 
             </div>
@@ -122,7 +122,7 @@ export default function Sidebar({ path, setPath, parent, pageRefs, setPageRefs, 
             <div id="sidebar-list" className='pb-10'>
                 <NodeList setPath={setPath} setSelectedPage={setSelectedPage} nodeRefs={nodeRefs} addNode={addNode} deleteNode={deleteNode} />
                 <hr className={(nodeRefs.length > 0 && pageRefs.length > 0 ? null : "hidden")} />
-                <PageList pageRefs={pageRefs} addPage={addPage} setSelectedPage={setSelectedPage} deletePage={deletePage} />
+                <PageList pageRefs={pageRefs} addPage={addPage} selectedPage={selectedPage} setSelectedPage={setSelectedPage} deletePage={deletePage} />
             </div>
 
         </div>

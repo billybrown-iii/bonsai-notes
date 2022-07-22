@@ -7,7 +7,7 @@ const icon = feather.icons["box"].toSvg({"stroke-width": 1, "width": "24px"});
 /** List of nodeRefs to be displayed in UI */
 export default function NodeList({setPath, setSelectedPage, nodeRefs, addNode, deleteNode}){
 
-    const nodeStyles = "group flex w-3/4 m-auto my-3 py-4 px-6 rounded-2xl bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600";
+    const nodeStyles = "group flex w-3/4 m-auto my-3 py-5 px-6 rounded-2xl bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600";
 
     const nodes = nodeRefs.map((item, index) => {
         if (item.path[0] === null){

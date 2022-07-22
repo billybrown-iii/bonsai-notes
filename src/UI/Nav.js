@@ -1,21 +1,25 @@
-import feather from 'feather-icons';
-import { Menu, MenuItem } from '@szhsin/react-menu';
-import '@szhsin/react-menu/dist/index.css';
-import '@szhsin/react-menu/dist/transitions/slide.css';
-import MiniButton from './MiniButton';
-const icon = feather.icons["edit"].toSvg({"stroke-width": 2});
+import feather from "feather-icons";
+import MiniButton from "./MiniButton";
 
-const Nav = ({ selectedPage, deletePage }) => {
+const darkIcon = feather.icons["moon"].toSvg({ "stroke-width": 1 });
+const lightIcon = feather.icons["sun"].toSvg({ "stroke-width": 1 });
 
- if (selectedPage) return (
+const Nav = ({ setKey }) => {
+  const element = document.getElementById("html");
+  const isDark = element.classList.contains("dark");
+
+  const toggleDarkTheme = () => {
+    (window.localStorage.getItem("theme") === "dark"  ? window.localStorage.setItem("theme", "light") : window.localStorage.setItem("theme", "dark"));
+    (isDark ? element.classList.remove("dark") : element.classList.add("dark"));
+    setKey((prev) => prev + 1);
+  };
+
+  return (
     // width of 22.22% = 1/3 of 2/3
-        <Menu menuButton={<div className='absolute w-[22.22%] right-0 flex pt-2 pl-2'>
-            <MiniButton icon={icon}><span className='ml-1'>Page Settings</span></MiniButton>
-            </div> 
-        } transition>
-            <MenuItem onClick={deletePage}>Delete Page</MenuItem>
-        </Menu>
-    )
-}
+    <div className="absolute flex justify-end w-[22.22%] right-0 py-1.5 px-2">
+      <MiniButton icon={(isDark ? lightIcon : darkIcon)} func={toggleDarkTheme} />
+    </div>
+  );
+};
 
 export default Nav;

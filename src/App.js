@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { createDummyHomeNode } from './Classes/Node.js';
 import Sidebar from './UI/Sidebar';
 import Editor from './UI/Editor';
+import Nav from './UI/Nav.js';
 import './App.css';
 
 const homeNode = createDummyHomeNode();
@@ -15,6 +16,8 @@ function App() {
     // lift pageRefs state up, since Editor can adjust it by adjusting page title
   const [pageRefs, setPageRefs] = useState(homeNode.pageRefGen());
 
+  const [key, setKey] = useState(0);
+
   const deletePage = (title) => {
     parent.pages = parent.pages.filter((page) => page.title !== title);
     setPageRefs(parent.pageRefGen());
@@ -25,9 +28,9 @@ function App() {
     <div className="h-screen bg-gradient-to-r from-neutral-100 via-neutral-300 to-neutral-100 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-900">
       {/* <div className=' bg-gradient-to-r from-slate-600'>Hello</div> */}
       <div id="main" className='relative flex flex-wrap h-full w-full max-w-screen-xl m-auto bg-slate-100 dark:bg-gray-800 text-zinc-900 dark:text-zinc-50'>
-        <Sidebar path={path} setPath={setPath} parent={parent} pageRefs={pageRefs} setPageRefs={setPageRefs} setSelectedPage={setSelectedPage} deletePage={deletePage}/>
-        <Editor selectedPage={selectedPage} setSelectedPage={setSelectedPage} parent={parent} setPageRefs={setPageRefs} />
-        {/* <Nav selectedPage={selectedPage} deletePage={deletePage}/> */}
+        <Sidebar path={path} setPath={setPath} parent={parent} pageRefs={pageRefs} setPageRefs={setPageRefs} selectedPage={selectedPage} setSelectedPage={setSelectedPage} deletePage={deletePage}/>
+        <Editor selectedPage={selectedPage} setSelectedPage={setSelectedPage} parent={parent} setPageRefs={setPageRefs} key={key} />
+        <Nav setKey={setKey}/>
       </div>
     </div>
   );

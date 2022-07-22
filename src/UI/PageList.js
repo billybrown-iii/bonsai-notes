@@ -6,9 +6,9 @@ import { MenuItem } from '@szhsin/react-menu';
 const pageIcon = feather.icons["file"].toSvg({"stroke-width": 1, "width": "20px"});
 
 
-export default function PageList ({ pageRefs, addPage, setSelectedPage, deletePage }) {
+export default function PageList ({ pageRefs, addPage, selectedPage, setSelectedPage, deletePage }) {
 
-    const pageStyles = "group flex w-3/4 m-auto my-3 px-6 py-2 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600";
+    const pageStyles = "group flex w-3/4 m-auto my-3 px-6 py-3 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600";
 
     const pages = pageRefs.map((item, index) => {
         // Condition for placeholder page
@@ -40,6 +40,7 @@ export default function PageList ({ pageRefs, addPage, setSelectedPage, deletePa
                  className={pageStyles} 
                  key={index}
                 >
+                    {(selectedPage === item.title ? <span className="h-2 w-2 rounded-full my-auto bg-blue-500"></span> : null)}
                     <span className='mr-2' dangerouslySetInnerHTML={{__html: pageIcon}} />
                     {item.title}
                     <SettingsButton>
