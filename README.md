@@ -1,4 +1,4 @@
-# BubbleNote
+## Bonsai Notes
 
 ![image of app](./public/preview.png)
 

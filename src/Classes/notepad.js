@@ -49,3 +49,7 @@ let myObj = {title: "home", nodes: []}
   
 // let currentParent = myObj[path[[0]]]
 // console.log(currentParent);
+
+
+
+
