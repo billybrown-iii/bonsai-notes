@@ -1,7 +1,6 @@
 import { MenuItem } from "@szhsin/react-menu";
 import feather from "feather-icons";
 import SettingsButton from "./SettingsButton";
-import Xarrow, { useXarrow, Xwrapper } from "react-xarrows";
 
 const icon = feather.icons["folder"].toSvg({
   "stroke-width": 2,
@@ -17,7 +16,7 @@ export default function NodeList({
   deleteNode,
 }) {
   const nodeStyles =
-    "group flex w-5/6 ml-auto my-3 py-4 px-6 rounded-2xl bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600";
+    "group relative z-10 flex w-5/6 ml-auto my-4 py-3.5 px-6 rounded-2xl bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600";
 
   const nodes = nodeRefs.map((item, index) => {
     if (item.path[0] === null) {
@@ -43,7 +42,6 @@ export default function NodeList({
     } else
       return (
         <div className="w-3/4 m-auto">
-          <Xwrapper>
             <div
               onClick={() => {
                 setSelectedPage(null);
@@ -64,18 +62,10 @@ export default function NodeList({
                 </MenuItem>
               </SettingsButton>
             </div>
-            <Xarrow
-              start="back-beginning"
-              end={"noderef-" + index}
-              showHead={false}
-              startAnchor="bottom"
-              endAnchor="left"
-              color="#eee"
-              curveness={1.05}
-              strokeWidth={1}
-              path="grid"
+            <div
+             id="line"
+             className={"relative z-0 -my-12 bottom-[4.5rem] left-6 w-14 h-20 border-l-2 border-b-2 border-gray-500 " + (index === nodeRefs.length - 1 ? "rounded-bl-2xl" : "")}
             />
-          </Xwrapper>
         </div>
       );
   });

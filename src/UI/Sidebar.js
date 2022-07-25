@@ -4,7 +4,6 @@ import PageRef from "../Classes/PageRef.js";
 import NodeList from "./NodeList.js";
 import PageList from "./PageList.js";
 import feather from "feather-icons";
-import Xarrow, { useXarrow, Xwrapper } from "react-xarrows";
 
 const backIcon = feather.icons["corner-left-up"].toSvg({ "stroke-width": 2 });
 const homeIcon = feather.icons["home"].toSvg({ "stroke-width": 2 });
@@ -121,7 +120,6 @@ export default function Sidebar({
     <div
       id="sidebar"
       className="h-full w-1/3 overflow-auto border-r-2 border-zinc-500 dark:border-slate-100 select-none"
-      onScroll={useXarrow}
     >
       {/* if you want it to stay on top, you'll need to redo your styling with vw units */}
       <div id="sidebar-btns" className="flex justify-end">
@@ -149,7 +147,6 @@ export default function Sidebar({
         }}
         className="flex relative z-10 w-3/4 rounded-2xl m-auto mt-10 items-center p-4 py-5 text-lg bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
       >
-        <span id="back-beginning" className="-mb-12" />
         <div
           id="back-icon"
           className="-my-1"
@@ -171,7 +168,7 @@ export default function Sidebar({
 
         <hr
           className={
-            "w-5/6 m-auto " +
+            "w-5/6 m-auto mt-5 mb-6 " +
             (nodeRefs.length > 0 && pageRefs.length > 0 ? "" : "hidden")
           }
         />
