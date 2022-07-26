@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { createDummyHomeNode } from './Classes/Node.js';
+import { createDummyHomeFolder } from './Classes/Folder.js';
 import Sidebar from './UI/Sidebar';
 import Editor from './UI/Editor';
 import Nav from './UI/Nav.js';
 import './App.css';
 
-const homeNode = createDummyHomeNode();
+const homeNode = createDummyHomeFolder();
 console.log(homeNode);
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
   return (
     <div className="h-screen bg-gradient-to-r from-neutral-100 via-neutral-300 to-neutral-100 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-900">
       {/* <div className=' bg-gradient-to-r from-slate-600'>Hello</div> */}
-      <div id="main" className='relative flex flex-wrap h-full w-full max-w-screen-xl m-auto bg-slate-100 dark:bg-gray-800 text-zinc-900 dark:text-zinc-50'>
+      <div id="main" className='relative flex flex-wrap h-full w-full max-w-screen-xl min-w-[768px] m-auto bg-slate-100 dark:bg-gray-800 text-zinc-900 dark:text-zinc-50'>
         <Sidebar path={path} setPath={setPath} parent={parent} pageRefs={pageRefs} setPageRefs={setPageRefs} selectedPage={selectedPage} setSelectedPage={setSelectedPage} deletePage={deletePage}/>
         <Editor selectedPage={selectedPage} setSelectedPage={setSelectedPage} parent={parent} setPageRefs={setPageRefs} key={key} />
         <Nav setKey={setKey}/>

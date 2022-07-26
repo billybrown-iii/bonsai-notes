@@ -1,6 +1,6 @@
 
-/** Node references, tracked in state for UI purposes. */
-export default class NodeRef {
+/** Folder references, tracked in state for UI purposes. */
+export default class FolderRef {
     /**
      * @param {string} title 
      * @param {array} [parentPath]

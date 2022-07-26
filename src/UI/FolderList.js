@@ -4,36 +4,36 @@ import SettingsButton from "./SettingsButton";
 
 const icon = feather.icons["folder"].toSvg({
   "stroke-width": 2,
-  width: "24px",
+  width: "20px",
 });
 // const icon = ""
-/** List of nodeRefs to be displayed in UI */
-export default function NodeList({
+/** List of folderRefs to be displayed in UI */
+export default function FolderList({
   setPath,
   setSelectedPage,
-  nodeRefs,
-  addNode,
-  deleteNode,
+  folderRefs,
+  addFolder,
+  deleteFolder,
 }) {
-  const nodeStyles =
-    "group relative z-10 flex w-5/6 ml-auto my-4 py-3.5 px-6 rounded-2xl bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600";
+  const folderStyles =
+    "group relative z-10 flex w-5/6 my-3 ml-auto pt-2 pb-1.5 px-6 text-[.95rem] rounded-2xl bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600";
 
-  const nodes = nodeRefs.map((item, index) => {
+  const folders = folderRefs.map((item, index) => {
     if (item.path[0] === null) {
       return (
         <div className="w-3/4 m-auto">
-          <div className={nodeStyles} key={index}>
+          <div className={folderStyles} key={index}>
             <input
               className="w-full m-auto border-2 border-zinc-500 rounded-xl dark:bg-zinc-600 py-2 px-5"
               type="text"
-              placeholder="New Node"
+              placeholder="New Folder"
               autoFocus
               onBlur={(e) => {
-                addNode(e.target.value);
+                addFolder(e.target.value);
               }}
               onKeyPress={(e) => {
                 //@ts-ignore
-                if (e.key === "Enter") addNode(e.target.value);
+                if (e.key === "Enter") addFolder(e.target.value);
               }}
             />
           </div>
@@ -47,28 +47,28 @@ export default function NodeList({
                 setSelectedPage(null);
                 setPath(item.path);
               }}
-              className={nodeStyles}
-              id={"noderef-" + index}
+              className={folderStyles}
+              id={"folderref-" + index}
               key={index}
             >
               <span
-                className="mr-2"
+                className="mr-2 -mt-0.5"
                 dangerouslySetInnerHTML={{ __html: icon }}
               />
               {item.title}
               <SettingsButton>
-                <MenuItem onClick={() => deleteNode(item.title)}>
+                <MenuItem onClick={() => deleteFolder(item.title)}>
                   Delete
                 </MenuItem>
               </SettingsButton>
             </div>
             <div
              id="line"
-             className={"relative z-0 -my-12 bottom-[4.5rem] left-6 w-14 h-20 border-l-2 border-b-2 border-gray-500 " + (index === nodeRefs.length - 1 ? "rounded-bl-2xl" : "")}
+             className={"relative z-0 -my-12 bottom-[3.75rem] left-6 w-14 h-20 border-l-2 border-b-2 border-gray-500 " + (index === folderRefs.length - 1 ? "rounded-bl-xl" : "")}
             />
         </div>
       );
   });
 
-  return <div className="pt-3 pb-3">{nodes}</div>;
+  return <div className="pt-3 pb-3">{folders}</div>;
 }

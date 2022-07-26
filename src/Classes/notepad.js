@@ -1,13 +1,13 @@
-let homeNode = {
+let homeFolder = {
     "pages": {
 
     },
-    "nodes": []
+    "folders": []
 }
 
 
-// class Node {
-//     nodes = [];
+// class Folder {
+//     folders = [];
 //     pages = [];
 //     parent;
 //     title = "";
@@ -16,7 +16,7 @@ let homeNode = {
 class Page {
     title = "";
     content = "";
-    parentNode;
+    parentFolder;
 }
 
 
@@ -45,7 +45,7 @@ console.log(x.height) // 10
 let path = ['home']
 
 
-let myObj = {title: "home", nodes: []}
+let myObj = {title: "home", folders: []}
   
 // let currentParent = myObj[path[[0]]]
 // console.log(currentParent);

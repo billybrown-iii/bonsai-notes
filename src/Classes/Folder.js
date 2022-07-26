@@ -1,10 +1,10 @@
 import Page from "./Page";
-import NodeRef from "./NodeRef";
+import FolderRef from "./FolderRef";
 import PageRef from "./PageRef";
 
-class Node {
+class Folder {
     /**
-     * Folder-like containers.  Can contain nodes and/or pages.
+     * Folder-like containers.  Can contain folders and/or pages.
      * @param {string} title 
      * @param {array} parentPath 
      */
@@ -12,12 +12,12 @@ class Node {
         this.title = title;
         this.path = [...parentPath, title];
     }
-    nodes = [];
+    folders = [];
     pages = [];
     /**
      * @param {string} title 
      */
-    createChildNode = (title) => {this.nodes.push(new Node(title, this.path))}
+    createChildFolder = (title) => {this.folders.push(new Folder(title, this.path))}
     /**
      * @param {string} title 
      */
@@ -35,7 +35,7 @@ class Node {
         let copy = path.slice(1);
         let destination = this;
         while (copy.length > 0){
-            destination = destination.nodes.find(node => node.title === copy[0]);
+            destination = destination.folders.find(folder => folder.title === copy[0]);
             copy.shift();
         }
         return destination;
@@ -46,10 +46,10 @@ class Node {
     }
 
     /**
-     * Generates nodeRefs for UI display.
+     * Generates folderRefs for UI display.
      * @returns array
      */
-    nodeRefGen = () => {return this.nodes.slice().map((item) => new NodeRef(item.title, this.path))}
+    folderRefGen = () => {return this.folders.slice().map((item) => new FolderRef(item.title, this.path))}
 
     /**
      * Generates pageRefs for UI display.
@@ -58,14 +58,14 @@ class Node {
     pageRefGen = () => {return this.pages.slice().map((item) => new PageRef(item.title, item.path))}
 }
 
-const createDummyHomeNode = () => {
-    let testNode = new Node("Home", []);
+const createDummyHomeFolder = () => {
+    let testFolder = new Folder("Home", []);
 
-    testNode.createChildNode("Node 1")  // path = ["Home", "Node 1"]
-    testNode.createChildNode("Node 2")
-    testNode.createPage("Page 1")
-    testNode.createPage("Page 2")
-    return testNode;
+    testFolder.createChildFolder("Folder 1")  // path = ["Home", "Folder 1"]
+    testFolder.createChildFolder("Folder 2")
+    testFolder.createPage("Page 1")
+    testFolder.createPage("Page 2")
+    return testFolder;
 }
 
-export {Node, createDummyHomeNode};
+export {Folder, createDummyHomeFolder};
