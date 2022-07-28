@@ -3,12 +3,12 @@ import SettingsButton from './SettingsButton';
 import { MenuItem } from '@szhsin/react-menu';
 
 
-const pageIcon = feather.icons["file"].toSvg({"stroke-width": 1, "width": "20px"});
+const pageIcon = feather.icons["file"].toSvg({"stroke-width": 2, "width": "20px"});
 
 
 export default function PageList ({ pageRefs, addPage, selectedPage, setSelectedPage, deletePage }) {
 
-    const pageStyles = "group flex w-3/4 m-auto my-3 px-6 py-3 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600";
+    const pageStyles = "group flex items-center w-2/3 m-auto my-2.5 px-6 py-2.5 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600";
 
     const pages = pageRefs.map((item, index) => {
         // Condition for placeholder page

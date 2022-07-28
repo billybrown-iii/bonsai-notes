@@ -122,39 +122,23 @@ export default function Sidebar({
       className="h-full w-1/3 overflow-auto border-r-2 border-zinc-500 dark:border-slate-100 select-none"
     >
       {/* if you want it to stay on top, you'll need to redo your styling with vw units */}
-      <div id="sidebar-btns" className="flex justify-end">
-        <div
-          onClick={newFolder}
-          id="new-folder-btn"
-          className="px-3 border-2 border-r-0 border-zinc-900 dark:border-slate-100"
-        >
-          New Folder
-        </div>
-        <div
-          onClick={newPage}
-          id="new-page-btn"
-          className="px-3 border-2 border-zinc-900 dark:border-slate-100"
-        >
-          New Page
-        </div>
-      </div>
 
       <div
-        id="back-button"
+        id="parent-folder"
         onClick={() => {
           setSelectedPage(null);
           if (path.length > 1) setPath(path.slice(0, path.length - 1));
         }}
-        className="flex relative z-10 w-3/4 rounded-2xl m-auto mt-10 -mb-3 items-center p-4 py-5 text-lg bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
+        className="flex justify-center relative z-10 w-7/12 rounded-b-2xl m-auto -mb-3 items-center p-3 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
       >
         <div
           id="back-icon"
-          className="-my-1"
+          className="-my-1 mr-2"
           dangerouslySetInnerHTML={{
             __html: path.length > 1 ? backIcon : homeIcon,
           }}
         />
-        <div className="ml-2 text-xl">{" " + parent.title}</div>
+        <div className="text-xl">{" " + parent.title}</div>
       </div>
 
       <div id="sidebar-list" className="pb-10">
@@ -166,10 +150,27 @@ export default function Sidebar({
           deleteFolder={deleteFolder}
         />
 
+        <div id="sidebar-btns" className="flex justify-end my-5">
+          <div
+            onClick={newFolder}
+            id="new-folder-btn"
+            className="px-3 border-2 border-r-0 border-zinc-900 dark:border-slate-100"
+          >
+            New Folder
+          </div>
+          <div
+            onClick={newPage}
+            id="new-page-btn"
+            className="px-3 border-2 border-zinc-900 dark:border-slate-100"
+          >
+            New Page
+          </div>
+        </div>
+
         <hr
           className={
             "w-11/12 m-auto mt-5 mb-6 " +
-            (folderRefs.length > 0 && pageRefs.length > 0 ? "" : "hidden")
+            (folderRefs.length > 0 && pageRefs.length > 0 ? "" : "")
           }
         />
         <PageList
@@ -180,7 +181,6 @@ export default function Sidebar({
           deletePage={deletePage}
         />
       </div>
-      
     </div>
   );
 }
