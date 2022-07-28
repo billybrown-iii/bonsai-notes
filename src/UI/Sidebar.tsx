@@ -1,12 +1,25 @@
-import { useState, useEffect } from "react";
-import FolderRef from "../Classes/FolderRef.js";
-import PageRef from "../Classes/PageRef.js";
-import FolderList from "./FolderList.js";
-import PageList from "./PageList.js";
+import { useState, useEffect, SetStateAction, Dispatch } from "react";
+import FolderRef from "../Classes/FolderRef";
+import PageRef from "../Classes/PageRef";
+import FolderList from "./FolderList";
+import PageList from "./PageList";
 import feather from "feather-icons";
+import { Folder } from "../Classes/Folder";
 
 const backIcon = feather.icons["corner-left-up"].toSvg({ "stroke-width": 2 });
 const homeIcon = feather.icons["home"].toSvg({ "stroke-width": 2 });
+
+// TODO change to context probably with react-query
+type Props = {
+  path: string[];
+  setPath: Dispatch<SetStateAction<string[]>>;
+  parent: Folder;
+  pageRefs: PageRef[];
+  setPageRefs: Dispatch<SetStateAction<PageRef[]>>;
+  selectedPage: string | null;
+  setSelectedPage: Dispatch<SetStateAction<string | null>>;
+  deletePage: (title: string) => void;
+};
 
 export default function Sidebar({
   path,
@@ -17,7 +30,7 @@ export default function Sidebar({
   selectedPage,
   setSelectedPage,
   deletePage,
-}) {
+}: Props) {
   const [folderRefs, setFolderRefs] = useState(parent.folderRefGen());
 
   // When the parent changes, update displayed folders/pages.
@@ -34,11 +47,8 @@ export default function Sidebar({
     setFolderRefs([...folderRefs, newFolderRef]);
   };
 
-  /**
-   * Adds new folderRef to UI and new folder to parent object
-   * @param {string} title
-   */
-  const addFolder = (title) => {
+  /*** Adds new folderRef to UI and new folder to parent object */
+  const addFolder = (title: string) => {
     title = title.trim();
     if (parent.folders.some((folder) => folder.title === title)) {
       setFolderRefs(folderRefs.slice(0, folderRefs.length - 1));
@@ -70,15 +80,13 @@ export default function Sidebar({
 
   /** Adds a temporary placeholder pageRef. */
   const newPage = () => {
+    // TODO check for empty string title
     const newPageRef = new PageRef("New Page", null);
     setPageRefs([...pageRefs, newPageRef]);
   };
 
-  /**
-   * Adds new pageRef to UI and new page to parent object.
-   * @param {string} title
-   */
-  const addPage = (title) => {
+  /*** Adds new pageRef to UI and new page to parent object.*/
+  const addPage = (title: string) => {
     title = title.trim();
     // check for dentical page titles in same folder
     if (parent.pages.some((page) => page.title === title)) {
@@ -110,7 +118,7 @@ export default function Sidebar({
     setSelectedPage(title);
   };
 
-  const deleteFolder = (title) => {
+  const deleteFolder = (title: string) => {
     parent.folders = parent.folders.filter((folder) => folder.title !== title);
     setFolderRefs(parent.folderRefGen());
   };
