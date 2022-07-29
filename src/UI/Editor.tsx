@@ -18,7 +18,7 @@ type Props = {
   setSelectedPage: Dispatch<SetStateAction<string | null>>;
   parent: Folder;
   setPageRefs: Dispatch<SetStateAction<PageRef[]>>;
-  key: number;
+  keyProp: number;
 };
 
 export default function PrimaryEditor({
@@ -26,7 +26,7 @@ export default function PrimaryEditor({
   setSelectedPage,
   parent,
   setPageRefs,
-  key,
+  keyProp,
 }: Props) {
   const currentPage = parent.findPage(selectedPage);
   const initialValue = currentPage?.content;
@@ -107,7 +107,7 @@ export default function PrimaryEditor({
     <div
       className={(selectedPage ? "" : "hidden") + " w-2/3 h-5/6"}
       id="editor"
-      key={key}
+      key={keyProp}
     >
       <TitleBar
         pageTitle={pageTitle}
