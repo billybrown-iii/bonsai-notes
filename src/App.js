@@ -3,6 +3,7 @@ import { createDummyHomeFolder } from "./Classes/Folder";
 import Sidebar from "./UI/Sidebar";
 import Editor from "./UI/Editor";
 import Nav from "./UI/Nav";
+import FolderList from "./UI/FolderList";
 import "./App.css";
 
 const homeNode = createDummyHomeFolder();
@@ -40,13 +41,16 @@ function App() {
           selectedPage={selectedPage}
           setSelectedPage={setSelectedPage}
           deletePage={deletePage}
+          FolderList={() => (
+            <FolderList setPath={setPath} setSelectedPage={setSelectedPage} />
+          )}
         />
         <Editor
           selectedPage={selectedPage}
           setSelectedPage={setSelectedPage}
           parent={parent}
           setPageRefs={setPageRefs}
-          key={key}
+          keyProp={key}
         />
         <Nav setKey={setKey} />
       </div>
