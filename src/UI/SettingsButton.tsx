@@ -1,5 +1,6 @@
 import feather from "feather-icons";
 import { Menu } from "@szhsin/react-menu";
+import React, { ReactNode } from "react";
 import "@szhsin/react-menu/dist/index.css";
 import "@szhsin/react-menu/dist/transitions/slide.css";
 
@@ -11,10 +12,11 @@ const settingsIcon = feather.icons["settings"].toSvg({
 /**
  * Wrapper for settings button
  * Provides outer skeleton.  Implementation still to add individual menu items for settings.
- * @param {*} param0 
- * @returns 
  */
-const SettingsButton = ({ children }) => {
+type Props = {
+  children?: ReactNode;
+};
+const SettingsButton = ({ children }: Props) => {
   return (
     <div
       className="invisible group-hover:visible h-fit ml-auto -mr-3 -my-1 text-slate-600 hover:bg-gray-400 hover:text-slate-800 dark:text-slate-300 dark:hover:bg-gray-500 dark:hover:text-slate-200 rounded-md"

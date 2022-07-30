@@ -9,7 +9,6 @@ import { Folder } from "../Classes/Folder";
 const backIcon = feather.icons["corner-left-up"].toSvg({ "stroke-width": 2 });
 const homeIcon = feather.icons["home"].toSvg({ "stroke-width": 2 });
 
-// TODO change to context probably with react-query
 type Props = {
   path: string[];
   setPath: Dispatch<SetStateAction<string[]>>;
@@ -43,7 +42,7 @@ export default function Sidebar({
 
   /** Adds a temporary placeholder folderRef, pending naming and confirmation */
   const newFolder = () => {
-    const newFolderRef = new FolderRef("New Folder", [null]);
+    const newFolderRef = new FolderRef("New Folder", path, true);
     setFolderRefs([...folderRefs, newFolderRef]);
   };
 

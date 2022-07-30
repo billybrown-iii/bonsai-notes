@@ -9,6 +9,9 @@ import "./App.css";
 const homeNode = createDummyHomeFolder();
 console.log(homeNode);
 
+// TODO reduce props drilling, improve clarity
+// composition using children possible via cloneElement
+// example in codesandbox - jovial
 function App() {
   const [path, setPath] = useState(["Home"]);
   const [selectedPage, setSelectedPage] = useState(null);

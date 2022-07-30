@@ -1,12 +1,22 @@
 import { MenuItem } from "@szhsin/react-menu";
 import feather from "feather-icons";
+import { Dispatch, SetStateAction } from "react";
+import FolderRef from "../Classes/FolderRef";
 import SettingsButton from "./SettingsButton";
 
 const icon = feather.icons["folder"].toSvg({
   "stroke-width": 2,
   width: "20px",
 });
-// const icon = ""
+
+type Props = {
+  setPath: Dispatch<SetStateAction<string[]>>;
+  setSelectedPage: Dispatch<SetStateAction<string | null>>;
+  folderRefs: FolderRef[];
+  addFolder: (title: string) => void;
+  deleteFolder: (title: string) => void;
+};
+
 /** List of folderRefs to be displayed in UI */
 export default function FolderList({
   setPath,
@@ -14,12 +24,12 @@ export default function FolderList({
   folderRefs,
   addFolder,
   deleteFolder,
-}) {
+}: Props) {
   const folderStyles =
     "group relative z-10 flex items-center w-3/4 my-3.5 ml-auto mr-4 py-1.5 px-6 text-sm rounded-xl bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600";
 
   const folders = folderRefs.map((item, index) => {
-    if (item.path[0] === null) {
+    if (item.isNew) {
       return (
         <div className="w-7/12 m-auto" key={index}>
           <div className={folderStyles}>
@@ -32,7 +42,6 @@ export default function FolderList({
                 addFolder(e.target.value);
               }}
               onKeyPress={(e) => {
-                //@ts-ignore
                 if (e.key === "Enter") addFolder(e.target.value);
               }}
             />
