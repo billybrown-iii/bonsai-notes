@@ -128,8 +128,6 @@ export default function Sidebar({
       id="sidebar"
       className="h-full w-1/3 overflow-auto border-r-2 border-zinc-500 dark:border-slate-100 select-none"
     >
-      {/* if you want it to stay on top, you'll need to redo your styling with vw units */}
-
       <div
         id="parent-folder"
         onClick={() => {

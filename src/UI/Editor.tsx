@@ -7,7 +7,6 @@ import React, {
   ChangeEventHandler,
 } from "react";
 import TitleBar from "./TitleBar";
-import { truncateSpaces } from "../Misc";
 import { Editor } from "@tinymce/tinymce-react";
 import { Editor as TinyMCEEditor } from "tinymce";
 import { Folder } from "../Classes/Folder";
@@ -58,7 +57,7 @@ export default function PrimaryEditor({
    */
   const saveTitleChange = () => {
     if (!currentPage) return;
-    let title = truncateSpaces(pageTitle);
+    let title = pageTitle.trim();
     if (
       title.length === 0 ||
       (parent.pages.some((page) => page.title === title) &&

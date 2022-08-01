@@ -3,7 +3,6 @@ import { createDummyHomeFolder } from "./Classes/Folder";
 import Sidebar from "./UI/Sidebar";
 import Editor from "./UI/Editor";
 import Nav from "./UI/Nav";
-import FolderList from "./UI/FolderList";
 import "./App.css";
 
 const homeNode = createDummyHomeFolder();
@@ -14,7 +13,7 @@ console.log(homeNode);
 // example in codesandbox - jovial
 function App() {
   const [path, setPath] = useState(["Home"]);
-  const [selectedPage, setSelectedPage] = useState(null);
+  const [selectedPage, setSelectedPage] = useState<string | null>(null);
   const parent = homeNode.navObj(path);
 
   // lift pageRefs state up, since Editor can adjust it by adjusting page title
@@ -22,7 +21,7 @@ function App() {
 
   const [key, setKey] = useState(0);
 
-  const deletePage = (title) => {
+  const deletePage = (title: string) => {
     parent.pages = parent.pages.filter((page) => page.title !== title);
     setPageRefs(parent.pageRefGen());
     if (title === selectedPage) setSelectedPage(null);
@@ -44,9 +43,6 @@ function App() {
           selectedPage={selectedPage}
           setSelectedPage={setSelectedPage}
           deletePage={deletePage}
-          FolderList={() => (
-            <FolderList setPath={setPath} setSelectedPage={setSelectedPage} />
-          )}
         />
         <Editor
           selectedPage={selectedPage}
