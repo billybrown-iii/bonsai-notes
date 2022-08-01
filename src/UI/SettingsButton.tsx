@@ -19,7 +19,7 @@ type Props = {
 const SettingsButton = ({ children }: Props) => {
   return (
     <div
-      className="invisible group-hover:visible h-fit ml-auto -mr-3 -my-1 text-slate-600 hover:bg-gray-400 hover:text-slate-800 dark:text-slate-300 dark:hover:bg-gray-500 dark:hover:text-slate-200 rounded-md"
+      className="invisible group-hover:visible h-fit ml-auto mr-1 -my-1 text-slate-600 hover:bg-gray-400 hover:text-slate-800 dark:text-slate-300 dark:hover:bg-gray-500 dark:hover:text-slate-200 rounded-md"
       onClick={(e) => e.stopPropagation()}
     >
       <Menu

@@ -5,9 +5,12 @@ import FolderList from "./FolderList";
 import PageList from "./PageList";
 import feather from "feather-icons";
 import { Folder } from "../Classes/Folder";
+import MiniButton from "./MiniButton";
 
 const backIcon = feather.icons["corner-left-up"].toSvg({ "stroke-width": 2 });
 const homeIcon = feather.icons["home"].toSvg({ "stroke-width": 2 });
+const newFolderIcon = feather.icons["folder-plus"].toSvg({ "stroke-width": 2 });
+const newPageIcon = feather.icons["file-plus"].toSvg({ "stroke-width": 2 });
 
 type Props = {
   path: string[];
@@ -128,22 +131,30 @@ export default function Sidebar({
       id="sidebar"
       className="h-full w-1/3 overflow-auto border-r-2 border-zinc-500 dark:border-slate-100 select-none"
     >
-      <div
-        id="parent-folder"
-        onClick={() => {
-          setSelectedPage(null);
-          if (path.length > 1) setPath(path.slice(0, path.length - 1));
-        }}
-        className="flex justify-center relative z-10 w-7/12 rounded-b-2xl m-auto -mb-3 items-center p-3 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
-      >
+      {/* Idea:
+  Hover over parent, and arrow appears to the side, to show what clicking does.
+   */}
+      <div className="flex justify-around">
         <div
-          id="back-icon"
-          className="-my-1 mr-2"
-          dangerouslySetInnerHTML={{
-            __html: path.length > 1 ? backIcon : homeIcon,
+          id="parent-folder"
+          onClick={() => {
+            setSelectedPage(null);
+            if (path.length > 1) setPath(path.slice(0, path.length - 1));
           }}
-        />
-        <div className="text-xl">{" " + parent.title}</div>
+          className="flex group items-center relative z-10 w-3/5 rounded-b-2xl mx-auto p-3.5 pr-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
+        >
+          <div
+            id="back-icon"
+            className="relative -ml-10 mx-1 invisible group-hover:visible"
+            dangerouslySetInnerHTML={{
+              __html: path.length > 1 ? backIcon : "",
+            }}
+          />
+          <div className="text-xl m-auto">{" " + parent.title}</div>
+        </div>
+        <div className="-ml-10 mr-2.5 py-1">
+          <MiniButton icon={newFolderIcon} func={newFolder} />
+        </div>
       </div>
 
       <div id="sidebar-list" className="pb-10">
@@ -155,36 +166,26 @@ export default function Sidebar({
           deleteFolder={deleteFolder}
         />
 
-        <div id="sidebar-btns" className="flex justify-end my-5">
-          <div
-            onClick={newFolder}
-            id="new-folder-btn"
-            className="px-3 border-2 border-r-0 border-zinc-900 dark:border-slate-100"
-          >
-            New Folder
-          </div>
-          <div
-            onClick={newPage}
-            id="new-page-btn"
-            className="px-3 border-2 border-zinc-900 dark:border-slate-100"
-          >
-            New Page
-          </div>
-        </div>
-
         <hr
           className={
-            "w-11/12 m-auto mt-5 mb-6 " +
+            "w-11/12 m-auto mt-5 mb-4 " +
             (folderRefs.length > 0 && pageRefs.length > 0 ? "" : "")
           }
         />
-        <PageList
-          pageRefs={pageRefs}
-          addPage={addPage}
-          selectedPage={selectedPage}
-          setSelectedPage={setSelectedPage}
-          deletePage={deletePage}
-        />
+        <div className="flex justify-around">
+          <div className="w-3/5 m-auto">
+            <PageList
+              pageRefs={pageRefs}
+              addPage={addPage}
+              selectedPage={selectedPage}
+              setSelectedPage={setSelectedPage}
+              deletePage={deletePage}
+            />
+          </div>
+          <div className="-ml-10 mr-2.5 -mt-1">
+            <MiniButton icon={newPageIcon} func={newPage} />
+          </div>
+        </div>
       </div>
     </div>
   );

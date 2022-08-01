@@ -26,7 +26,7 @@ export default function FolderList({
   deleteFolder,
 }: Props) {
   const folderStyles =
-    "group relative z-10 flex items-center w-3/4 my-3.5 ml-auto mr-4 py-1.5 px-6 text-sm rounded-xl bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600";
+    "group relative z-10 flex items-center w-3/4 my-3.5 ml-auto mr-4 p-1.5 pl-4 text-sm rounded-xl bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600";
 
   const folders = folderRefs.map((item, index) => {
     if (item.isNew) {
@@ -64,6 +64,7 @@ export default function FolderList({
               dangerouslySetInnerHTML={{ __html: icon }}
             />
             {item.title}
+
             <SettingsButton>
               <MenuItem onClick={() => deleteFolder(item.title)}>
                 Delete
