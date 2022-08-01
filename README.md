@@ -1,5 +1,7 @@
 ## Bonsai Notes
 
+<!-- img size: 1060 x 840 -->
+
 ![image of app](./public/preview.png)
 
 This is a note taking application, which is a work in progress.
