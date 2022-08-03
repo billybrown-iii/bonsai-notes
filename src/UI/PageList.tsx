@@ -59,7 +59,7 @@ export default function PageList({
           key={index}
         >
           {selectedPage === item.title ? (
-            <span className="relative -left-7 h-2 w-2 rounded-full my-auto bg-sky-400"></span>
+            <span className="relative -left-7 h-2 w-2 rounded-full -mr-1 my-auto bg-sky-400"></span>
           ) : null}
           <span
             className="mr-2"

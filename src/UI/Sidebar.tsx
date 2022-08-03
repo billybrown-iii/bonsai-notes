@@ -129,30 +129,30 @@ export default function Sidebar({
     // TODO when create new folder or page, scroll to comfortably view
     <div
       id="sidebar"
-      className="h-full w-1/3 overflow-auto border-r-2 border-zinc-500 dark:border-slate-100 select-none"
+      className="h-full w-1/3 lg:w-1/4 overflow-auto border-r-2 border-zinc-500 dark:border-slate-100 select-none"
     >
       {/* Idea:
   Hover over parent, and arrow appears to the side, to show what clicking does.
    */}
-      <div className="flex justify-around">
+      <div className="flex">
         <div
           id="parent-folder"
           onClick={() => {
             setSelectedPage(null);
             if (path.length > 1) setPath(path.slice(0, path.length - 1));
           }}
-          className="flex group items-center relative z-10 w-3/5 rounded-b-2xl mx-auto p-3.5 pr-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
+          className="flex items-center relative z-10 w-4/5 rounded-br-2xl p-3.5 pr-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
         >
           <div
             id="back-icon"
-            className="relative -ml-10 mx-1 invisible group-hover:visible"
+            className="relative mx-1"
             dangerouslySetInnerHTML={{
-              __html: path.length > 1 ? backIcon : "",
+              __html: path.length > 1 ? backIcon : homeIcon,
             }}
           />
-          <div className="text-xl m-auto">{" " + parent.title}</div>
+          <div className="text-xl">{" " + parent.title}</div>
         </div>
-        <div className="-ml-10 mr-2.5 py-1">
+        <div className="ml-3 mr-2.5 py-1">
           <MiniButton icon={newFolderIcon} func={newFolder} />
         </div>
       </div>
@@ -166,14 +166,28 @@ export default function Sidebar({
           deleteFolder={deleteFolder}
         />
 
+        {/* <div className="relative h- w-4/5 border-l-2 border-b-2 border-gray-500" /> */}
+        {/* <div className="w-7/12 m-auto">
+          <div
+            id="line"
+            className={
+              "relative flex z-0 mt-4 -mb-12 bottom-16 -left-10 w-[130%] h-20 border-l-2 border-b-2 border-gray-500 "
+            }
+          >
+            <span className="relative top-12 text-lg ml-8 text-gray-300">
+              Pages:
+            </span>
+          </div>
+        </div> */}
+
         <hr
           className={
-            "w-11/12 m-auto mt-5 mb-4 " +
+            "w-11/12 m-auto mt-5 mb-4 border-t border-gray-400 " +
             (folderRefs.length > 0 && pageRefs.length > 0 ? "" : "")
           }
         />
         <div className="flex justify-around">
-          <div className="w-3/5 m-auto">
+          <div className="w-4/5 ml-7">
             <PageList
               pageRefs={pageRefs}
               addPage={addPage}
@@ -182,7 +196,7 @@ export default function Sidebar({
               deletePage={deletePage}
             />
           </div>
-          <div className="-ml-10 mr-2.5 -mt-1">
+          <div className="mx-3 ml-4">
             <MiniButton icon={newPageIcon} func={newPage} />
           </div>
         </div>
