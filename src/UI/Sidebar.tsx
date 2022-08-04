@@ -6,11 +6,19 @@ import PageList from "./PageList";
 import feather from "feather-icons";
 import { Folder } from "../Classes/Folder";
 import MiniButton from "./MiniButton";
+import FullButton from "./FullButton";
+import ResponsiveButton from "./ResponsiveButton";
 
 const backIcon = feather.icons["corner-left-up"].toSvg({ "stroke-width": 2 });
 const homeIcon = feather.icons["home"].toSvg({ "stroke-width": 2 });
-const newFolderIcon = feather.icons["folder-plus"].toSvg({ "stroke-width": 2 });
-const newPageIcon = feather.icons["file-plus"].toSvg({ "stroke-width": 2 });
+const newFolderIcon = feather.icons["folder-plus"].toSvg({
+  "stroke-width": 2,
+  width: "24px",
+});
+const newPageIcon = feather.icons["edit"].toSvg({
+  "stroke-width": 2,
+  width: "24px",
+});
 
 type Props = {
   path: string[];
@@ -129,7 +137,7 @@ export default function Sidebar({
     // TODO when create new folder or page, scroll to comfortably view
     <div
       id="sidebar"
-      className="h-full w-1/3 lg:w-1/4 overflow-auto border-r-2 border-zinc-500 dark:border-slate-100 select-none"
+      className="h-full w-1/3 lg:w-[31%] overflow-auto border-r-2 border-zinc-500 dark:border-slate-100 select-none"
     >
       {/* Idea:
   Hover over parent, and arrow appears to the side, to show what clicking does.
@@ -141,20 +149,32 @@ export default function Sidebar({
             setSelectedPage(null);
             if (path.length > 1) setPath(path.slice(0, path.length - 1));
           }}
-          className="flex items-center relative z-10 w-4/5 rounded-br-2xl p-3.5 pr-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
+          className="flex items-center relative z-10 w-4/5 lg:w-[63%] rounded-br-2xl mr-3 py-3.5 px-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
         >
           <div
             id="back-icon"
-            className="relative mx-1"
+            className="relative mr-1.5"
             dangerouslySetInnerHTML={{
               __html: path.length > 1 ? backIcon : homeIcon,
             }}
           />
           <div className="text-xl">{" " + parent.title}</div>
         </div>
-        <div className="ml-3 mr-2.5 py-1">
-          <MiniButton icon={newFolderIcon} func={newFolder} />
+        <div className="ml-auto mt-1 mr-3 py-1">
+          <ResponsiveButton
+            icon={newFolderIcon}
+            func={newFolder}
+            text="New folder"
+          />
         </div>
+      </div>
+      <div
+        className={
+          "relative z-10 flex justify-end w-full -mb-12 pr-3 pt-4 " +
+          (pageRefs.length > 0 ? "hidden" : "visible")
+        }
+      >
+        <ResponsiveButton icon={newPageIcon} func={newPage} text="New page" />
       </div>
 
       <div id="sidebar-list" className="pb-10">
@@ -166,35 +186,37 @@ export default function Sidebar({
           deleteFolder={deleteFolder}
         />
 
-        {/* <div className="relative h- w-4/5 border-l-2 border-b-2 border-gray-500" /> */}
-        <div className="w-7/12 m-auto mb-2">
+        <div
+          className={
+            "flex ml-7 mr-auto " + (pageRefs.length > 0 ? "visible" : "hidden")
+          }
+        >
           <div
             id="line"
             className={
-              "relative flex z-0 -mt-16 -mb-12 bottom-16 -left-12 w-[5%] h-40 border-l border-b rounded-bl-lg border-gray-400 "
+              "relative z-0 -mb-40 bottom-32 right-4 w-4 h-40 border-l border-b rounded-bl-xl border-gray-400 "
             }
-          >
-            {/* this span causing bug */}
-            <span className="relative flex top-20 text-md ml-3.5 mt-16">
-              <span className="relative top-1">Pages </span>
-              <span className="relative right-[4.5rem] h-0 border-b border-gray-500 top-9 w-[18.5rem]">
-                {/* <hr /> */}
-              </span>
-            </span>
+          ></div>
+          <div className="relative top-4 text-lg -ml-2 text-gray-300">
+            Pages
           </div>
-          <span className="relative left-[12.5rem] bottom-12">
-            <MiniButton icon={newPageIcon} func={newPage} />
-          </span>
+          <div className="relative top-1 ml-auto mr-3">
+            <ResponsiveButton
+              icon={newPageIcon}
+              func={newPage}
+              text="New page"
+            />
+          </div>
         </div>
-        {/* 
+
         <hr
           className={
-            "w-11/12 m-auto mt-5 mb-4 border-t border-gray-400 " +
-            (folderRefs.length > 0 && pageRefs.length > 0 ? "" : "")
+            "w-11/12 m-auto mt-3 mb-4 border-t border-gray-600 " +
+            (pageRefs.length > 0 ? "visible" : "hidden")
           }
-        /> */}
+        />
         <div className="flex justify-around">
-          <div className="w-2/3 -ml-8 -mt-10">
+          <div className="w-4/5 ml-7">
             <PageList
               pageRefs={pageRefs}
               addPage={addPage}
@@ -203,6 +225,7 @@ export default function Sidebar({
               deletePage={deletePage}
             />
           </div>
+          <div className="mx-3 ml-4"></div>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 type Props = {
   icon: string;
-  func: () => void;
+  func: () => any;
 };
 const MiniButton = ({ icon, func }: Props) => {
   return (

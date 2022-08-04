@@ -104,7 +104,7 @@ export default function PrimaryEditor({
 
   return (
     <div
-      className={(selectedPage ? "" : "hidden") + " w-2/3 lg:w-3/4 h-5/6"}
+      className={(selectedPage ? "" : "hidden") + " w-2/3 lg:w-[69%] h-5/6"}
       id="editor"
       key={keyProp}
     >
