@@ -5,7 +5,7 @@ import FolderRef from "../Classes/FolderRef";
 import SettingsButton from "./SettingsButton";
 
 const icon = feather.icons["folder"].toSvg({
-  "stroke-width": 1,
+  "stroke-width": 2,
   width: "20px",
 });
 
@@ -26,7 +26,7 @@ export default function FolderList({
   deleteFolder,
 }: Props) {
   const folderStyles =
-    "group relative z-10 flex items-center w-full my-3.5 -ml-5 p-1 pl-4 text-sm rounded-xl bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600";
+    "group relative z-10 flex items-center w-full my-3.5 -ml-7 p-1 pl-4 text-sm rounded-xl bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600";
 
   const folders = folderRefs.map((item, index) => {
     if (item.isNew) {
@@ -74,8 +74,7 @@ export default function FolderList({
           <div
             id="line"
             className={
-              "relative z-0 -my-12 bottom-16 -left-10 w-14 h-20 border-l-2 border-b-2 border-gray-500 " +
-              (index === folderRefs.length - 1 ? "rounded-bl-lg" : "")
+              "relative z-0 -my-12 bottom-16 -left-12 w-14 h-20 border-l border-b border-gray-400 "
             }
           />
         </div>

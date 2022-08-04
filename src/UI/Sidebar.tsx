@@ -167,27 +167,34 @@ export default function Sidebar({
         />
 
         {/* <div className="relative h- w-4/5 border-l-2 border-b-2 border-gray-500" /> */}
-        {/* <div className="w-7/12 m-auto">
+        <div className="w-7/12 m-auto mb-2">
           <div
             id="line"
             className={
-              "relative flex z-0 mt-4 -mb-12 bottom-16 -left-10 w-[130%] h-20 border-l-2 border-b-2 border-gray-500 "
+              "relative flex z-0 -mt-16 -mb-12 bottom-16 -left-12 w-[5%] h-40 border-l border-b rounded-bl-lg border-gray-400 "
             }
           >
-            <span className="relative top-12 text-lg ml-8 text-gray-300">
-              Pages:
+            {/* this span causing bug */}
+            <span className="relative flex top-20 text-md ml-3.5 mt-16">
+              <span className="relative top-1">Pages </span>
+              <span className="relative right-[4.5rem] h-0 border-b border-gray-500 top-9 w-[18.5rem]">
+                {/* <hr /> */}
+              </span>
             </span>
           </div>
-        </div> */}
-
+          <span className="relative left-[12.5rem] bottom-12">
+            <MiniButton icon={newPageIcon} func={newPage} />
+          </span>
+        </div>
+        {/* 
         <hr
           className={
             "w-11/12 m-auto mt-5 mb-4 border-t border-gray-400 " +
             (folderRefs.length > 0 && pageRefs.length > 0 ? "" : "")
           }
-        />
+        /> */}
         <div className="flex justify-around">
-          <div className="w-4/5 ml-7">
+          <div className="w-2/3 -ml-8 -mt-10">
             <PageList
               pageRefs={pageRefs}
               addPage={addPage}
@@ -195,9 +202,6 @@ export default function Sidebar({
               setSelectedPage={setSelectedPage}
               deletePage={deletePage}
             />
-          </div>
-          <div className="mx-3 ml-4">
-            <MiniButton icon={newPageIcon} func={newPage} />
           </div>
         </div>
       </div>
