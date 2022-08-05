@@ -188,16 +188,16 @@ export default function Sidebar({
 
         <div
           className={
-            "flex ml-7 mr-auto " + (pageRefs.length > 0 ? "visible" : "hidden")
+            "flex ml-8 mr-auto " + (pageRefs.length > 0 ? "visible" : "hidden")
           }
         >
           <div
             id="line"
             className={
-              "relative z-0 -mb-40 bottom-32 right-4 w-4 h-40 border-l border-b rounded-bl-xl border-gray-400 "
+              "relative z-0 -mb-40 bottom-32 right-3 w-4 h-40 border-l border-b rounded-bl-xl border-gray-600 dark:border-gray-400 "
             }
           ></div>
-          <div className="relative top-4 text-lg -ml-2 text-gray-300">
+          <div className="relative top-4 text-lg -ml-2 text-gray-900 dark:text-gray-300">
             Pages
           </div>
           <div className="relative top-1 ml-auto mr-3">
