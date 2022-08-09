@@ -87,6 +87,9 @@ export default function FolderList({
               <MenuItem onClick={() => deleteFolder(item.title)}>
                 Delete
               </MenuItem>
+              <MenuItem onClick={() => deleteFolder(item.title)}>
+                Rename
+              </MenuItem>
             </SettingsButton>
           </div>
         </div>

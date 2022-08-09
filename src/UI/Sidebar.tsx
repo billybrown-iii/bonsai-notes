@@ -5,12 +5,9 @@ import FolderList from "./FolderList";
 import PageList from "./PageList";
 import feather from "feather-icons";
 import { Folder } from "../Classes/Folder";
-import MiniButton from "./MiniButton";
-import FullButton from "./FullButton";
 import ResponsiveButton from "./ResponsiveButton";
+import ParentFolder from "./ParentFolder";
 
-const backIcon = feather.icons["corner-left-up"].toSvg({ "stroke-width": 2 });
-const homeIcon = feather.icons["home"].toSvg({ "stroke-width": 2 });
 const newFolderIcon = feather.icons["folder-plus"].toSvg({
   "stroke-width": 2,
   width: "24px",
@@ -137,29 +134,18 @@ export default function Sidebar({
     // TODO when create new folder or page, scroll to comfortably view
     <div
       id="sidebar"
-      className="h-full w-1/3 lg:w-[31%] overflow-auto border-r-2 border-zinc-500 dark:border-slate-100 select-none"
+      className="h-full w-1/3 lg:w-[31%] overflow-auto border-r-2 border-zinc-300 dark:border-slate-600 select-none"
     >
       {/* Idea:
   Hover over parent, and arrow appears to the side, to show what clicking does.
    */}
       <div className="flex">
-        <div
-          id="parent-folder"
-          onClick={() => {
-            setSelectedPage(null);
-            if (path.length > 1) setPath(path.slice(0, path.length - 1));
-          }}
-          className="flex items-center relative z-10 w-4/5 xl:w-[61%] rounded-br-2xl mr-3 py-3.5 px-2 bg-zinc-200 hover:bg-zinc-300 dark:bg-gray-700 dark:hover:bg-gray-600"
-        >
-          <div
-            id="back-icon"
-            className="relative mr-1.5"
-            dangerouslySetInnerHTML={{
-              __html: path.length > 1 ? backIcon : homeIcon,
-            }}
-          />
-          <div className="text-xl">{" " + parent.title}</div>
-        </div>
+        <ParentFolder
+          setSelectedPage={setSelectedPage}
+          path={path}
+          setPath={setPath}
+          parent={parent}
+        />
         <div className="ml-auto mt-1 mr-3 py-1">
           <ResponsiveButton
             icon={newFolderIcon}

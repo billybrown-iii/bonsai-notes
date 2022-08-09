@@ -28,7 +28,7 @@ function App() {
   };
 
   return (
-    <div className="h-screen bg-gradient-to-r from-neutral-500 via-neutral-700 to-neutral-500 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-900">
+    <div className="h-screen bg-gradient-to-r from-stone-300 via-stone-200 to-stone-300 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-900">
       {/* <div className=' bg-gradient-to-r from-slate-600'>Hello</div> */}
       <div
         id="main"
