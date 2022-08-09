@@ -28,11 +28,11 @@ function App() {
   };
 
   return (
-    <div className="h-screen bg-gradient-to-r from-neutral-100 via-neutral-300 to-neutral-100 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-900">
+    <div className="h-screen bg-gradient-to-r from-neutral-500 via-neutral-700 to-neutral-500 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-900">
       {/* <div className=' bg-gradient-to-r from-slate-600'>Hello</div> */}
       <div
         id="main"
-        className="relative flex flex-wrap h-full w-full max-w-screen-xl min-w-[768px] m-auto bg-slate-100 dark:bg-gray-800 text-zinc-900 dark:text-zinc-50"
+        className="relative flex flex-wrap h-full w-full max-w-screen-xl min-w-[768px] m-auto bg-neutral-100 dark:bg-gray-800 text-zinc-900 dark:text-zinc-50"
       >
         <Sidebar
           path={path}

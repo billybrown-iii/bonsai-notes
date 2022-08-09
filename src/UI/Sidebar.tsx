@@ -149,7 +149,7 @@ export default function Sidebar({
             setSelectedPage(null);
             if (path.length > 1) setPath(path.slice(0, path.length - 1));
           }}
-          className="flex items-center relative z-10 w-4/5 lg:w-[63%] rounded-br-2xl mr-3 py-3.5 px-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
+          className="flex items-center relative z-10 w-4/5 xl:w-[61%] rounded-br-2xl mr-3 py-3.5 px-2 bg-zinc-200 hover:bg-zinc-300 dark:bg-gray-700 dark:hover:bg-gray-600"
         >
           <div
             id="back-icon"
@@ -164,7 +164,7 @@ export default function Sidebar({
           <ResponsiveButton
             icon={newFolderIcon}
             func={newFolder}
-            text="New folder"
+            text="New Folder"
           />
         </div>
       </div>
@@ -174,7 +174,7 @@ export default function Sidebar({
           (pageRefs.length > 0 ? "hidden" : "visible")
         }
       >
-        <ResponsiveButton icon={newPageIcon} func={newPage} text="New page" />
+        <ResponsiveButton icon={newPageIcon} func={newPage} text="New Page" />
       </div>
 
       <div id="sidebar-list" className="pb-10">
@@ -182,6 +182,7 @@ export default function Sidebar({
           setPath={setPath}
           setSelectedPage={setSelectedPage}
           folderRefs={folderRefs}
+          pageRefs={pageRefs}
           addFolder={addFolder}
           deleteFolder={deleteFolder}
         />
@@ -194,17 +195,17 @@ export default function Sidebar({
           <div
             id="line"
             className={
-              "relative z-0 -mb-40 bottom-32 right-3 w-4 h-40 border-l border-b rounded-bl-xl border-gray-600 dark:border-gray-400 "
+              "relative z-0 -mb-40 bottom-32 right-3 w-3.5 h-40 border-l-2 border-b-2 rounded-bl-xl border-neutral-300 dark:border-gray-700 "
             }
           ></div>
-          <div className="relative top-4 text-lg -ml-2 text-gray-900 dark:text-gray-300">
+          <div className="relative top-4 text-lg -ml-1 text-gray-900 dark:text-gray-300">
             Pages
           </div>
           <div className="relative top-1 ml-auto mr-3">
             <ResponsiveButton
               icon={newPageIcon}
               func={newPage}
-              text="New page"
+              text="New Page"
             />
           </div>
         </div>
@@ -216,7 +217,7 @@ export default function Sidebar({
           }
         />
         <div className="flex justify-around">
-          <div className="w-4/5 ml-7">
+          <div className="w-full xl:w-4/5 ml-7">
             <PageList
               pageRefs={pageRefs}
               addPage={addPage}

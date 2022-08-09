@@ -2,6 +2,7 @@ import { MenuItem } from "@szhsin/react-menu";
 import feather from "feather-icons";
 import { Dispatch, SetStateAction } from "react";
 import FolderRef from "../Classes/FolderRef";
+import PageRef from "../Classes/PageRef";
 import SettingsButton from "./SettingsButton";
 
 const icon = feather.icons["folder"].toSvg({
@@ -13,6 +14,7 @@ type Props = {
   setPath: Dispatch<SetStateAction<string[]>>;
   setSelectedPage: Dispatch<SetStateAction<string | null>>;
   folderRefs: FolderRef[];
+  pageRefs: PageRef[];
   addFolder: (title: string) => void;
   deleteFolder: (title: string) => void;
 };
@@ -22,16 +24,17 @@ export default function FolderList({
   setPath,
   setSelectedPage,
   folderRefs,
+  pageRefs,
   addFolder,
   deleteFolder,
 }: Props) {
   const folderStyles =
-    "group relative z-10 flex items-center w-full my-3.5 p-1.5 pl-4 text-sm rounded-xl bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600";
+    "group relative z-10 flex items-center w-full my-3.5 p-1.5 pl-3 text-sm rounded-xl bg-zinc-200 hover:bg-zinc-300 dark:bg-gray-700 dark:hover:bg-gray-600";
 
   const folders = folderRefs.map((item, index) => {
     if (item.isNew) {
       return (
-        <div className="w-1/2 ml-8 mr-auto" key={index}>
+        <div className="w-3/5 ml-8 mr-auto" key={index}>
           <div className={folderStyles}>
             <input
               className="w-full m-auto border-2 border-zinc-500 rounded-xl dark:bg-zinc-600 py-2 px-5"
@@ -50,33 +53,42 @@ export default function FolderList({
       );
     } else
       return (
-        <div className="w-1/2 ml-8 mr-auto" key={index}>
-          <div
-            onClick={() => {
-              setSelectedPage(null);
-              setPath(item.path);
-            }}
-            className={folderStyles}
-            id={"folderref-" + index}
-          >
+        <div className="group flex items-center w-3/4 xl:w-3/5 mr-10">
+          <div className="w-full ml-8" key={index}>
             <div
-              className="mr-2 -mt-0.5"
-              dangerouslySetInnerHTML={{ __html: icon }}
+              onClick={() => {
+                setSelectedPage(null);
+                setPath(item.path);
+              }}
+              className={folderStyles}
+              id={"folderref-" + index}
+            >
+              <div
+                className="mr-2 -mt-0.5"
+                dangerouslySetInnerHTML={{ __html: icon }}
+              />
+              {item.title}
+            </div>
+            <div
+              id="line"
+              className={
+                "relative z-0 -my-12 bottom-16 right-3 w-14 h-20 border-l-2 border-b-2 border-neutral-300 dark:border-gray-700" +
+                (pageRefs.length === 0 &&
+                (index === folderRefs.length - 1 ||
+                  (index === folderRefs.length - 2 &&
+                    folderRefs[folderRefs.length - 1].isNew))
+                  ? " rounded-bl-lg"
+                  : "")
+              }
             />
-            {item.title}
-
+          </div>
+          <div className="relative z-10 top-2 w-fit">
             <SettingsButton>
               <MenuItem onClick={() => deleteFolder(item.title)}>
                 Delete
               </MenuItem>
             </SettingsButton>
           </div>
-          <div
-            id="line"
-            className={
-              "relative z-0 -my-12 bottom-16 right-3 w-14 h-20 border-l border-b border-gray-600 dark:border-gray-400"
-            }
-          />
         </div>
       );
   });

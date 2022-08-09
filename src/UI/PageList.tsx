@@ -25,7 +25,7 @@ export default function PageList({
   deletePage,
 }: Props) {
   const pageStyles =
-    "group flex items-center w-full m-auto my-2.5 pl-3 pr-1 py-2.5 rounded-md bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600";
+    "flex items-center w-full xl:w-11/12 mr-auto my-2 pl-2 pr-1 py-2.5 rounded-md bg-zinc-200 hover:bg-zinc-300 dark:bg-gray-700 dark:hover:bg-gray-600";
 
   const pages = pageRefs.map((item, index) => {
     // Condition for placeholder page
@@ -51,21 +51,23 @@ export default function PageList({
       );
     } else {
       return (
-        <div
-          onClick={() => {
-            setSelectedPage(item.title);
-          }}
-          className={pageStyles}
-          key={index}
-        >
-          {selectedPage === item.title ? (
-            <span className="relative -left-7 h-2 w-2 rounded-full -mr-1 my-auto bg-sky-400"></span>
-          ) : null}
-          <span
-            className="mr-2"
-            dangerouslySetInnerHTML={{ __html: pageIcon }}
-          />
-          {item.title}
+        <div className="group flex items-center w-full">
+          <div
+            onClick={() => {
+              setSelectedPage(item.title);
+            }}
+            className={pageStyles}
+            key={index}
+          >
+            {selectedPage === item.title ? (
+              <span className="relative z-10 -left-7 h-2 w-2 rounded-full -mr-1 my-auto bg-sky-400"></span>
+            ) : null}
+            <span
+              className="mr-2"
+              dangerouslySetInnerHTML={{ __html: pageIcon }}
+            />
+            {item.title}
+          </div>
           <SettingsButton>
             <MenuItem onClick={() => deletePage(item.title)}>Delete</MenuItem>
           </SettingsButton>
@@ -74,5 +76,9 @@ export default function PageList({
     }
   });
 
-  return <div id="page-list">{pages}</div>;
+  return (
+    <div id="page-list" className="pl-1">
+      {pages}
+    </div>
+  );
 }

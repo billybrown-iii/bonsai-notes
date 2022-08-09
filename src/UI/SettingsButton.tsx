@@ -19,13 +19,13 @@ type Props = {
 const SettingsButton = ({ children }: Props) => {
   return (
     <div
-      className="invisible group-hover:visible h-fit ml-auto mr-1 -my-1 text-slate-600 hover:bg-gray-400 hover:text-slate-800 dark:text-slate-300 dark:hover:bg-gray-500 dark:hover:text-slate-200 rounded-md"
+      className="invisible group-hover:visible ml-1.5 -my-2 rounded-2xl text-zinc-500 hover:bg-zinc-200 hover:text-zinc-700 dark:text-slate-400 dark:hover:bg-gray-700 dark:hover:text-slate-300"
       onClick={(e) => e.stopPropagation()}
     >
       <Menu
         menuButton={
           <div
-            className="p-1 px-1.5"
+            className="p-1.5 px-2"
             dangerouslySetInnerHTML={{ __html: settingsIcon }}
           />
         }
