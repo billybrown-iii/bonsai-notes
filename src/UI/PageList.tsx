@@ -51,13 +51,12 @@ export default function PageList({
       );
     } else {
       return (
-        <div className="group flex items-center w-full">
+        <div className="group flex items-center w-full" key={index}>
           <div
             onClick={() => {
               setSelectedPage(item.title);
             }}
             className={pageStyles}
-            key={index}
           >
             {selectedPage === item.title ? (
               <span className="relative z-10 -left-7 h-2 w-2 rounded-full -mr-1 my-auto bg-sky-400"></span>

@@ -3,10 +3,10 @@
 export default class FolderRef {
   title;
   path: string[];
-  isNew?: boolean;
-  constructor(title: string, parentPath: string[], isNew?: boolean) {
+  code?: string;
+  constructor(title: string, parentPath: string[], code?: string) {
     this.title = title;
     this.path = [...parentPath, title];
-    this.isNew = isNew;
+    this.code = code;
   }
 }

@@ -50,7 +50,7 @@ export default function Sidebar({
 
   /** Adds a temporary placeholder folderRef, pending naming and confirmation */
   const newFolder = () => {
-    const newFolderRef = new FolderRef("New Folder", path, true);
+    const newFolderRef = new FolderRef("New Folder", path, "new");
     setFolderRefs([...folderRefs, newFolderRef]);
   };
 
@@ -83,6 +83,48 @@ export default function Sidebar({
         .concat(new FolderRef(title, parent.path))
     );
     parent.createChildFolder(title);
+  };
+
+  const deleteFolder = (title: string) => {
+    parent.folders = parent.folders.filter((folder) => folder.title !== title);
+    setFolderRefs(parent.folderRefGen());
+  };
+
+  /**
+   * Takes in name of folder to edit
+   * refreshes folderRefs with the affected one in editable state
+   */
+  const editFolderName = (title: string) => {
+    setFolderRefs((prev) =>
+      prev.map((ref) => {
+        if (ref.title === title) {
+          ref.code = "edit";
+        }
+        return ref;
+      })
+    );
+  };
+
+  const saveNewFolderName = (prevName: string, newName: string) => {
+    const folderToEdit = parent.folders.find(
+      (folder) => folder.title === prevName
+    );
+    if (folderToEdit) {
+      if (
+        prevName !== newName &&
+        folderRefs.find((ref) => ref.title === newName)
+      ) {
+        setFolderRefs(parent.folderRefGen());
+        alert(
+          "There's already a folder with this title.  Please use a different name."
+        );
+        return;
+      }
+      folderToEdit.title = newName;
+      setFolderRefs(parent.folderRefGen());
+    } else {
+      throw new Error("Function saveNewFolderName failed.");
+    }
   };
 
   /** Adds a temporary placeholder pageRef. */
@@ -123,11 +165,6 @@ export default function Sidebar({
     );
     parent.createPage(title);
     setSelectedPage(title);
-  };
-
-  const deleteFolder = (title: string) => {
-    parent.folders = parent.folders.filter((folder) => folder.title !== title);
-    setFolderRefs(parent.folderRefGen());
   };
 
   return (
@@ -171,6 +208,8 @@ export default function Sidebar({
           pageRefs={pageRefs}
           addFolder={addFolder}
           deleteFolder={deleteFolder}
+          editFolderName={editFolderName}
+          saveNewFolderName={saveNewFolderName}
         />
 
         <div
@@ -181,7 +220,7 @@ export default function Sidebar({
           <div
             id="line"
             className={
-              "relative z-0 -mb-40 bottom-32 right-3 w-3.5 h-40 border-l-2 border-b-2 rounded-bl-xl border-neutral-300 dark:border-gray-700 "
+              "relative z-0 -mb-40 bottom-32 right-3 w-3.5 h-40 border-l-2 border-b-2 rounded-bl-xl border-neutral-400 dark:border-gray-500 "
             }
           ></div>
           <div className="relative top-4 text-lg -ml-1 text-gray-900 dark:text-gray-300">

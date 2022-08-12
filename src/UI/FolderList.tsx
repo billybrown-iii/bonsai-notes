@@ -17,6 +17,8 @@ type Props = {
   pageRefs: PageRef[];
   addFolder: (title: string) => void;
   deleteFolder: (title: string) => void;
+  editFolderName: (title: string) => void;
+  saveNewFolderName: (prevName: string, newName: string) => void;
 };
 
 /** List of folderRefs to be displayed in UI */
@@ -27,12 +29,14 @@ export default function FolderList({
   pageRefs,
   addFolder,
   deleteFolder,
+  editFolderName,
+  saveNewFolderName,
 }: Props) {
   const folderStyles =
     "group relative z-10 flex items-center w-full my-3.5 p-1.5 pl-3 text-sm rounded-xl bg-zinc-200 hover:bg-zinc-300 dark:bg-gray-700 dark:hover:bg-gray-600";
 
   const folders = folderRefs.map((item, index) => {
-    if (item.isNew) {
+    if (item.code === "new") {
       return (
         <div className="w-3/5 ml-8 mr-auto" key={index}>
           <div className={folderStyles}>
@@ -51,10 +55,35 @@ export default function FolderList({
           </div>
         </div>
       );
+    } else if (item.code === "edit") {
+      return (
+        <div className="w-3/5 ml-8 mr-auto" key={index}>
+          <div className={folderStyles}>
+            <input
+              className="w-full m-auto border-2 border-zinc-500 rounded-xl dark:bg-zinc-600 py-2 px-5"
+              type="text"
+              placeholder="New Folder"
+              defaultValue={item.title}
+              autoFocus
+              // value={item.title}
+              onBlur={(e) => {
+                saveNewFolderName(item.title, e.target.value);
+              }}
+              onKeyPress={(e) => {
+                if (e.key === "Enter")
+                  saveNewFolderName(item.title, e.target.value);
+              }}
+            />
+          </div>
+        </div>
+      );
     } else
       return (
-        <div className="group flex items-center w-3/4 xl:w-3/5 mr-10">
-          <div className="w-full ml-8" key={index}>
+        <div
+          className="group flex items-center w-3/4 xl:w-3/5 mr-10"
+          key={index}
+        >
+          <div className="w-full ml-8">
             <div
               onClick={() => {
                 setSelectedPage(null);
@@ -72,11 +101,11 @@ export default function FolderList({
             <div
               id="line"
               className={
-                "relative z-0 -my-12 bottom-16 right-3 w-14 h-20 border-l-2 border-b-2 border-neutral-300 dark:border-gray-700" +
+                "relative z-0 -my-12 bottom-16 right-3 w-14 h-20 border-l-2 border-b-2 border-neutral-400 dark:border-gray-500" +
                 (pageRefs.length === 0 &&
                 (index === folderRefs.length - 1 ||
                   (index === folderRefs.length - 2 &&
-                    folderRefs[folderRefs.length - 1].isNew))
+                    folderRefs[folderRefs.length - 1].code))
                   ? " rounded-bl-lg"
                   : "")
               }
@@ -87,7 +116,7 @@ export default function FolderList({
               <MenuItem onClick={() => deleteFolder(item.title)}>
                 Delete
               </MenuItem>
-              <MenuItem onClick={() => deleteFolder(item.title)}>
+              <MenuItem onClick={() => editFolderName(item.title)}>
                 Rename
               </MenuItem>
             </SettingsButton>
