@@ -1,12 +1,15 @@
 import { useState } from "react";
-import { createDummyHomeFolder } from "./Classes/Folder";
+import { createHomeFolder } from "./Classes/Folder";
 import Sidebar from "./UI/Sidebar";
 import Editor from "./UI/Editor";
 import Nav from "./UI/Nav";
 import "./App.css";
 
-const homeNode = createDummyHomeFolder();
-console.log(homeNode);
+const storedNotes = localStorage.getItem("homeFolder");
+
+const homeFolder = createHomeFolder(storedNotes);
+
+console.log(homeFolder);
 
 // TODO reduce props drilling, improve clarity
 // composition using children possible via cloneElement
@@ -14,10 +17,10 @@ console.log(homeNode);
 function App() {
   const [path, setPath] = useState(["Home"]);
   const [selectedPage, setSelectedPage] = useState<string | null>(null);
-  const parent = homeNode.navObj(path);
+  const parent = homeFolder.navObj(path);
 
   // lift pageRefs state up, since Editor can adjust it by adjusting page title
-  const [pageRefs, setPageRefs] = useState(homeNode.pageRefGen());
+  const [pageRefs, setPageRefs] = useState(homeFolder.pageRefGen());
 
   const [key, setKey] = useState(0);
 
@@ -26,6 +29,13 @@ function App() {
     setPageRefs(parent.pageRefGen());
     if (title === selectedPage) setSelectedPage(null);
   };
+
+  const save = () => {
+    localStorage.setItem("homeFolder", JSON.stringify(homeFolder));
+  };
+
+  // add local storage
+  // anytime you mutate the pageRefs or folderRefs, or edit the content of a page, it should reset a save timeout.
 
   return (
     <div className="h-screen bg-gradient-to-r from-stone-300 via-stone-200 to-stone-300 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-900">
@@ -52,6 +62,7 @@ function App() {
           keyProp={key}
         />
         <Nav setKey={setKey} />
+        <button onClick={save}>Save</button>
       </div>
     </div>
   );

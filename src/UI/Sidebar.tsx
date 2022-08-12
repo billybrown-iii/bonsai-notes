@@ -65,7 +65,7 @@ export default function Sidebar({
       return;
     }
 
-    // autoname pages if no name is provided
+    // autoname if no name is provided
     if (title.length === 0) {
       let latestFolder = 1;
       for (let i = 0; i < folderRefs.length; i++) {
@@ -110,6 +110,17 @@ export default function Sidebar({
       (folder) => folder.title === prevName
     );
     if (folderToEdit) {
+      // autoname if no name is provided
+      if (newName.length === 0) {
+        let latestFolder = 1;
+        for (let i = 0; i < folderRefs.length; i++) {
+          if (folderRefs[i].title === "Folder " + latestFolder) {
+            latestFolder++;
+            i = -1;
+          }
+        }
+        newName = "Folder " + latestFolder;
+      }
       if (
         prevName !== newName &&
         folderRefs.find((ref) => ref.title === newName)

@@ -74,14 +74,52 @@ class Folder {
   };
 }
 
-const createDummyHomeFolder = () => {
-  let testFolder = new Folder("Home", []);
-
-  testFolder.createChildFolder("Folder 1"); // path = ["Home", "Folder 1"]
-  testFolder.createChildFolder("Folder 2");
-  testFolder.createPage("Page 1");
-  testFolder.createPage("Page 2");
-  return testFolder;
+type JsonPage = {
+  title: string;
+  content: string;
 };
 
-export { Folder, createDummyHomeFolder };
+type JsonFolder = {
+  title: string;
+  path: string[];
+  folders: JsonFolder[];
+  pages: JsonPage[];
+};
+
+const createHomeFolder = (savedNotes: string | null) => {
+  if (!savedNotes) {
+    // initial app state
+    const folder = new Folder("Home", []);
+
+    folder.createChildFolder("Folder 1"); // path = ["Home", "Folder 1"]
+    folder.createChildFolder("Folder 2");
+    folder.createPage("Page 1");
+    folder.createPage("Page 2");
+    return folder;
+  } else {
+    // uses savedNotes to populate content
+    const folder = new Folder("Home", []);
+    const obj = JSON.parse(savedNotes);
+    populate(folder, obj);
+    return folder;
+  }
+};
+
+/** Takes in the home folder (or child folders on recursive calls) for the first argument, and the parsed JSON as the 2nd. */
+function populate(appObj: Folder, savedObj: JsonFolder) {
+  // populate the pages
+  for (const page of savedObj.pages) {
+    const append = new Page(page.title, appObj.path);
+    append.content = page.content;
+    appObj.pages.push(append);
+  }
+
+  // populate the folders
+  for (const folder of savedObj.folders) {
+    const append = new Folder(folder.title, appObj.path);
+    populate(append, folder);
+    appObj.folders.push(append);
+  }
+}
+
+export { Folder, createHomeFolder };
