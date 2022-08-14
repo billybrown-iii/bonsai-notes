@@ -34,22 +34,23 @@ export default class FolderRef {
     );
   };
 
-  populate = (savedNotes: string | null) => {
-    if (!savedNotes) {
-      // initial app state
-      // const folder = new Folder("Home", []);
+  // populate = (savedNotes: string | null) => {
+  //   if (!savedNotes) {
+  //     // initial app state
+  //     // const folder = new Folder("Home", []);
 
-      this.createChildFolder("Folder 1"); // path = ["Home", "Folder 1"]
-      this.createChildFolder("Folder 2");
-      this.createPage("Page 1");
-      this.createPage("Page 2");
-      // return folder;
-    } else {
-      // uses savedNotes to populate content
-      // const folder = JSON.parse(savedNotes);
-      // return folder;
-    }
-  };
+  //     this.createChildFolder("Folder 1"); // path = ["Home", "Folder 1"]
+  //     this.createChildFolder("Folder 2");
+  //     this.createPage("Page 1");
+  //     this.createPage("Page 2");
+  //     // return folder;
+  //   } else {
+
+  //     // const savedNotesObj: Folder = JSON.parse(savedNotes);
+  //     // this.folderToRef.folders = savedNotesObj.folders;
+  //     // this.folderToRef.pages = savedNotesObj.pages;
+  //   }
+  // };
 
   /**
    * Takes in a path, returns ref of the child object that the path refers to.
