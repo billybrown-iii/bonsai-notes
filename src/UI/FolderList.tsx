@@ -36,6 +36,7 @@ export default function FolderList({
     "group relative z-10 flex items-center w-full my-3.5 p-1.5 pl-3 text-sm rounded-xl bg-zinc-200 hover:bg-zinc-300 dark:bg-gray-700 dark:hover:bg-gray-600";
 
   const folders = folderRefs.map((item, index) => {
+    const folder = item.folderToRef;
     if (item.code === "new") {
       return (
         <div className="w-3/5 ml-8 mr-auto" key={index}>
@@ -63,15 +64,15 @@ export default function FolderList({
               className="w-full m-auto border-2 border-zinc-500 rounded-xl dark:bg-zinc-600 py-2 px-5"
               type="text"
               placeholder="New Folder"
-              defaultValue={item.title}
+              defaultValue={folder.title}
               autoFocus
               // value={item.title}
               onBlur={(e) => {
-                saveNewFolderName(item.title, e.target.value);
+                saveNewFolderName(folder.title, e.target.value);
               }}
               onKeyPress={(e) => {
                 if (e.key === "Enter")
-                  saveNewFolderName(item.title, e.target.value);
+                  saveNewFolderName(folder.title, e.target.value);
               }}
             />
           </div>
@@ -87,7 +88,7 @@ export default function FolderList({
             <div
               onClick={() => {
                 setSelectedPage(null);
-                setPath(item.path);
+                setPath(folder.path);
               }}
               className={folderStyles}
               id={"folderref-" + index}
@@ -96,7 +97,7 @@ export default function FolderList({
                 className="mr-2 -mt-0.5"
                 dangerouslySetInnerHTML={{ __html: icon }}
               />
-              {item.title}
+              {folder.title}
             </div>
             <div
               id="line"
@@ -113,10 +114,10 @@ export default function FolderList({
           </div>
           <div className="relative z-10 top-2 w-fit">
             <SettingsButton>
-              <MenuItem onClick={() => deleteFolder(item.title)}>
+              <MenuItem onClick={() => deleteFolder(folder.title)}>
                 Delete
               </MenuItem>
-              <MenuItem onClick={() => editFolderName(item.title)}>
+              <MenuItem onClick={() => editFolderName(folder.title)}>
                 Rename
               </MenuItem>
             </SettingsButton>

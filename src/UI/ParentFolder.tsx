@@ -28,7 +28,7 @@ const ParentFolder = ({ setSelectedPage, path, setPath, parent }: Props) => {
           __html: path.length > 1 ? backIcon : homeIcon,
         }}
       />
-      <div className="text-xl">{" " + parent.title}</div>
+      <div className="text-xl">{" " + parent.folderToRef.title}</div>
     </div>
   );
 };

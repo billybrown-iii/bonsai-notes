@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { createHomeFolder } from "./Classes/Folder";
+import FolderRef from "./Classes/FolderRef";
 import Sidebar from "./UI/Sidebar";
 import Editor from "./UI/Editor";
 import Nav from "./UI/Nav";
 import "./App.css";
+import { Folder } from "./Classes/Folder";
 
-const storedNotes = localStorage.getItem("homeFolder");
-
-const homeFolder = createHomeFolder(storedNotes);
+// const storedNotes = localStorage.getItem("homeFolder");
+// console.log(storedNotes);
+const homeFolder = new Folder("Home", []);
+const homeRef = new FolderRef(homeFolder);
+homeRef.populate(null);
 
 console.log(homeFolder);
 
@@ -16,16 +19,19 @@ console.log(homeFolder);
 // example in codesandbox - jovial
 function App() {
   const [path, setPath] = useState(["Home"]);
-  const [selectedPage, setSelectedPage] = useState<string | null>(null);
-  const parent = homeFolder.navObj(path);
+  const parent = homeRef.navObj(path, homeFolder);
 
   // lift pageRefs state up, since Editor can adjust it by adjusting page title
-  const [pageRefs, setPageRefs] = useState(homeFolder.pageRefGen());
+  const [pageRefs, setPageRefs] = useState(parent.pageRefGen());
+  const [selectedPage, setSelectedPage] = useState<string | null>(null);
 
   const [key, setKey] = useState(0);
 
   const deletePage = (title: string) => {
-    parent.pages = parent.pages.filter((page) => page.title !== title);
+    // parentRef.folderToRef = parentRef.folderToRef.pages.filter((page) => page.title !== title);
+    // console.log(parentRef.folderToRef.pages.filter((page) => page.title !== title))
+    const folder = parent.folderToRef;
+    folder.pages = folder.pages.filter((page) => page.title !== title);
     setPageRefs(parent.pageRefGen());
     if (title === selectedPage) setSelectedPage(null);
   };
@@ -48,6 +54,7 @@ function App() {
           path={path}
           setPath={setPath}
           parent={parent}
+          homeRef={homeRef}
           pageRefs={pageRefs}
           setPageRefs={setPageRefs}
           selectedPage={selectedPage}

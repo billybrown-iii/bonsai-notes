@@ -11,11 +11,12 @@ import { Editor } from "@tinymce/tinymce-react";
 import { Editor as TinyMCEEditor } from "tinymce";
 import { Folder } from "../Classes/Folder";
 import PageRef from "../Classes/PageRef";
+import FolderRef from "../Classes/FolderRef";
 
 type Props = {
   selectedPage: string | null;
   setSelectedPage: Dispatch<SetStateAction<string | null>>;
-  parent: Folder;
+  parent: FolderRef;
   setPageRefs: Dispatch<SetStateAction<PageRef[]>>;
   keyProp: number;
 };
@@ -27,6 +28,7 @@ export default function PrimaryEditor({
   setPageRefs,
   keyProp,
 }: Props) {
+  const folder = parent.folderToRef;
   const currentPage = parent.findPage(selectedPage);
   const initialValue = currentPage?.content;
   //generic
@@ -60,7 +62,7 @@ export default function PrimaryEditor({
     let title = pageTitle.trim();
     if (
       title.length === 0 ||
-      (parent.pages.some((page) => page.title === title) &&
+      (folder.pages.some((page) => page.title === title) &&
         pageTitle !== selectedPage)
     ) {
       setPageTitle(currentPage.title);
