@@ -9,6 +9,7 @@ import React, {
 import TitleBar from "./TitleBar";
 import { Editor } from "@tinymce/tinymce-react";
 import { Editor as TinyMCEEditor } from "tinymce";
+import { Folder } from "../Classes/Folder";
 import PageRef from "../Classes/PageRef";
 import FolderRef from "../Classes/FolderRef";
 
@@ -100,7 +101,6 @@ export default function PrimaryEditor({
       // setDirty(false);
       editorRef.current.setDirty(false);
       currentPage.content = content;
-      // console.log("saved note content");
     }
   };
 
@@ -138,7 +138,6 @@ export default function PrimaryEditor({
         // autosave on every change
         // default: onDirty={() => setDirty(true)}
         onDirty={save}
-        // onChange={save}
       />
       {/* <button onClick={save} disabled={!dirty}>Save</button> */}
       {/* {dirty && <p>You have unsaved content!</p>} */}
