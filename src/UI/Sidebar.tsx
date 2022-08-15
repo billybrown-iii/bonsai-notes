@@ -138,7 +138,7 @@ export default function Sidebar({
         );
         return;
       }
-      folderToEdit.title = newName;
+      parent.changeFolderName(folderToEdit, newName);
       setFolderRefs(parent.folderRefGen());
     } else {
       throw new Error("Function saveNewFolderName failed.");

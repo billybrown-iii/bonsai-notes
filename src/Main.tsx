@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { Folder } from "./Classes/Folder";
 import FolderRef from "./Classes/FolderRef";
 import Editor from "./UI/Editor";
 import Nav from "./UI/Nav";
@@ -7,13 +6,12 @@ import Sidebar from "./UI/Sidebar";
 
 type Props = {
   parent: FolderRef;
-  homeFolder: Folder;
   path: string[];
   setPath: Dispatch<SetStateAction<string[]>>;
 };
 
 // in order to avoid redeclaring parent every time there's a change to pages, split into Main / Layout component
-const Main = ({ parent, homeFolder, path, setPath }: Props) => {
+const Main = ({ parent, path, setPath }: Props) => {
   const [pageRefs, setPageRefs] = useState(parent.pageRefGen());
   const [selectedPage, setSelectedPage] = useState<string | null>(null);
 
@@ -24,10 +22,6 @@ const Main = ({ parent, homeFolder, path, setPath }: Props) => {
     folder.pages = folder.pages.filter((page) => page.title !== title);
     setPageRefs(parent.pageRefGen());
     if (title === selectedPage) setSelectedPage(null);
-  };
-
-  const save = () => {
-    localStorage.setItem("homeFolder", JSON.stringify(homeFolder));
   };
 
   return (
@@ -55,7 +49,6 @@ const Main = ({ parent, homeFolder, path, setPath }: Props) => {
           keyProp={key}
         />
         <Nav setKey={setKey} />
-        <button onClick={save}>Save</button>
       </div>
     </div>
   );
