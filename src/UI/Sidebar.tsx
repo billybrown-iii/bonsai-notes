@@ -21,6 +21,7 @@ type Props = {
   path: string[];
   setPath: Dispatch<SetStateAction<string[]>>;
   parent: FolderRef;
+  homeRef: FolderRef;
   pageRefs: PageRef[];
   setPageRefs: Dispatch<SetStateAction<PageRef[]>>;
   selectedPage: string | null;
@@ -32,6 +33,7 @@ export default function Sidebar({
   path,
   setPath,
   parent,
+  homeRef,
   pageRefs,
   setPageRefs,
   selectedPage,
@@ -39,6 +41,7 @@ export default function Sidebar({
   deletePage,
 }: Props) {
   const folder = parent.folderToRef;
+  console.log(folder);
 
   const [folderRefs, setFolderRefs] = useState(parent.folderRefGen());
 
@@ -51,7 +54,7 @@ export default function Sidebar({
     setFolderRefs(parent.folderRefGen());
     setPageRefs(parent.pageRefGen());
     // changing pageRefs causes the App component to rerender, therefore redeclaring parent.
-  }, [parent, setPageRefs]);
+  }, [path, setPageRefs]);
 
   /** Adds a temporary placeholder folderRef, pending naming and confirmation */
   const newFolder = () => {

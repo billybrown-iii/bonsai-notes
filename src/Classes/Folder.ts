@@ -14,13 +14,7 @@ class Folder {
   pages: Page[] = [];
 }
 
-const defaultFolder = new Folder("Home", []);
-
-defaultFolder.folders.push(new Folder("Folder 1", ["Home"]));
-defaultFolder.folders.push(new Folder("Folder 2", ["Home"]));
-defaultFolder.pages.push(new Page("Welcome to Bonsai Notes", ["Home"]));
-
-export { Folder, defaultFolder };
+export { Folder };
 
 /**
  * Takes in a path, returns the child object that the path refers to.
