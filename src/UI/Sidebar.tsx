@@ -20,8 +20,7 @@ const newPageIcon = feather.icons["edit"].toSvg({
 type Props = {
   path: string[];
   setPath: Dispatch<SetStateAction<string[]>>;
-  parent: FolderRef;
-  homeRef: FolderRef;
+  parent: Folder;
   pageRefs: PageRef[];
   setPageRefs: Dispatch<SetStateAction<PageRef[]>>;
   selectedPage: string | null;
@@ -33,39 +32,32 @@ export default function Sidebar({
   path,
   setPath,
   parent,
-  homeRef,
   pageRefs,
   setPageRefs,
   selectedPage,
   setSelectedPage,
   deletePage,
 }: Props) {
-  const folder = parent.folderToRef;
-  console.log(folder);
-
   const [folderRefs, setFolderRefs] = useState(parent.folderRefGen());
 
   // When the parent changes, update displayed folders/pages.
   // State setter functions are guaranteed to have a stable identity per the docs.
   // Therefore, it's fine to include as a dependency.
-
-  //idea: pass in the home ref and the path, instead of the parent
   useEffect(() => {
     setFolderRefs(parent.folderRefGen());
     setPageRefs(parent.pageRefGen());
-    // changing pageRefs causes the App component to rerender, therefore redeclaring parent.
-  }, [path, setPageRefs]);
+  }, [parent, setPageRefs]);
 
   /** Adds a temporary placeholder folderRef, pending naming and confirmation */
   const newFolder = () => {
-    const newFolderRef = new FolderRef(new Folder("placeholder", []), "new");
+    const newFolderRef = new FolderRef("New Folder", path, "new");
     setFolderRefs([...folderRefs, newFolderRef]);
   };
 
   /*** Adds new folderRef to UI and new folder to parent object */
   const addFolder = (title: string) => {
     title = title.trim();
-    if (folder.folders.some((folder) => folder.title === title)) {
+    if (parent.folders.some((folder) => folder.title === title)) {
       setFolderRefs(folderRefs.slice(0, folderRefs.length - 1));
       alert(
         "There's already a folder with this title.  Please use a different name."
@@ -76,8 +68,8 @@ export default function Sidebar({
     // autoname if no name is provided
     if (title.length === 0) {
       let latestFolder = 1;
-      for (let i = 0; i < folder.folders.length; i++) {
-        if (folder.folders[i].title === "Folder " + latestFolder) {
+      for (let i = 0; i < folderRefs.length; i++) {
+        if (folderRefs[i].title === "Folder " + latestFolder) {
           latestFolder++;
           i = -1;
         }
@@ -85,18 +77,16 @@ export default function Sidebar({
       title = "Folder " + latestFolder;
     }
 
-    // pre-schema switch
-    // setFolderRefs(
-    //   folderRefs
-    //     .slice(0, folderRefs.length - 1)
-    //     .concat(new FolderRef(title, parent.path))
-    // );
+    setFolderRefs(
+      folderRefs
+        .slice(0, folderRefs.length - 1)
+        .concat(new FolderRef(title, parent.path))
+    );
     parent.createChildFolder(title);
-    setFolderRefs(parent.folderRefGen());
   };
 
   const deleteFolder = (title: string) => {
-    folder.folders = folder.folders.filter((folder) => folder.title !== title);
+    parent.folders = parent.folders.filter((folder) => folder.title !== title);
     setFolderRefs(parent.folderRefGen());
   };
 
@@ -107,7 +97,7 @@ export default function Sidebar({
   const editFolderName = (title: string) => {
     setFolderRefs((prev) =>
       prev.map((ref) => {
-        if (ref.folderToRef.title === title) {
+        if (ref.title === title) {
           ref.code = "edit";
         }
         return ref;
@@ -116,7 +106,7 @@ export default function Sidebar({
   };
 
   const saveNewFolderName = (prevName: string, newName: string) => {
-    const folderToEdit = folder.folders.find(
+    const folderToEdit = parent.folders.find(
       (folder) => folder.title === prevName
     );
     if (folderToEdit) {
@@ -124,7 +114,7 @@ export default function Sidebar({
       if (newName.length === 0) {
         let latestFolder = 1;
         for (let i = 0; i < folderRefs.length; i++) {
-          if (folder.folders[i].title === "Folder " + latestFolder) {
+          if (folderRefs[i].title === "Folder " + latestFolder) {
             latestFolder++;
             i = -1;
           }
@@ -133,7 +123,7 @@ export default function Sidebar({
       }
       if (
         prevName !== newName &&
-        folder.folders.find((folder) => folder.title === newName)
+        folderRefs.find((ref) => ref.title === newName)
       ) {
         setFolderRefs(parent.folderRefGen());
         alert(
@@ -150,6 +140,7 @@ export default function Sidebar({
 
   /** Adds a temporary placeholder pageRef. */
   const newPage = () => {
+    // TODO check for empty string title
     const newPageRef = new PageRef("New Page", null);
     setPageRefs([...pageRefs, newPageRef]);
   };
@@ -158,7 +149,7 @@ export default function Sidebar({
   const addPage = (title: string) => {
     title = title.trim();
     // check for dentical page titles in same folder
-    if (folder.pages.some((page) => page.title === title)) {
+    if (parent.pages.some((page) => page.title === title)) {
       setPageRefs(pageRefs.slice(0, pageRefs.length - 1));
       alert(
         "There's already a page with this title.  Please use a different name."
@@ -169,7 +160,7 @@ export default function Sidebar({
     // autoname pages if no name is provided
     if (title.length === 0) {
       let latestPage = 1;
-      for (let i = 0; i < folder.pages.length; i++) {
+      for (let i = 0; i < pageRefs.length; i++) {
         if (pageRefs[i].title === "Page " + latestPage) {
           latestPage++;
           i = -1;
@@ -181,7 +172,7 @@ export default function Sidebar({
     setPageRefs(
       pageRefs
         .slice(0, pageRefs.length - 1)
-        .concat(new PageRef(title, folder.path))
+        .concat(new PageRef(title, parent.path))
     );
     parent.createPage(title);
     setSelectedPage(title);
@@ -214,7 +205,7 @@ export default function Sidebar({
       <div
         className={
           "relative z-10 flex justify-end w-full -mb-12 pr-3 pt-4 " +
-          (pageRefs.length > 0 ? "invisible" : "visible")
+          (pageRefs.length > 0 ? "hidden" : "visible")
         }
       >
         <ResponsiveButton icon={newPageIcon} func={newPage} text="New Page" />
