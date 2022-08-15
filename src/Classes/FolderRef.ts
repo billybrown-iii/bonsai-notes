@@ -20,18 +20,6 @@ export default class FolderRef {
     this.folderToRef.pages.push(new Page(title, this.folderToRef.path));
   };
 
-  /** saves a changed folder name */
-  // TODO prevent possibility of saving a duplicate name
-  changeFolderName = (folder: Folder, newName: string) => {
-    folder.title = newName;
-    const newPath = folder.path
-      .slice(0, folder.path.length - 1)
-      .concat(newName);
-
-    folder.path = newPath;
-    updateChildPaths(folder, newPath);
-  };
-
   findPage = (title: string | null) => {
     return this.folderToRef.pages.find((page) => page.title === title);
   };
@@ -46,6 +34,24 @@ export default class FolderRef {
     );
   };
 
+  // populate = (savedNotes: string | null) => {
+  //   if (!savedNotes) {
+  //     // initial app state
+  //     // const folder = new Folder("Home", []);
+
+  //     this.createChildFolder("Folder 1"); // path = ["Home", "Folder 1"]
+  //     this.createChildFolder("Folder 2");
+  //     this.createPage("Page 1");
+  //     this.createPage("Page 2");
+  //     // return folder;
+  //   } else {
+
+  //     // const savedNotesObj: Folder = JSON.parse(savedNotes);
+  //     // this.folderToRef.folders = savedNotesObj.folders;
+  //     // this.folderToRef.pages = savedNotesObj.pages;
+  //   }
+  // };
+
   /**
    * Takes in a path, returns ref of the child object that the path refers to.
    * @param {array} path
@@ -56,22 +62,60 @@ export default class FolderRef {
     let next: Folder | undefined = homeFolder;
     while (copy.length > 0) {
       next = next?.folders.find((folder) => folder.title === copy[0]);
-      if (!next) throw new Error(`Folder "${copy[0]}" not found`);
+      if (!next) throw new Error("Folder not found");
       copy.shift();
     }
     return new FolderRef(next || homeFolder);
   };
 }
 
-const updateChildPaths = (folder: Folder, newPath: string[]) => {
-  for (let page of folder.pages) {
-    page.path = newPath.slice().concat(page.path.slice(newPath.length));
-  }
+// const createHomeFolder = (savedNotes: string | null) => {
+//   if (!savedNotes) {
+//     // initial app state
+//     const folder = new Folder("Home", []);
 
-  for (let childFolder of folder.folders) {
-    childFolder.path = newPath
-      .slice()
-      .concat(childFolder.path.slice(newPath.length));
-    updateChildPaths(childFolder, newPath);
-  }
-};
+//     folder.createChildFolder("Folder 1"); // path = ["Home", "Folder 1"]
+//     folder.createChildFolder("Folder 2");
+//     folder.createPage("Page 1");
+//     folder.createPage("Page 2");
+//     return folder;
+//   } else {
+//     // uses savedNotes to populate content
+//     const folder = JSON.parse(savedNotes);
+//     return folder;
+//   }
+// };
+
+// type JsonPage = {
+//   title: string;
+//   content: string;
+// };
+
+// type JsonFolder = {
+//   title: string;
+//   path: string[];
+//   folders: JsonFolder[];
+//   pages: JsonPage[];
+// };
+
+// function populate(appObj: Folder, savedObj: JsonFolder) {
+//   // populate the pages
+//   for (const page of savedObj.pages) {
+//     const append = new Page(page.title, appObj.path);
+//     append.content = page.content;
+//     appObj.pages.push(append);
+//   }
+
+//   // populate the folders
+//   for (const folder of savedObj.folders) {
+//     const append = new Folder(folder.title, appObj.path);
+//     populate(append, folder);
+//     appObj.folders.push(append);
+//   }
+// }
+
+// pass in folderToRef
+
+// functions like folderRefGen and createFolder are based on it
+
+// therefore, the UI element is linked to the related JS boject, and able to modify it

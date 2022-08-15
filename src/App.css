@@ -1,27 +1,3 @@
-/* source: https://stackoverflow.com/questions/66575720/add-fade-in-animation-to-a-list-element-in-react */
 
-.fadeIn {
-  animation: fadeInAnimation 0.2s linear;
-}
 
-@keyframes fadeInAnimation {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 
-.fadeOut {
-  animation: fadeOutAnimation 0.2s linear;
-}
-
-@keyframes fadeOutAnimation {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
