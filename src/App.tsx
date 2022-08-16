@@ -6,8 +6,10 @@ import Nav from "./UI/Nav";
 import "./App.css";
 
 const storedNotes = localStorage.getItem("homeFolder");
-
 const homeFolder = createHomeFolder(storedNotes);
+
+// const homeFolder = new Folder("Home", []);
+// homeFolder.populate(storedNotes);
 
 console.log(homeFolder);
 

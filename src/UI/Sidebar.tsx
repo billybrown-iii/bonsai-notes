@@ -106,41 +106,26 @@ export default function Sidebar({
   };
 
   const saveNewFolderName = (prevName: string, newName: string) => {
-    const folderToEdit = parent.folders.find(
-      (folder) => folder.title === prevName
-    );
-    if (folderToEdit) {
-      // autoname if no name is provided
-      if (newName.length === 0) {
-        let latestFolder = 1;
-        for (let i = 0; i < folderRefs.length; i++) {
-          if (folderRefs[i].title === "Folder " + latestFolder) {
-            latestFolder++;
-            i = -1;
-          }
-        }
-        newName = "Folder " + latestFolder;
-      }
-      if (
-        prevName !== newName &&
-        folderRefs.find((ref) => ref.title === newName)
-      ) {
-        setFolderRefs(parent.folderRefGen());
-        alert(
-          "There's already a folder with this title.  Please use a different name."
-        );
-        return;
-      }
-      folderToEdit.title = newName;
+    const result = parent.changeFolderName(prevName, newName);
+
+    if (result === "success" || result === "same")
       setFolderRefs(parent.folderRefGen());
-    } else {
-      throw new Error("Function saveNewFolderName failed.");
+    if (result === "duplicate") {
+      setFolderRefs(parent.folderRefGen());
+      alert(
+        "There's already a folder with this title.  Please use a different name."
+      );
+      return;
+    }
+    if (result === "empty") {
+      setFolderRefs(parent.folderRefGen());
+      alert("A name is required.");
+      return;
     }
   };
 
   /** Adds a temporary placeholder pageRef. */
   const newPage = () => {
-    // TODO check for empty string title
     const newPageRef = new PageRef("New Page", null);
     setPageRefs([...pageRefs, newPageRef]);
   };

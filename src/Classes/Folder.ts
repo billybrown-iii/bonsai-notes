@@ -31,6 +31,25 @@ class Folder {
     this.pages.push(new Page(title, this.path));
   };
 
+  changeFolderName = (prev: string, next: string) => {
+    if (next.length === 0) return "empty";
+    if (prev === next) return "same";
+    const prevIndex = this.folders.findIndex((folder) => folder.title === prev);
+    const folderToEdit = this.folders[prevIndex];
+    // if (this.folders.filter((folder) => folder.title === next).length > 1)
+    if (
+      this.folders.find(
+        (folder, index) => folder.title === next && index !== prevIndex
+      )
+    )
+      return "duplicate";
+
+    folderToEdit.title = next;
+    const newPath = folderToEdit.path.slice(0, this.path.length).concat(next);
+    updatePaths(folderToEdit, newPath);
+    return "success";
+  };
+
   /**
    * Takes in a path, returns the child object that the path refers to.
    * @param {array} path
@@ -106,20 +125,32 @@ const createHomeFolder = (savedNotes: string | null) => {
 };
 
 /** Takes in the home folder (or child folders on recursive calls) for the first argument, and the parsed JSON as the 2nd. */
-function populate(appObj: Folder, savedObj: JsonFolder) {
+function populate(folder: Folder, savedNotes: JsonFolder) {
   // populate the pages
-  for (const page of savedObj.pages) {
-    const append = new Page(page.title, appObj.path);
+  for (const page of savedNotes.pages) {
+    const append = new Page(page.title, folder.path);
     append.content = page.content;
-    appObj.pages.push(append);
+    folder.pages.push(append);
   }
 
   // populate the folders
-  for (const folder of savedObj.folders) {
-    const append = new Folder(folder.title, appObj.path);
-    populate(append, folder);
-    appObj.folders.push(append);
+  for (const childFolder of savedNotes.folders) {
+    const append = new Folder(childFolder.title, folder.path);
+    populate(append, childFolder);
+    folder.folders.push(append);
   }
 }
+
+const updatePaths = (folder: Folder, newPath: string[]) => {
+  // update own path
+  folder.path = newPath.concat(folder.path.slice(newPath.length));
+  // update pages
+  folder.pages.forEach(
+    (page) => (page.path = newPath.concat(page.path.slice(newPath.length)))
+  );
+
+  // update folders
+  folder.folders.forEach((childFolder) => updatePaths(childFolder, newPath));
+};
 
 export { Folder, createHomeFolder };
