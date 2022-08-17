@@ -4,7 +4,7 @@ import PageRef from "./PageRef";
 
 class Folder {
   /**
-   * Folder-like containers.  Can contain folders and/or pages.
+   * Describes the notes' tree structure and holds functionality for making changes.
    * @param {string} title
    * @param {array} parentPath
    */
@@ -18,36 +18,73 @@ class Folder {
 
   folders: Folder[] = [];
   pages: Page[] = [];
-  /**
-   * @param {string} title
-   */
+
   createChildFolder = (title: string) => {
+    title = title.trim();
+    if (this.folders.find((folder) => folder.title === title)) {
+      return "duplicate";
+    }
+
+    // autoname if no name is provided
+    if (title.length === 0) {
+      let latestFolder = 1;
+      for (let i = 0; i < this.folders.length; i++) {
+        if (this.folders[i].title === "Folder " + latestFolder) {
+          latestFolder++;
+          i = -1;
+        }
+      }
+      title = "Folder " + latestFolder;
+    }
+
     this.folders.push(new Folder(title, this.path));
-  };
-  /**
-   * @param {string} title
-   */
-  createPage = (title: string) => {
-    this.pages.push(new Page(title, this.path));
+    return "success";
   };
 
-  changeFolderName = (prev: string, next: string) => {
+  renameChildFolder = (prev: string, next: string) => {
+    next = next.trim();
     if (next.length === 0) return "empty";
-    if (prev === next) return "same";
-    const prevIndex = this.folders.findIndex((folder) => folder.title === prev);
-    const folderToEdit = this.folders[prevIndex];
-    // if (this.folders.filter((folder) => folder.title === next).length > 1)
-    if (
-      this.folders.find(
-        (folder, index) => folder.title === next && index !== prevIndex
-      )
-    )
+    if (prev === next) return "success";
+
+    const folderToEdit = this.folders.find((folder) => folder.title === prev);
+    if (!folderToEdit) throw new Error("Folder not found");
+
+    if (this.folders.some((folder) => folder.title === next))
       return "duplicate";
 
     folderToEdit.title = next;
     const newPath = folderToEdit.path.slice(0, this.path.length).concat(next);
     updatePaths(folderToEdit, newPath);
     return "success";
+  };
+
+  deleteChildFolder = (title: string) => {
+    this.folders = this.folders.filter((folder) => folder.title !== title);
+  };
+
+  createPage = (title: string) => {
+    this.pages.push(new Page(title, this.path));
+  };
+
+  deletePage = (title: string) => {
+    this.pages = this.pages.filter((page) => page.title !== title);
+  };
+
+  changePageTitle = (prev: string, next: string) => {
+    next = next.trim();
+    if (prev === next) return "same";
+    if (next.length === 0) return "empty";
+    if (this.pages.some((page) => page.title === next)) return "duplicate";
+
+    const pageToEdit = this.pages.find((page) => page.title === prev);
+    pageToEdit!.title = next;
+    return "success";
+  };
+
+  updatePageContent = (title: string | null, content: string) => {
+    if (!title) return;
+    const pageToEdit = this.pages.find((page) => page.title === title);
+    pageToEdit!.content = content;
   };
 
   /**
@@ -60,14 +97,13 @@ class Folder {
     if (this.path.length > 1) throw new Error("used at invalid depth");
 
     let copy = path.slice(1);
-    const homeFolder = this;
-    let next: Folder | undefined = homeFolder;
+    let next: Folder | undefined = this;
     while (copy.length > 0) {
       next = next?.folders.find((folder) => folder.title === copy[0]);
       if (!next) throw new Error("Folder not found");
       copy.shift();
     }
-    return next || homeFolder;
+    return next || this;
   };
 
   findPage = (title: string | null) => {

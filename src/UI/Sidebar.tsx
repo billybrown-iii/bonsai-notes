@@ -56,37 +56,18 @@ export default function Sidebar({
 
   /*** Adds new folderRef to UI and new folder to parent object */
   const addFolder = (title: string) => {
-    title = title.trim();
-    if (parent.folders.some((folder) => folder.title === title)) {
-      setFolderRefs(folderRefs.slice(0, folderRefs.length - 1));
+    const result = parent.createChildFolder(title);
+    setFolderRefs(parent.folderRefGen());
+
+    if (result === "duplicate") {
       alert(
-        "There's already a folder with this title.  Please use a different name."
+        "A folder with this name already exists.  Please use a different name."
       );
-      return;
     }
-
-    // autoname if no name is provided
-    if (title.length === 0) {
-      let latestFolder = 1;
-      for (let i = 0; i < folderRefs.length; i++) {
-        if (folderRefs[i].title === "Folder " + latestFolder) {
-          latestFolder++;
-          i = -1;
-        }
-      }
-      title = "Folder " + latestFolder;
-    }
-
-    setFolderRefs(
-      folderRefs
-        .slice(0, folderRefs.length - 1)
-        .concat(new FolderRef(title, parent.path))
-    );
-    parent.createChildFolder(title);
   };
 
   const deleteFolder = (title: string) => {
-    parent.folders = parent.folders.filter((folder) => folder.title !== title);
+    parent.deleteChildFolder(title);
     setFolderRefs(parent.folderRefGen());
   };
 
@@ -94,7 +75,7 @@ export default function Sidebar({
    * Takes in name of folder to edit
    * refreshes folderRefs with the affected one in editable state
    */
-  const editFolderName = (title: string) => {
+  const renameFolder = (title: string) => {
     setFolderRefs((prev) =>
       prev.map((ref) => {
         if (ref.title === title) {
@@ -105,22 +86,18 @@ export default function Sidebar({
     );
   };
 
-  const saveNewFolderName = (prevName: string, newName: string) => {
-    const result = parent.changeFolderName(prevName, newName);
-
-    if (result === "success" || result === "same")
-      setFolderRefs(parent.folderRefGen());
-    if (result === "duplicate") {
-      setFolderRefs(parent.folderRefGen());
-      alert(
-        "There's already a folder with this title.  Please use a different name."
-      );
-      return;
-    }
-    if (result === "empty") {
-      setFolderRefs(parent.folderRefGen());
-      alert("A name is required.");
-      return;
+  const saveFolderRename = (prevName: string, newName: string) => {
+    const result = parent.renameChildFolder(prevName, newName);
+    setFolderRefs(parent.folderRefGen());
+    switch (result) {
+      case "success":
+        return;
+      case "empty":
+        return alert("A name is required.");
+      case "duplicate":
+        return alert(
+          "There's already a folder with this title.  Please use a different name."
+        );
     }
   };
 
@@ -204,8 +181,8 @@ export default function Sidebar({
           pageRefs={pageRefs}
           addFolder={addFolder}
           deleteFolder={deleteFolder}
-          editFolderName={editFolderName}
-          saveNewFolderName={saveNewFolderName}
+          renameFolder={renameFolder}
+          saveFolderRename={saveFolderRename}
         />
 
         <div

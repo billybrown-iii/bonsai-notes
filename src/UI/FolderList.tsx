@@ -17,8 +17,8 @@ type Props = {
   pageRefs: PageRef[];
   addFolder: (title: string) => void;
   deleteFolder: (title: string) => void;
-  editFolderName: (title: string) => void;
-  saveNewFolderName: (prevName: string, newName: string) => void;
+  renameFolder: (title: string) => void;
+  saveFolderRename: (prevName: string, newName: string) => void;
 };
 
 /** List of folderRefs to be displayed in UI */
@@ -29,11 +29,11 @@ export default function FolderList({
   pageRefs,
   addFolder,
   deleteFolder,
-  editFolderName,
-  saveNewFolderName,
+  renameFolder,
+  saveFolderRename,
 }: Props) {
   const folderStyles =
-    "group relative z-10 flex items-center w-full my-3.5 p-1.5 pl-3 text-sm rounded-xl bg-zinc-200 hover:bg-zinc-300 dark:bg-gray-700 dark:hover:bg-gray-600";
+    "group relative z-10 flex items-center w-full my-3.5 p-2 pl-3 text-sm rounded-xl bg-zinc-200 hover:bg-zinc-300 dark:bg-gray-700 dark:hover:bg-gray-600";
 
   const folders = folderRefs.map((item, index) => {
     if (item.code === "new") {
@@ -67,11 +67,11 @@ export default function FolderList({
               autoFocus
               // value={item.title}
               onBlur={(e) => {
-                saveNewFolderName(item.title, e.target.value);
+                saveFolderRename(item.title, e.target.value);
               }}
               onKeyPress={(e) => {
                 if (e.key === "Enter")
-                  saveNewFolderName(item.title, e.target.value);
+                  saveFolderRename(item.title, e.target.value);
               }}
             />
           </div>
@@ -116,7 +116,7 @@ export default function FolderList({
               <MenuItem onClick={() => deleteFolder(item.title)}>
                 Delete
               </MenuItem>
-              <MenuItem onClick={() => editFolderName(item.title)}>
+              <MenuItem onClick={() => renameFolder(item.title)}>
                 Rename
               </MenuItem>
             </SettingsButton>

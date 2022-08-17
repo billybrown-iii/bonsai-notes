@@ -1,4 +1,4 @@
-import React, {
+import {
   useState,
   useEffect,
   useRef,
@@ -29,15 +29,21 @@ export default function PrimaryEditor({
 }: Props) {
   const currentPage = parent.findPage(selectedPage);
   const initialValue = currentPage?.content;
-  //generic
   const editorRef = useRef<TinyMCEEditor>();
 
-  const [pageTitle, setPageTitle] = useState(
-    currentPage ? currentPage.title : ""
-  );
+  const [pageTitle, setPageTitle] = useState("");
 
   const element = document.getElementById("html");
   const isDark = element!.classList.contains("dark");
+
+  // if user selects a different page, switch to that page's content
+  useEffect(() => {
+    if (editorRef.current && selectedPage) {
+      setPageTitle(selectedPage);
+      editorRef.current.setContent(currentPage ? currentPage.content : "");
+      // setDirty(false);
+    }
+  }, [currentPage, selectedPage]);
 
   // auto-focus on empty page
   useEffect(() => {
@@ -56,22 +62,25 @@ export default function PrimaryEditor({
    * when user blurs or hits enter, save updated page title
    */
   const saveTitleChange = () => {
-    if (!currentPage) return;
-    let title = pageTitle.trim();
-    if (
-      title.length === 0 ||
-      (parent.pages.some((page) => page.title === title) &&
-        pageTitle !== selectedPage)
-    ) {
-      setPageTitle(currentPage.title);
-      alert(
-        title
-          ? "A page with this title already exists.  Please use a different name."
-          : "A title is required."
-      );
-      return;
+    if (!selectedPage) return;
+
+    const result = parent.changePageTitle(selectedPage, pageTitle);
+
+    switch (result) {
+      case "same":
+        return;
+      case "empty": {
+        setPageTitle(selectedPage);
+        return alert("A page title is required.");
+      }
+      case "duplicate": {
+        setPageTitle(selectedPage);
+        return alert(
+          "A page with this title already exists.  Please use a different name."
+        );
+      }
     }
-    currentPage.title = pageTitle;
+
     setPageRefs(parent.pageRefGen());
     setSelectedPage(pageTitle);
   };
@@ -83,22 +92,11 @@ export default function PrimaryEditor({
   const [dirty, setDirty] = useState(false);
   useEffect(() => setDirty(false), [initialValue]); */
 
-  // if user selects a different page, switch to that page's content
-  useEffect(() => {
-    if (editorRef.current && currentPage) {
-      setPageTitle(currentPage.title);
-      editorRef.current.setContent(currentPage ? currentPage.content : "");
-      // setDirty(false);
-    }
-  }, [currentPage, selectedPage]);
-
   const save = () => {
-    if (!currentPage) return;
-    if (editorRef.current) {
-      const content = editorRef.current.getContent();
+    if (selectedPage && editorRef.current) {
       // setDirty(false);
       editorRef.current.setDirty(false);
-      currentPage.content = content;
+      parent.updatePageContent(selectedPage, editorRef.current.getContent());
     }
   };
 
