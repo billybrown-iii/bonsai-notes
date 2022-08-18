@@ -2,6 +2,7 @@ import Page from "./Page";
 import FolderRef from "./FolderRef";
 import PageRef from "./PageRef";
 import { v4 as uuid } from "uuid";
+import localforage from "localforage";
 
 class Folder {
   /**
@@ -88,15 +89,16 @@ class Folder {
     }
 
     const pageID = uuid();
+    // console.log("Created id ", pageID);
     this.pages.push(new Page(title, this.path, pageID));
-    localStorage.setItem(pageID, "");
+    localforage.setItem(pageID, "");
     return title;
   };
 
   deletePage = (title: string) => {
     const pageToDelete = this.pages.find((page) => page.title === title);
     if (!pageToDelete) throw new Error(`Page "${title}" not found`);
-    localStorage.removeItem(pageToDelete.id);
+    localforage.removeItem(pageToDelete.id);
     this.pages = this.pages.filter((page) => page.title !== title);
   };
 
@@ -115,7 +117,14 @@ class Folder {
     if (!title) return;
     const pageToEdit = this.pages.find((page) => page.title === title);
     if (!pageToEdit) throw new Error(`Page "${title}" not found`);
-    localStorage.setItem(pageToEdit.id, content);
+    localforage.setItem(pageToEdit.id, content);
+  };
+
+  fetchPageContent = (title: string) => {
+    const pageToFetch = this.pages.find((page) => page.title === title);
+    if (!pageToFetch)
+      throw new Error(`fetchPageContent failed: page "${title}" not found`);
+    return localforage.getItem(pageToFetch.id);
   };
 
   /**
@@ -217,7 +226,7 @@ const updatePaths = (folder: Folder, newPath: string[]) => {
 const deleteChildPages = (folder: Folder) => {
   // delete all immediate pages
   for (let page of folder.pages) {
-    localStorage.removeItem(page.id);
+    localforage.removeItem(page.id);
   }
 
   // dive into child folders and do the same

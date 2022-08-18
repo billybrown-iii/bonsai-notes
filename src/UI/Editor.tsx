@@ -11,6 +11,14 @@ import { Editor } from "@tinymce/tinymce-react";
 import { Editor as TinyMCEEditor } from "tinymce";
 import { Folder } from "../Classes/Folder";
 import PageRef from "../Classes/PageRef";
+import localforage from "localforage";
+// import localforage from "localforage";
+
+// let timeoutID;
+
+// an initial value is needed for the purpose of the dark theme switching
+// TODO fix dark theme switching
+let initialValue = "";
 
 type Props = {
   selectedPage: string | null;
@@ -28,7 +36,13 @@ export default function PrimaryEditor({
   keyProp,
 }: Props) {
   const currentPage = parent.findPage(selectedPage);
-  const initialValue = currentPage ? localStorage.getItem(currentPage.id) : "";
+
+  if (currentPage) {
+    localforage.getItem(currentPage.id).then((value: any) => {
+      initialValue = value;
+      console.log(initialValue);
+    });
+  }
   const editorRef = useRef<TinyMCEEditor>();
 
   const [pageTitle, setPageTitle] = useState("");
@@ -38,17 +52,30 @@ export default function PrimaryEditor({
 
   // if user selects a different page, switch to that page's content
   useEffect(() => {
+    if (editorRef.current && currentPage === null)
+      editorRef.current.setContent("");
     if (editorRef.current && currentPage) {
       setPageTitle(currentPage.title);
-      const content = localStorage.getItem(currentPage.id);
-      if (content !== null) {
-        editorRef.current.setContent(content);
-        // auto-focus on empty page
-        if (content.length === 0) editorRef.current.focus();
-      } else throw new Error(`Page "${currentPage.title}" not found`);
+      // TODO fix any
+      parent.fetchPageContent(currentPage.title).then((content: any) => {
+        if (content !== null && editorRef.current) {
+          editorRef.current.setContent(content);
+          // auto-focus on empty page
+          if (content.length === 0) editorRef.current.focus();
+          // console.log("if condition.", currentPage.id);
+        } else {
+          // TODO fix issue where it sometimes hits else condition when creating a new page
+          // idea: make use of the promise object returned by createPage()
+          throw new Error(
+            `effect failed: Page "${currentPage.title}" not found`
+          );
+        }
+      });
+
       // setDirty(false);
+    } else {
     }
-  }, [currentPage]);
+  }, [currentPage, parent]);
 
   /**
    * Handles user changing the title text for a page.
@@ -129,7 +156,7 @@ export default function PrimaryEditor({
             "bold italic underline strikethrough hr | fontsize | alignleft aligncenter alignright | fullscreen",
           forced_root_block: "div",
         }}
-        initialValue={initialValue === null ? undefined : initialValue}
+        initialValue={initialValue}
         onInit={(evt, editor) => (editorRef.current = editor)}
         // autosave on every change
         // default: onDirty={() => setDirty(true)}
