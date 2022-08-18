@@ -1,6 +1,7 @@
 import Page from "./Page";
 import FolderRef from "./FolderRef";
 import PageRef from "./PageRef";
+import { v4 as uuid } from "uuid";
 
 class Folder {
   /**
@@ -59,6 +60,11 @@ class Folder {
   };
 
   deleteChildFolder = (title: string) => {
+    const folderToDelete = this.folders.find(
+      (folder) => folder.title === title
+    );
+    if (!folderToDelete) throw new Error(`Folder "${title}" not found`);
+    deleteChildPages(folderToDelete);
     this.folders = this.folders.filter((folder) => folder.title !== title);
   };
 
@@ -81,11 +87,16 @@ class Folder {
       title = "Page " + latestPage;
     }
 
-    this.pages.push(new Page(title, this.path));
+    const pageID = uuid();
+    this.pages.push(new Page(title, this.path, pageID));
+    localStorage.setItem(pageID, "");
     return title;
   };
 
   deletePage = (title: string) => {
+    const pageToDelete = this.pages.find((page) => page.title === title);
+    if (!pageToDelete) throw new Error(`Page "${title}" not found`);
+    localStorage.removeItem(pageToDelete.id);
     this.pages = this.pages.filter((page) => page.title !== title);
   };
 
@@ -103,7 +114,8 @@ class Folder {
   updatePageContent = (title: string | null, content: string) => {
     if (!title) return;
     const pageToEdit = this.pages.find((page) => page.title === title);
-    pageToEdit!.content = content;
+    if (!pageToEdit) throw new Error(`Page "${title}" not found`);
+    localStorage.setItem(pageToEdit.id, content);
   };
 
   /**
@@ -148,16 +160,11 @@ class Folder {
   };
 }
 
-type JsonPage = {
-  title: string;
-  content: string;
-};
-
 type JsonFolder = {
   title: string;
   path: string[];
   folders: JsonFolder[];
-  pages: JsonPage[];
+  pages: Page[];
 };
 
 const createHomeFolder = (savedNotes: string | null) => {
@@ -183,8 +190,7 @@ const createHomeFolder = (savedNotes: string | null) => {
 function populate(folder: Folder, savedNotes: JsonFolder) {
   // populate the pages
   for (const page of savedNotes.pages) {
-    const append = new Page(page.title, folder.path);
-    append.content = page.content;
+    const append = { ...page };
     folder.pages.push(append);
   }
 
@@ -206,6 +212,18 @@ const updatePaths = (folder: Folder, newPath: string[]) => {
 
   // update folders
   folder.folders.forEach((childFolder) => updatePaths(childFolder, newPath));
+};
+
+const deleteChildPages = (folder: Folder) => {
+  // delete all immediate pages
+  for (let page of folder.pages) {
+    localStorage.removeItem(page.id);
+  }
+
+  // dive into child folders and do the same
+  for (let childFolder of folder.folders) {
+    deleteChildPages(childFolder);
+  }
 };
 
 export { Folder, createHomeFolder };

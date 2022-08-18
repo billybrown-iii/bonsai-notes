@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "@types/feather-icons": "^4.7.0",
+    "@types/uuid": "^8.3.4",
     "jsdoc": "^3.6.10",
     "tailwindcss": "^3.1.4"
   }

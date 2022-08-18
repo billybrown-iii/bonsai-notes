@@ -28,7 +28,7 @@ export default function PrimaryEditor({
   keyProp,
 }: Props) {
   const currentPage = parent.findPage(selectedPage);
-  const initialValue = currentPage?.content;
+  const initialValue = currentPage ? localStorage.getItem(currentPage.id) : "";
   const editorRef = useRef<TinyMCEEditor>();
 
   const [pageTitle, setPageTitle] = useState("");
@@ -38,16 +38,16 @@ export default function PrimaryEditor({
 
   // if user selects a different page, switch to that page's content
   useEffect(() => {
-    if (editorRef.current && selectedPage) {
-      setPageTitle(selectedPage);
-      editorRef.current.setContent(currentPage ? currentPage.content : "");
+    if (editorRef.current && currentPage) {
+      setPageTitle(currentPage.title);
+      const content = localStorage.getItem(currentPage.id);
+      if (content !== null) {
+        editorRef.current.setContent(content);
+        // auto-focus on empty page
+        if (content.length === 0) editorRef.current.focus();
+      } else throw new Error(`Page "${currentPage.title}" not found`);
       // setDirty(false);
     }
-  }, [currentPage, selectedPage]);
-
-  // auto-focus on empty page
-  useEffect(() => {
-    if (currentPage?.content.length === 0) editorRef.current?.focus();
   }, [currentPage]);
 
   /**
@@ -129,7 +129,7 @@ export default function PrimaryEditor({
             "bold italic underline strikethrough hr | fontsize | alignleft aligncenter alignright | fullscreen",
           forced_root_block: "div",
         }}
-        initialValue={initialValue}
+        initialValue={initialValue === null ? undefined : initialValue}
         onInit={(evt, editor) => (editorRef.current = editor)}
         // autosave on every change
         // default: onDirty={() => setDirty(true)}
