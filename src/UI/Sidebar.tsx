@@ -109,35 +109,13 @@ export default function Sidebar({
 
   /*** Adds new pageRef to UI and new page to parent object.*/
   const addPage = (title: string) => {
-    title = title.trim();
-    // check for dentical page titles in same folder
-    if (parent.pages.some((page) => page.title === title)) {
-      setPageRefs(pageRefs.slice(0, pageRefs.length - 1));
-      alert(
-        "There's already a page with this title.  Please use a different name."
+    const result = parent.createPage(title);
+    setPageRefs(parent.pageRefGen());
+    if (result === "duplicate")
+      return alert(
+        "A page with this title already exists.  Please use a different name."
       );
-      return;
-    }
-
-    // autoname pages if no name is provided
-    if (title.length === 0) {
-      let latestPage = 1;
-      for (let i = 0; i < pageRefs.length; i++) {
-        if (pageRefs[i].title === "Page " + latestPage) {
-          latestPage++;
-          i = -1;
-        }
-      }
-      title = "Page " + latestPage;
-    }
-
-    setPageRefs(
-      pageRefs
-        .slice(0, pageRefs.length - 1)
-        .concat(new PageRef(title, parent.path))
-    );
-    parent.createPage(title);
-    setSelectedPage(title);
+    setSelectedPage(result);
   };
 
   return (

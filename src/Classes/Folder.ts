@@ -63,7 +63,26 @@ class Folder {
   };
 
   createPage = (title: string) => {
+    title = title.trim();
+    // check for dentical page titles in same folder
+    if (this.pages.some((page) => page.title === title)) {
+      return "duplicate";
+    }
+
+    // autoname pages if no name is provided
+    if (title.length === 0) {
+      let latestPage = 1;
+      for (let i = 0; i < this.pages.length; i++) {
+        if (this.pages[i].title === "Page " + latestPage) {
+          latestPage++;
+          i = -1;
+        }
+      }
+      title = "Page " + latestPage;
+    }
+
     this.pages.push(new Page(title, this.path));
+    return title;
   };
 
   deletePage = (title: string) => {
