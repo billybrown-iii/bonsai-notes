@@ -1,27 +1,27 @@
-import { Dispatch, SetStateAction, useState } from "react";
-import { Folder } from "./Classes/Folder";
-import Editor from "./UI/Editor";
-import Nav from "./UI/Nav";
-import Sidebar from "./UI/Sidebar";
+import { Dispatch, SetStateAction, useState } from 'react'
+import { Folder } from './Classes/Folder'
+import Editor from './UI/Editor'
+import Nav from './UI/Nav'
+import Sidebar from './UI/Sidebar'
 
 type Props = {
-  parent: Folder;
-  path: string[];
-  setPath: Dispatch<SetStateAction<string[]>>;
-};
+  parent: Folder
+  path: string[]
+  setPath: Dispatch<SetStateAction<string[]>>
+  saveNoteTree: () => void
+}
 
 // in order to avoid redeclaring parent every time there's a change to pages, split into Main / Layout component
-const Main = ({ parent, path, setPath }: Props) => {
-  const [pageRefs, setPageRefs] = useState(parent.pageRefGen());
-  const [selectedPage, setSelectedPage] = useState<string | null>(null);
-
-  const [key, setKey] = useState(0);
+const Main = ({ parent, path, setPath, saveNoteTree }: Props) => {
+  const [pageRefs, setPageRefs] = useState(parent.pageRefGen())
+  const [selectedPage, setSelectedPage] = useState<string | null>(null)
 
   const deletePage = (title: string) => {
-    parent.deletePage(title);
-    setPageRefs(parent.pageRefGen());
-    if (title === selectedPage) setSelectedPage(null);
-  };
+    parent.deletePage(title)
+    setPageRefs(parent.pageRefGen())
+    if (title === selectedPage) setSelectedPage(null)
+    saveNoteTree()
+  }
 
   return (
     <div className="h-screen bg-gradient-to-r from-stone-300 via-stone-200 to-stone-300 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-900">
@@ -39,18 +39,18 @@ const Main = ({ parent, path, setPath }: Props) => {
           selectedPage={selectedPage}
           setSelectedPage={setSelectedPage}
           deletePage={deletePage}
+          saveNoteTree={saveNoteTree}
         />
         <Editor
           selectedPage={selectedPage}
           setSelectedPage={setSelectedPage}
           parent={parent}
           setPageRefs={setPageRefs}
-          keyProp={key}
+          saveNoteTree={saveNoteTree}
         />
-        <Nav setKey={setKey} />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Main;
+export default Main
