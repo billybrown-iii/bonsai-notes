@@ -1,25 +1,25 @@
-import { MenuItem } from "@szhsin/react-menu";
-import feather from "feather-icons";
-import { Dispatch, SetStateAction } from "react";
-import FolderRef from "../Classes/FolderRef";
-import PageRef from "../Classes/PageRef";
-import SettingsButton from "./SettingsButton";
+import { MenuItem } from '@szhsin/react-menu'
+import feather from 'feather-icons'
+import { Dispatch, SetStateAction } from 'react'
+import FolderRef from '../Classes/FolderRef'
+import PageRef from '../Classes/PageRef'
+import SettingsButton from './SettingsButton'
 
-const icon = feather.icons["folder"].toSvg({
-  "stroke-width": 1,
-  width: "20px",
-});
+const icon = feather.icons['folder'].toSvg({
+  'stroke-width': 1,
+  width: '20px',
+})
 
 type Props = {
-  setPath: Dispatch<SetStateAction<string[]>>;
-  setSelectedPage: Dispatch<SetStateAction<string | null>>;
-  folderRefs: FolderRef[];
-  pageRefs: PageRef[];
-  addFolder: (title: string) => void;
-  deleteFolder: (title: string) => void;
-  renameFolder: (title: string) => void;
-  saveFolderRename: (prevName: string, newName: string) => void;
-};
+  setPath: Dispatch<SetStateAction<string[]>>
+  setSelectedPage: Dispatch<SetStateAction<string | null>>
+  folderRefs: FolderRef[]
+  pageRefs: PageRef[]
+  addFolder: (title: string) => void
+  deleteFolder: (title: string) => void
+  renameFolder: (title: string) => void
+  saveFolderRename: (prevName: string, newName: string) => void
+}
 
 /** List of folderRefs to be displayed in UI */
 export default function FolderList({
@@ -33,10 +33,10 @@ export default function FolderList({
   saveFolderRename,
 }: Props) {
   const folderStyles =
-    "group relative z-10 flex items-center w-full my-3.5 p-2 pl-3 text-sm rounded-xl bg-zinc-200 hover:bg-zinc-300 dark:bg-gray-700 dark:hover:bg-gray-600";
+    'group relative z-10 flex items-center w-full my-3.5 p-2 pl-3 text-sm rounded-xl bg-zinc-200 hover:bg-zinc-300 dark:bg-gray-700 dark:hover:bg-gray-600'
 
   const folders = folderRefs.map((item, index) => {
-    if (item.code === "new") {
+    if (item.code === 'new') {
       return (
         <div className="w-3/5 ml-8 mr-auto" key={index}>
           <div className={folderStyles}>
@@ -46,18 +46,25 @@ export default function FolderList({
               placeholder="New Folder"
               autoFocus
               onBlur={(e) => {
-                addFolder(e.target.value);
+                addFolder(e.target.value)
               }}
               onKeyPress={(e) => {
-                if (e.key === "Enter") addFolder(e.target.value);
+                if (e.key === 'Enter') addFolder(e.target.value)
               }}
             />
           </div>
+          <div
+            id="line"
+            className={
+              'relative z-0 -my-14 bottom-16 right-3 w-14 h-20 border-l-2 border-b-2 border-neutral-400 dark:border-gray-500' +
+              (pageRefs.length === 0 && index === folderRefs.length - 1 ? ' rounded-bl-lg' : '')
+            }
+          />
         </div>
-      );
-    } else if (item.code === "edit") {
+      )
+    } else if (item.code === 'edit') {
       return (
-        <div className="w-3/5 ml-8 mr-auto" key={index}>
+        <div className="w-3/5 my-4 ml-8 mr-auto" key={index}>
           <div className={folderStyles}>
             <input
               className="w-full m-auto border-2 border-zinc-500 rounded-xl dark:bg-zinc-600 py-2 px-5"
@@ -65,65 +72,55 @@ export default function FolderList({
               placeholder="New Folder"
               defaultValue={item.title}
               autoFocus
-              // value={item.title}
               onBlur={(e) => {
-                saveFolderRename(item.title, e.target.value);
+                saveFolderRename(item.title, e.target.value)
               }}
               onKeyPress={(e) => {
-                if (e.key === "Enter")
-                  saveFolderRename(item.title, e.target.value);
+                if (e.key === 'Enter') saveFolderRename(item.title, e.target.value)
               }}
             />
           </div>
+          <div
+            id="line"
+            className={
+              'relative z-0 -my-14 bottom-16 right-3 w-14 h-20 border-l-2 border-b-2 border-neutral-400 dark:border-gray-500' +
+              (pageRefs.length === 0 && index === folderRefs.length - 1 ? ' rounded-bl-lg' : '')
+            }
+          />
         </div>
-      );
+      )
     } else
       return (
-        <div
-          className="group flex items-center w-3/4 xl:w-3/5 mr-10"
-          key={index}
-        >
+        <div className="group flex items-center w-3/4 xl:w-3/5 mr-10" key={index}>
           <div className="w-full ml-8">
             <div
               onClick={() => {
-                setSelectedPage(null);
-                setPath(item.path);
+                setSelectedPage(null)
+                setPath(item.path)
               }}
               className={folderStyles}
-              id={"folderref-" + index}
+              id={'folderref-' + index}
             >
-              <div
-                className="mr-2 -mt-0.5"
-                dangerouslySetInnerHTML={{ __html: icon }}
-              />
+              <div className="mr-2 -mt-0.5" dangerouslySetInnerHTML={{ __html: icon }} />
               {item.title}
             </div>
             <div
               id="line"
               className={
-                "relative z-0 -my-12 bottom-16 right-3 w-14 h-20 border-l-2 border-b-2 border-neutral-400 dark:border-gray-500" +
-                (pageRefs.length === 0 &&
-                (index === folderRefs.length - 1 ||
-                  (index === folderRefs.length - 2 &&
-                    folderRefs[folderRefs.length - 1].code))
-                  ? " rounded-bl-lg"
-                  : "")
+                'relative z-0 -my-12 bottom-16 right-3 w-14 h-20 border-l-2 border-b-2 border-neutral-400 dark:border-gray-500' +
+                (pageRefs.length === 0 && index === folderRefs.length - 1 ? ' rounded-bl-lg' : '')
               }
             />
           </div>
           <div className="relative z-10 top-2 w-fit">
             <SettingsButton>
-              <MenuItem onClick={() => deleteFolder(item.title)}>
-                Delete
-              </MenuItem>
-              <MenuItem onClick={() => renameFolder(item.title)}>
-                Rename
-              </MenuItem>
+              <MenuItem onClick={() => deleteFolder(item.title)}>Delete</MenuItem>
+              <MenuItem onClick={() => renameFolder(item.title)}>Rename</MenuItem>
             </SettingsButton>
           </div>
         </div>
-      );
-  });
+      )
+  })
 
-  return <div className="pb-3">{folders}</div>;
+  return <div className="pb-3">{folders}</div>
 }

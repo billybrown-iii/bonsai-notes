@@ -8,9 +8,6 @@ const homeFolder = createHomeFolder(storedNotes)
 
 console.log(homeFolder)
 
-// if I save the pages in a modular fashion,
-// I can totally call save() with every keystroke.
-
 function App() {
   const [path, setPath] = useState(['Home'])
   const parent = homeFolder.navObj(path)
@@ -20,13 +17,7 @@ function App() {
     localStorage.setItem('homeFolder', JSON.stringify(homeFolder))
   }
 
-  return (
-    <>
-      <Main parent={parent} path={path} setPath={setPath} saveNoteTree={saveNoteTree} />
-      <button onClick={saveNoteTree}>Save</button>
-      <button onClick={() => console.log('')}>Test</button>
-    </>
-  )
+  return <Main parent={parent} path={path} setPath={setPath} saveNoteTree={saveNoteTree} />
 }
 
 export default App

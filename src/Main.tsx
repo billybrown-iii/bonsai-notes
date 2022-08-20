@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import { Folder } from './Classes/Folder'
 import Editor from './UI/Editor'
-import Nav from './UI/Nav'
 import Sidebar from './UI/Sidebar'
 
 type Props = {
@@ -11,7 +10,7 @@ type Props = {
   saveNoteTree: () => void
 }
 
-// in order to avoid redeclaring parent every time there's a change to pages, split into Main / Layout component
+// in order to avoid redeclaring parent every time there's a change to pages, Main from App component
 const Main = ({ parent, path, setPath, saveNoteTree }: Props) => {
   const [pageRefs, setPageRefs] = useState(parent.pageRefGen())
   const [selectedPage, setSelectedPage] = useState<string | null>(null)
@@ -25,7 +24,6 @@ const Main = ({ parent, path, setPath, saveNoteTree }: Props) => {
 
   return (
     <div className="h-screen bg-gradient-to-r from-stone-300 via-stone-200 to-stone-300 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-900">
-      {/* <div className=' bg-gradient-to-r from-slate-600'>Hello</div> */}
       <div
         id="main"
         className="relative flex flex-wrap h-full w-full max-w-screen-xl min-w-[768px] m-auto bg-neutral-100 dark:bg-gray-800 text-zinc-900 dark:text-zinc-50"

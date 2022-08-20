@@ -4,10 +4,10 @@ import PageRef from './PageRef'
 import { v4 as uuid } from 'uuid'
 import localforage from 'localforage'
 
+/**
+ * Describes the notes' tree structure and holds functionality for making changes.
+ */
 class Folder {
-  /**
-   * Describes the notes' tree structure and holds functionality for making changes.
-   */
   constructor(title: string, parentPath: string[]) {
     this.title = title
     this.path = [...parentPath, title]
@@ -66,7 +66,7 @@ class Folder {
 
   createPage = (title: string) => {
     title = title.trim()
-    // check for dentical page titles in same folder
+    // check for identical page titles in same folder
     if (this.pages.some((page) => page.title === title)) {
       return 'duplicate'
     }
@@ -84,7 +84,6 @@ class Folder {
     }
 
     const pageID = uuid()
-    // console.log("Created id ", pageID);
     this.pages.push(new Page(title, this.path, pageID))
     return localforage.setItem(pageID, '')
   }
@@ -122,8 +121,6 @@ class Folder {
 
   /**
    * Takes in a path, returns the child object that the path refers to.
-   * @param {array} path
-   * @returns object
    */
   navObj = (path: string[]) => {
     // only work on home level
@@ -145,7 +142,6 @@ class Folder {
 
   /**
    * Generates folderRefs for UI display.
-   * @returns array
    */
   folderRefGen = () => {
     return this.folders.slice().map((item) => new FolderRef(item.title, this.path))
@@ -153,7 +149,6 @@ class Folder {
 
   /**
    * Generates pageRefs for UI display.
-   * @returns array
    */
   pageRefGen = () => {
     return this.pages.slice().map((item) => new PageRef(item.title, item.path))

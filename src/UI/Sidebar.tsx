@@ -125,14 +125,10 @@ export default function Sidebar({
   }
 
   return (
-    // TODO when create new folder or page, scroll to comfortably view
     <div
       id="sidebar"
       className="h-full w-1/3 lg:w-[31%] overflow-auto border-r-2 border-zinc-300 dark:border-slate-600 select-none"
     >
-      {/* Idea:
-  Hover over parent, and arrow appears to the side, to show what clicking does.
-   */}
       <div className="flex">
         <ParentFolder
           setSelectedPage={setSelectedPage}
@@ -194,7 +190,6 @@ export default function Sidebar({
               deletePage={deletePage}
             />
           </div>
-          <div className="mx-3 ml-4"></div>
         </div>
       </div>
     </div>

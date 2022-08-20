@@ -37,7 +37,7 @@ export default function PrimaryEditor({
     setKey((prev) => prev + 1)
   }
 
-  // don't show editor until content is fully loaded
+  // don't show editor until content is loaded
   const [showEditor, setShowEditor] = useState(false)
   // if user selects a different page, switch to that page's content
   useEffect(() => {
@@ -59,8 +59,6 @@ export default function PrimaryEditor({
           throw new Error(`effect failed: Page "${currentPage.title}" not found`)
         }
       })
-
-      // setDirty(false);
     } else {
     }
   }, [currentPage, parent])
@@ -74,7 +72,7 @@ export default function PrimaryEditor({
   }
 
   /**
-   * when user blurs or hits enter, save updated page title
+   * When user blurs or hits enter, save updated page title
    */
   const saveTitleChange = () => {
     if (!selectedPage) return
@@ -99,19 +97,8 @@ export default function PrimaryEditor({
     saveNoteTree()
   }
 
-  /** We are not currently utilizing the dirty status tracked in state.
-  But we might someday.  For example, if we implement some kind of timeout.
-  Various references to dirty status have been commented out.
-
-  const [dirty, setDirty] = useState(false);
-  useEffect(() => setDirty(false), [initialValue]); */
-
   const save = () => {
     if (selectedPage && editorRef.current) {
-      // setDirty(false);
-      console.log('saved editor content')
-
-      editorRef.current.setDirty(false)
       parent.updatePageContent(selectedPage, editorRef.current.getContent())
     }
   }
@@ -145,13 +132,8 @@ export default function PrimaryEditor({
           }}
           initialValue={initialValue}
           onInit={(evt, editor) => (editorRef.current = editor)}
-          // autosave on every change
-          // default: onDirty={() => setDirty(true)}
-          onDirty={save}
+          onEditorChange={save}
         />
-
-        {/* <button onClick={save} disabled={!dirty}>Save</button> */}
-        {/* {dirty && <p>You have unsaved content!</p>} */}
       </div>
       <Nav refreshEditor={refreshEditor} />
     </>

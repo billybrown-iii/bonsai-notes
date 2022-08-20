@@ -1,8 +1,8 @@
 type Props = {
-  icon: string;
-  func: () => any;
-  text: string;
-};
+  icon: string
+  func: () => any
+  text: string
+}
 const ResponsiveButton = ({ icon, func, text }: Props) => {
   return (
     <div
@@ -13,11 +13,9 @@ const ResponsiveButton = ({ icon, func, text }: Props) => {
         className="mr-0 xl:mr-1.5 text-gray-700 dark:text-gray-300"
         dangerouslySetInnerHTML={{ __html: icon }}
       ></div>
-      <div className="hidden xl:block text-gray-700 dark:text-gray-200">
-        {text}
-      </div>
+      <div className="hidden xl:block text-gray-700 dark:text-gray-200">{text}</div>
     </div>
-  );
-};
+  )
+}
 
-export default ResponsiveButton;
+export default ResponsiveButton

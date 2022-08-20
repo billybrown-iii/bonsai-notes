@@ -1,21 +1,21 @@
-import feather from "feather-icons";
-import { Menu } from "@szhsin/react-menu";
-import React, { ReactNode } from "react";
-import "@szhsin/react-menu/dist/index.css";
-import "@szhsin/react-menu/dist/transitions/slide.css";
+import feather from 'feather-icons'
+import { Menu } from '@szhsin/react-menu'
+import React, { ReactNode } from 'react'
+import '@szhsin/react-menu/dist/index.css'
+import '@szhsin/react-menu/dist/transitions/slide.css'
 
-const settingsIcon = feather.icons["settings"].toSvg({
-  "stroke-width": 2,
-  width: "20px",
-});
+const settingsIcon = feather.icons['settings'].toSvg({
+  'stroke-width': 2,
+  width: '20px',
+})
 
 /**
  * Wrapper for settings button
  * Provides outer skeleton.  Implementation still to add individual menu items for settings.
  */
 type Props = {
-  children?: ReactNode;
-};
+  children?: ReactNode
+}
 const SettingsButton = ({ children }: Props) => {
   return (
     <div
@@ -24,10 +24,7 @@ const SettingsButton = ({ children }: Props) => {
     >
       <Menu
         menuButton={
-          <div
-            className="p-1.5 px-2"
-            dangerouslySetInnerHTML={{ __html: settingsIcon }}
-          />
+          <div className="p-1.5 px-2" dangerouslySetInnerHTML={{ __html: settingsIcon }} />
         }
         transition
         portal={true}
@@ -37,7 +34,7 @@ const SettingsButton = ({ children }: Props) => {
         {children}
       </Menu>
     </div>
-  );
-};
+  )
+}
 
-export default SettingsButton;
+export default SettingsButton

@@ -1,10 +1,10 @@
-import React, { ChangeEventHandler } from "react";
+import { ChangeEventHandler } from 'react'
 
 type Props = {
-  pageTitle: string;
-  titleChange: ChangeEventHandler<HTMLInputElement>;
-  saveTitleChange: () => void;
-};
+  pageTitle: string
+  titleChange: ChangeEventHandler<HTMLInputElement>
+  saveTitleChange: () => void
+}
 const TitleBar = ({ pageTitle, titleChange, saveTitleChange }: Props) => {
   return (
     <input
@@ -15,10 +15,10 @@ const TitleBar = ({ pageTitle, titleChange, saveTitleChange }: Props) => {
       onChange={titleChange}
       onBlur={saveTitleChange}
       onKeyPress={(e) => {
-        if (e.key === "Enter") saveTitleChange();
+        if (e.key === 'Enter') saveTitleChange()
       }}
     />
-  );
-};
+  )
+}
 
-export default TitleBar;
+export default TitleBar

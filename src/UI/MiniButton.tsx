@@ -1,7 +1,7 @@
 type Props = {
-  icon: string;
-  func: () => any;
-};
+  icon: string
+  func: () => any
+}
 const MiniButton = ({ icon, func }: Props) => {
   return (
     <div
@@ -10,10 +10,7 @@ const MiniButton = ({ icon, func }: Props) => {
     >
       <div dangerouslySetInnerHTML={{ __html: icon }}></div>
     </div>
-  );
-};
+  )
+}
 
-export default MiniButton;
-
-// Maybe:
-// Make a MedButton as well, for the more central actions like new page
+export default MiniButton
