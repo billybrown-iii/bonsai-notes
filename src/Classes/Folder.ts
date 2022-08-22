@@ -167,6 +167,7 @@ const createHomeFolder = (savedNotes: string | null) => {
     // initial app state
     const folder = new Folder('Home', [])
     folder.createPage('welcome')
+    folder.updatePageContent('welcome', 'some content')
     return folder
   } else {
     // uses savedNotes to populate content

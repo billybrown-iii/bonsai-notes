@@ -7,7 +7,6 @@ import PageRef from '../Classes/PageRef'
 import Nav from './Nav'
 
 // an initial value is needed for the purpose of the dark theme switching
-// TODO fix dark theme switching
 let initialValue: string | undefined = ''
 
 type Props = {
@@ -62,6 +61,15 @@ export default function PrimaryEditor({
     } else {
     }
   }, [currentPage, parent])
+
+  useEffect(() => {
+    if (localStorage.getItem('homeFolder') === null) {
+      initialValue = 'some content'
+      setSelectedPage('welcome')
+      setPageTitle('welcome')
+      setShowEditor(true)
+    }
+  }, [setSelectedPage])
 
   /**
    * Handles user changing the title text for a page.
