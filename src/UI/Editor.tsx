@@ -62,6 +62,7 @@ export default function PrimaryEditor({
     }
   }, [currentPage, parent])
 
+  // autofocus on welcome page for new users
   useEffect(() => {
     if (localStorage.getItem('homeFolder') === null) {
       initialValue = 'some content'

@@ -6,6 +6,9 @@ import Main from './Main'
 const storedNotes = localStorage.getItem('homeFolder')
 const homeFolder = createHomeFolder(storedNotes)
 
+// save homeFolder after initial visit
+// if (!storedNotes) setTimeout(func, 1000)
+
 console.log(homeFolder)
 
 function App() {
