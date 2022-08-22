@@ -110,7 +110,7 @@ class Folder {
     if (!title) return
     const pageToEdit = this.pages.find((page) => page.title === title)
     if (!pageToEdit) throw new Error(`Page "${title}" not found`)
-    localforage.setItem(pageToEdit.id, content)
+    return localforage.setItem(pageToEdit.id, content)
   }
 
   fetchPageContent = (title: string) => {
@@ -166,11 +166,7 @@ const createHomeFolder = (savedNotes: string | null) => {
   if (!savedNotes) {
     // initial app state
     const folder = new Folder('Home', [])
-
-    folder.createChildFolder('Folder 1') // path = ["Home", "Folder 1"]
-    folder.createChildFolder('Folder 2')
-    folder.createPage('Page 1')
-    folder.createPage('Page 2')
+    folder.createPage('welcome')
     return folder
   } else {
     // uses savedNotes to populate content

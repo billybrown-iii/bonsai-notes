@@ -6,6 +6,15 @@ import Main from './Main'
 const storedNotes = localStorage.getItem('homeFolder')
 const homeFolder = createHomeFolder(storedNotes)
 
+if (!storedNotes) {
+  homeFolder.updatePageContent('welcome', 'changed content')?.then(() =>
+    setTimeout(() => {
+      const element = document.getElementsByClassName('page-class')[0] as HTMLElement
+      element.click()
+    }, 250)
+  )
+}
+
 console.log(homeFolder)
 
 function App() {

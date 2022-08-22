@@ -25,7 +25,7 @@ export default function PageList({
   deletePage,
 }: Props) {
   const pageStyles =
-    'flex items-center w-full xl:w-11/12 mr-auto my-1.5 pl-2 pr-1 py-2.5 rounded-md bg-zinc-200 hover:bg-zinc-300 dark:bg-gray-700 dark:hover:bg-gray-600'
+    'page-class flex items-center w-full xl:w-11/12 mr-auto my-1.5 pl-2 pr-1 py-2.5 rounded-md bg-zinc-200 hover:bg-zinc-300 dark:bg-gray-700 dark:hover:bg-gray-600'
 
   const pages = pageRefs.map((item, index) => {
     // Condition for placeholder page
