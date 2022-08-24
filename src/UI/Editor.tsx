@@ -6,14 +6,6 @@ import { Folder } from '../Classes/Folder'
 import PageRef from '../Classes/PageRef'
 import Nav from './Nav'
 
-// experimenting with including SVG
-// I have included svg in the editor by dragging an svg file from finder into it
-// editor onInit setting required
-// also, dark theme does not work
-// just make an image
-// import feather from 'feather-icons'
-// const darkIcon = feather.icons['moon'].toSvg({ 'stroke-width': 1 })
-
 // an initial value is needed for the purpose of the dark theme switching
 let initialValue: string | undefined = ''
 
@@ -146,23 +138,16 @@ export default function PrimaryEditor({
             toolbar:
               'bold italic underline strikethrough hr | fontsize | alignleft aligncenter alignright | fullscreen',
             forced_root_block: 'div',
-            // include for svg support
-            // security risk: if the app has a backend, inputs must be sanitized
-            images_file_types: 'svg,jpeg,jpg,jpe,jfi,jif,jfif,png,gif,bmp,webp',
           }}
           initialValue={initialValue}
           onInit={(evt, editor) => (editorRef.current = editor)}
           onEditorChange={save}
         />
-        {/* Experimenting with including SVG */}
         {/* <button
           onClick={() => {
-            editorRef?.current?.setContent(darkIcon)
             console.log(editorRef?.current?.getContent())
-            console.log(darkIcon)
           }}
-          dangerouslySetInnerHTML={{ __html: darkIcon }}
-        ></button> */}
+        >test</button> */}
       </div>
 
       <Nav refreshEditor={refreshEditor} />
