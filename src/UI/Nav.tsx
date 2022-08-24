@@ -8,9 +8,6 @@ type Props = {
   refreshEditor: () => void
 }
 const Nav = ({ refreshEditor }: Props) => {
-  // TODO store preference in cookies instead of local storage
-
-  // TODO fix for new users.  currently defaults to dark theme.
   const element = document.getElementById('html')
   const isDark = element!.classList.contains('dark')
 

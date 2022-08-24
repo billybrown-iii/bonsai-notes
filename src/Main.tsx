@@ -10,7 +10,7 @@ type Props = {
   saveNoteTree: () => void
 }
 
-// in order to avoid redeclaring parent every time there's a change to pages, Main from App component
+// in order to avoid redeclaring parent every time there's a change to pages, separate Main from App component
 const Main = ({ parent, path, setPath, saveNoteTree }: Props) => {
   const [pageRefs, setPageRefs] = useState(parent.pageRefGen())
   const [selectedPage, setSelectedPage] = useState<string | null>(null)
