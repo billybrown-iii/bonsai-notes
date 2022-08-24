@@ -7,14 +7,15 @@ const storedNotes = localStorage.getItem('homeFolder')
 const homeFolder = createHomeFolder(storedNotes)
 
 // save homeFolder after initial visit
-// if (!storedNotes) setTimeout(func, 1000)
+if (!storedNotes)
+  setTimeout(() => localStorage.setItem('homeFolder', JSON.stringify(homeFolder)), 500)
 
-console.log(homeFolder)
+// console.log(homeFolder)
 
 function App() {
   const [path, setPath] = useState(['Home'])
   const parent = homeFolder.navObj(path)
-  console.log('parent declared')
+  // console.log('parent declared')
 
   const saveNoteTree = () => {
     localStorage.setItem('homeFolder', JSON.stringify(homeFolder))
