@@ -14,7 +14,7 @@ const ResponsiveButton = ({ icon, func, text }: Props) => {
       text-zinc-600 hover:text-zinc-900 dark:text-gray-300 dark:hover:text-gray-100`}
     >
       <div className="mr-0 xl:mr-1.5 " dangerouslySetInnerHTML={{ __html: icon }}></div>
-      <div className="hidden xl:block">{text}</div>
+      <div className="hidden xl:block select-none">{text}</div>
     </div>
   )
 }

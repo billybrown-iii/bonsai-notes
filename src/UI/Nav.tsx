@@ -1,4 +1,6 @@
 import feather from 'feather-icons'
+import { useState } from 'react'
+import HelpModal from './InfoModal'
 import MiniButton from './MiniButton'
 
 const darkIcon = feather.icons['moon'].toSvg({ 'stroke-width': 2 })
@@ -12,6 +14,8 @@ const Nav = ({ refreshEditor }: Props) => {
   const element = document.getElementById('html')
   const isDark = element!.classList.contains('dark')
 
+  const [showModal, setShowModal] = useState(false)
+
   const toggleDarkTheme = () => {
     window.localStorage.getItem('theme') === 'dark'
       ? window.localStorage.setItem('theme', 'light')
@@ -23,8 +27,9 @@ const Nav = ({ refreshEditor }: Props) => {
   return (
     // width of 22.22% = 1/3 of 2/3
     <div className="absolute flex justify-end w-[22.22%] right-0 py-1.5 px-2">
-      <MiniButton icon={helpIcon} func={toggleDarkTheme} />
+      <MiniButton icon={helpIcon} func={() => setShowModal((prev) => !prev)} />
       <MiniButton icon={isDark ? lightIcon : darkIcon} func={toggleDarkTheme} />
+      {showModal ? <HelpModal setShowModal={setShowModal} /> : null}
     </div>
   )
 }

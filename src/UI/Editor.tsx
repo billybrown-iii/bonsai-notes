@@ -143,6 +143,9 @@ export default function PrimaryEditor({
           onInit={(evt, editor) => (editorRef.current = editor)}
           onEditorChange={save}
         />
+        <div className="w-full text-2xl">
+          <div className="w-fit ml-5 mr-5 pt-2">Bonsai Notes</div>
+        </div>
         {/* <button
           onClick={() => {
             console.log(editorRef?.current?.getContent())
