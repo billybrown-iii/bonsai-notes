@@ -19,7 +19,7 @@ const ParentFolder = ({ setSelectedPage, path, setPath, parent }: Props) => {
         setSelectedPage(null)
         if (path.length > 1) setPath(path.slice(0, path.length - 1))
       }}
-      className="flex items-center relative z-10 w-4/5 xl:w-[61%] rounded-br-2xl mr-3 py-3.5 px-2 bg-zinc-200 hover:bg-zinc-300 dark:bg-gray-700 dark:hover:bg-gray-600"
+      className="flex items-center relative z-10 w-4/5 xl:w-[60%] rounded-br-2xl mr-3 py-3.5 px-2 bg-zinc-200 hover:bg-zinc-300 dark:bg-gray-700 dark:hover:bg-gray-600"
     >
       <div
         id="back-icon"

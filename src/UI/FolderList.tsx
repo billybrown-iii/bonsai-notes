@@ -38,10 +38,10 @@ export default function FolderList({
   const folders = folderRefs.map((item, index) => {
     if (item.code === 'new') {
       return (
-        <div className="w-3/5 ml-8 mr-auto" key={index}>
+        <div className="w-1/2 ml-8 mr-auto" key={index}>
           <div className={folderStyles}>
             <input
-              className="w-full m-auto border-2 border-zinc-500 rounded-xl dark:bg-zinc-600 py-2 px-5"
+              className="w-5/6 m-auto border-2 border-zinc-500 rounded-xl dark:bg-zinc-600 py-2 px-5"
               type="text"
               placeholder="New Folder"
               autoFocus
