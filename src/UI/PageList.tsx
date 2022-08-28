@@ -77,7 +77,7 @@ export default function PageList({
   })
 
   return (
-    <div id="page-list" className="pl-1">
+    <div id="page-list" className="px-1">
       {pages}
     </div>
   )

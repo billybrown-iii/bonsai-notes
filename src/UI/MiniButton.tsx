@@ -6,7 +6,7 @@ const MiniButton = ({ icon, func }: Props) => {
   return (
     <div
       onClick={func}
-      className="flex w-fit mx-2 p-2 border-2 rounded-2xl border-zinc-600 dark:border-slate-400 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
+      className="flex w-fit mr-2 ml-1 p-2 border-2 rounded-2xl border-zinc-600 dark:border-slate-400 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700"
     >
       <div
         className="text-zinc-600 dark:text-slate-300"

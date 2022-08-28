@@ -7,6 +7,7 @@ import feather from 'feather-icons'
 import { Folder } from '../Classes/Folder'
 import ResponsiveButton from './ResponsiveButton'
 import ParentFolder from './ParentFolder'
+import FullButton from './FullButton'
 
 // TODO handle errors in axios calls
 
@@ -148,7 +149,11 @@ export default function Sidebar({
           (pageRefs.length > 0 ? 'hidden' : 'visible')
         }
       >
-        <ResponsiveButton icon={newPageIcon} func={newPage} text="New Page" />
+        {folderRefs.length > 0 ? (
+          <ResponsiveButton icon={newPageIcon} func={newPage} text="New Page" />
+        ) : (
+          <FullButton icon={newPageIcon} func={newPage} text="New Page" />
+        )}
       </div>
 
       <div id="sidebar-list" className="pb-10">

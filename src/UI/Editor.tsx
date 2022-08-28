@@ -5,8 +5,8 @@ import { Editor as TinyMCEEditor } from 'tinymce'
 import { Folder } from '../Classes/Folder'
 import PageRef from '../Classes/PageRef'
 import Nav from './Nav'
+import initContent from '../Misc/initContent'
 
-// an initial value is needed for the purpose of the dark theme switching
 let initialValue: string | undefined = ''
 
 type Props = {
@@ -65,7 +65,7 @@ export default function PrimaryEditor({
   // autofocus on welcome page for new users
   useEffect(() => {
     if (localStorage.getItem('homeFolder') === null) {
-      initialValue = 'some content'
+      initialValue = initContent
       setSelectedPage('welcome')
       setPageTitle('welcome')
       setShowEditor(true)
@@ -131,12 +131,12 @@ export default function PrimaryEditor({
             height: '100%',
             skin: isDark ? 'oxide-dark' : 'oxide',
             content_css: isDark ? 'dark' : 'default',
-            plugins: 'fullscreen',
+            plugins: 'fullscreen lists',
             toolbar_sticky: true,
             menubar: 'false',
             statusbar: false,
             toolbar:
-              'bold italic underline strikethrough hr | fontsize | alignleft aligncenter alignright | fullscreen',
+              'bold italic underline numlist bullist strikethrough hr | fontsize | alignleft aligncenter alignright | fullscreen',
             forced_root_block: 'div',
           }}
           initialValue={initialValue}
@@ -150,7 +150,9 @@ export default function PrimaryEditor({
           onClick={() => {
             console.log(editorRef?.current?.getContent())
           }}
-        >test</button> */}
+        >
+          test
+        </button> */}
       </div>
 
       <Nav refreshEditor={refreshEditor} />

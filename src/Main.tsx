@@ -3,6 +3,8 @@ import { Folder } from './Classes/Folder'
 import Editor from './UI/Editor'
 import Sidebar from './UI/Sidebar'
 
+// TODO create mobile notif view
+
 type Props = {
   parent: Folder
   path: string[]

@@ -3,6 +3,7 @@ import FolderRef from './FolderRef'
 import PageRef from './PageRef'
 import { v4 as uuid } from 'uuid'
 import localforage from 'localforage'
+import initContent from '../Misc/initContent'
 
 /**
  * Describes the notes' tree structure and holds functionality for making changes.
@@ -166,8 +167,8 @@ const createHomeFolder = (savedNotes: string | null) => {
   if (!savedNotes) {
     // initial app state
     const folder = new Folder('Home', [])
-    folder.createPage('welcome')
-    folder.updatePageContent('welcome', 'some content')
+    folder.createPage('Welcome!')
+    folder.updatePageContent('Welcome!', initContent)
     return folder
   } else {
     // uses savedNotes to populate content
