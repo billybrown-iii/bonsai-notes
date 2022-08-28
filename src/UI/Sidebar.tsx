@@ -8,6 +8,8 @@ import { Folder } from '../Classes/Folder'
 import ResponsiveButton from './ResponsiveButton'
 import ParentFolder from './ParentFolder'
 
+// TODO handle errors in axios calls
+
 const newFolderIcon = feather.icons['folder-plus'].toSvg({
   'stroke-width': 2,
   width: '24px',
@@ -163,7 +165,7 @@ export default function Sidebar({
 
         <div className={'flex ml-8 mr-auto ' + (pageRefs.length > 0 ? 'visible' : 'hidden')}>
           <div
-            id="line"
+            id="connecting-line"
             className={
               'relative z-0 -mb-40 bottom-32 right-3 w-3.5 h-40 border-l-2 border-b-2 rounded-bl-xl border-neutral-400 dark:border-gray-500 '
             }
@@ -173,7 +175,6 @@ export default function Sidebar({
             <ResponsiveButton icon={newPageIcon} func={newPage} text="New Page" />
           </div>
         </div>
-
         <hr
           className={
             'w-11/12 m-auto mt-3 mb-4 border-t border-gray-600 ' +
@@ -181,7 +182,7 @@ export default function Sidebar({
           }
         />
         <div className="flex justify-around">
-          <div className="w-full xl:w-4/5 ml-7">
+          <div className="w-11/12 xl:w-4/5 ml-5">
             <PageList
               pageRefs={pageRefs}
               addPage={addPage}
