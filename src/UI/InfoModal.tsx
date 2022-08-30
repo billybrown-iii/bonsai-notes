@@ -26,15 +26,16 @@ const HelpModal = ({ setShowModal }: Props) => {
         <br />
         <div>
           This is a note-taking web app that is designed to be quick and easy to use. It doesn't
-          support online saving of notes it uses indexedBD for local storage ***, though this
-          feature may be added at some point in the future.
+          support online saving of notes, though this feature may be added at some point in the
+          future.
         </div>
         <br />
         {/* <div>[overview of features ?]</div> */}
         {/* <br /> */}
         <div>
-          It's a software development project, and it should only be used for temporary and minor
-          applications. The app creator assumes no responsibility for lost notes.
+          It's a software development project, created mainly for the sake of learning and practice.
+          It should only be used for temporary and minor applications. The app creator assumes no
+          responsibility for lost notes.
         </div>
 
         <div className="my-5 border-b border-slate-700 dark:border-slate-300 rounded-2xl" />

@@ -66,8 +66,8 @@ export default function PrimaryEditor({
   useEffect(() => {
     if (localStorage.getItem('homeFolder') === null) {
       initialValue = initContent
-      setSelectedPage('welcome')
-      setPageTitle('welcome')
+      setSelectedPage('Welcome!')
+      setPageTitle('Welcome!')
       setShowEditor(true)
     }
   }, [setSelectedPage])

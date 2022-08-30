@@ -61,7 +61,7 @@ export default function PageList({
             onClick={() => {
               setSelectedPage(item.title)
             }}
-            className={pageStyles + (selectedPage === item.title ? ' -ml-0.5 -mr-1.5' : '')}
+            className={pageStyles + (selectedPage === item.title ? ' -ml-0.5 -mr-1' : '')}
           >
             <span className="mr-2" dangerouslySetInnerHTML={{ __html: pageIcon }} />
             <div className="overflow-hidden">{item.title}</div>
