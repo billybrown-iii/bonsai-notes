@@ -1,9 +1,9 @@
-import feather from 'feather-icons'
-import { Dispatch, SetStateAction } from 'react'
-import ResponsiveButton from './ResponsiveButton'
-const githubIcon = feather.icons['github'].toSvg({ 'stroke-width': 2 })
-const coffeeIcon = feather.icons['coffee'].toSvg({ 'stroke-width': 2 })
-const xIcon = feather.icons['x-circle'].toSvg({ 'stroke-width': 2 })
+import feather from "feather-icons"
+import { Dispatch, SetStateAction } from "react"
+import ResponsiveButton from "./ResponsiveButton"
+const githubIcon = feather.icons["github"].toSvg({ "stroke-width": 2 })
+const coffeeIcon = feather.icons["coffee"].toSvg({ "stroke-width": 2 })
+const xIcon = feather.icons["x-circle"].toSvg({ "stroke-width": 2 })
 
 type Props = {
   setShowModal: Dispatch<SetStateAction<boolean>>
@@ -20,14 +20,13 @@ const HelpModal = ({ setShowModal }: Props) => {
         <div className="w-fit ml-auto sm:-mr-12 -mt-4 my">
           <ResponsiveButton icon={xIcon} func={() => setShowModal((prev) => !prev)} text="Close" />
         </div>
-        <div className="w-fit mx-auto -mt-4 text-3xl border-b-2 border-gray-900 dark:border-gray-100">
+        <div className="w-fit mx-auto -mt-4 text-2xl border-b border-gray-900 dark:border-gray-100">
           Bonsai Notes
         </div>
         <br />
         <div>
-          This is a note-taking web app that is designed to be quick and easy to use. It doesn't
-          support online saving of notes, though this feature may be added at some point in the
-          future.
+          This is a note-taking web app that is designed to be quick and useful. It doesn't support
+          online saving of notes, though this feature may be added at some point in the future.
         </div>
         <br />
         {/* <div>[overview of features ?]</div> */}

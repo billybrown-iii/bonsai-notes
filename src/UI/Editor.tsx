@@ -1,13 +1,13 @@
-import { useState, useEffect, useRef, Dispatch, SetStateAction, ChangeEventHandler } from 'react'
-import TitleBar from './TitleBar'
-import { Editor } from '@tinymce/tinymce-react'
-import { Editor as TinyMCEEditor } from 'tinymce'
-import { Folder } from '../Classes/Folder'
-import PageRef from '../Classes/PageRef'
-import Nav from './Nav'
-import initContent from '../Misc/initContent'
+import { useState, useEffect, useRef, Dispatch, SetStateAction, ChangeEventHandler } from "react"
+import TitleBar from "./TitleBar"
+import { Editor } from "@tinymce/tinymce-react"
+import { Editor as TinyMCEEditor } from "tinymce"
+import { Folder } from "../Classes/Folder"
+import PageRef from "../Classes/PageRef"
+import Nav from "./Nav"
+import initContent from "../Misc/initContent"
 
-let initialValue: string | undefined = ''
+let initialValue: string | undefined = ""
 
 type Props = {
   selectedPage: string | null
@@ -26,11 +26,11 @@ export default function PrimaryEditor({
 }: Props) {
   const editorRef = useRef<TinyMCEEditor>()
   const currentPage = parent.findPage(selectedPage)
-  const [pageTitle, setPageTitle] = useState('')
+  const [pageTitle, setPageTitle] = useState("")
 
   const [key, setKey] = useState(0)
-  const element = document.getElementById('html')
-  const isDark = element!.classList.contains('dark')
+  const element = document.getElementById("html")
+  const isDark = element!.classList.contains("dark")
   const refreshEditor = () => {
     initialValue = editorRef.current?.getContent()
     setKey((prev) => prev + 1)
@@ -42,7 +42,7 @@ export default function PrimaryEditor({
   useEffect(() => {
     if (editorRef.current && currentPage === undefined) {
       setShowEditor(false)
-      editorRef.current.setContent('')
+      editorRef.current.setContent("")
     }
     if (editorRef.current && currentPage) {
       setPageTitle(currentPage.title)
@@ -51,6 +51,7 @@ export default function PrimaryEditor({
       parent.fetchPageContent(currentPage.title).then((content: any) => {
         if (content !== null && editorRef.current) {
           editorRef.current.setContent(content)
+          editorRef.current.undoManager.clear()
           // auto-focus on empty page
           if (content.length === 0) editorRef.current.focus()
           setShowEditor(true)
@@ -64,10 +65,10 @@ export default function PrimaryEditor({
 
   // autofocus on welcome page for new users
   useEffect(() => {
-    if (localStorage.getItem('homeFolder') === null) {
+    if (localStorage.getItem("homeFolder") === null) {
       initialValue = initContent
-      setSelectedPage('Welcome!')
-      setPageTitle('Welcome!')
+      setSelectedPage("Welcome!")
+      setPageTitle("Welcome!")
       setShowEditor(true)
     }
   }, [setSelectedPage])
@@ -89,15 +90,15 @@ export default function PrimaryEditor({
     const result = parent.changePageTitle(selectedPage, pageTitle)
 
     switch (result) {
-      case 'same':
+      case "same":
         return
-      case 'empty': {
+      case "empty": {
         setPageTitle(selectedPage)
-        return alert('A page title is required.')
+        return alert("A page title is required.")
       }
-      case 'duplicate': {
+      case "duplicate": {
         setPageTitle(selectedPage)
-        return alert('A page with this title already exists.  Please use a different name.')
+        return alert("A page with this title already exists.  Please use a different name.")
       }
     }
 
@@ -115,7 +116,7 @@ export default function PrimaryEditor({
   return (
     <>
       <div
-        className={(showEditor ? '' : 'hidden') + ' w-2/3 lg:w-[69%] h-11/12 max-h-[90vh]'}
+        className={(showEditor ? "" : "hidden") + " w-2/3 lg:w-[69%] h-11/12 max-h-[90vh]"}
         id="editor"
         key={key}
       >
@@ -125,19 +126,19 @@ export default function PrimaryEditor({
           saveTitleChange={saveTitleChange}
         />
         <Editor
-          tinymceScriptSrc={process.env.PUBLIC_URL + '/tinymce/tinymce.min.js'}
+          tinymceScriptSrc={process.env.PUBLIC_URL + "/tinymce/tinymce.min.js"}
           init={{
-            width: '100%',
-            height: '100%',
-            skin: isDark ? 'oxide-dark' : 'oxide',
-            content_css: isDark ? 'dark' : 'default',
-            plugins: 'fullscreen lists',
+            width: "100%",
+            height: "100%",
+            skin: isDark ? "oxide-dark" : "oxide",
+            content_css: isDark ? "dark" : "default",
+            plugins: "fullscreen lists",
             toolbar_sticky: true,
-            menubar: 'false',
+            menubar: "false",
             statusbar: false,
             toolbar:
-              'bold italic underline numlist bullist strikethrough hr | fontsize | alignleft aligncenter alignright | fullscreen',
-            forced_root_block: 'div',
+              "bold italic underline numlist bullist strikethrough hr | fontsize | alignleft aligncenter alignright | fullscreen",
+            forced_root_block: "div",
           }}
           initialValue={initialValue}
           onInit={(evt, editor) => (editorRef.current = editor)}

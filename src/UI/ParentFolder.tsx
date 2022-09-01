@@ -1,9 +1,9 @@
-import { SetStateAction, Dispatch } from 'react'
-import FolderRef from '../Classes/FolderRef'
-import feather from 'feather-icons'
+import { SetStateAction, Dispatch } from "react"
+import FolderRef from "../Classes/FolderRef"
+import feather from "feather-icons"
 
-const backIcon = feather.icons['arrow-left'].toSvg({ 'stroke-width': 2 })
-const homeIcon = feather.icons['home'].toSvg({ 'stroke-width': 2 })
+const backIcon = feather.icons["corner-left-up"].toSvg({ "stroke-width": 2 })
+const homeIcon = feather.icons["home"].toSvg({ "stroke-width": 2 })
 
 type Props = {
   setSelectedPage: Dispatch<SetStateAction<string | null>>
@@ -28,7 +28,7 @@ const ParentFolder = ({ setSelectedPage, path, setPath, parent }: Props) => {
           __html: path.length > 1 ? backIcon : homeIcon,
         }}
       />
-      <div className="text-xl">{' ' + parent.title}</div>
+      <div className="text-xl">{" " + parent.title}</div>
     </div>
   )
 }
