@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react"
 import { Folder } from "./Classes/Folder"
 import Editor from "./UI/Editor"
+import MobileView from "./UI/MobileView"
 import Sidebar from "./UI/Sidebar"
 
 // TODO create mobile notif view
@@ -48,6 +49,7 @@ const Main = ({ parent, path, setPath, saveNoteTree }: Props) => {
           setPageRefs={setPageRefs}
           saveNoteTree={saveNoteTree}
         />
+        <MobileView />
       </div>
     </div>
   )

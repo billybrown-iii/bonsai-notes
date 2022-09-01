@@ -2,7 +2,6 @@ import { useState } from "react"
 import { createHomeFolder } from "./Classes/Folder"
 import "./App.css"
 import Main from "./Main"
-import MobileView from "./UI/MobileView"
 
 const storedNotes = localStorage.getItem("homeFolder")
 const homeFolder = createHomeFolder(storedNotes)
@@ -21,12 +20,7 @@ function App() {
     localStorage.setItem("homeFolder", JSON.stringify(homeFolder))
   }
 
-  return (
-    <>
-      <MobileView />
-      <Main parent={parent} path={path} setPath={setPath} saveNoteTree={saveNoteTree} />
-    </>
-  )
+  return <Main parent={parent} path={path} setPath={setPath} saveNoteTree={saveNoteTree} />
 }
 
 export default App
