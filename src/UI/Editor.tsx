@@ -60,6 +60,7 @@ export default function PrimaryEditor({
         }
       })
     } else {
+      console.log("else condition Editor.tsx line 63")
     }
   }, [currentPage, parent])
 
