@@ -21,7 +21,7 @@ const initContent = `
 <div style="text-align: left;">&nbsp;</div>
 <div style="text-align: left;"><span style="text-decoration: underline;"><span style="font-size: 14pt;">Folders</span></span></div>
 <div style="text-align: left;">&nbsp;</div>
-<div style="text-align: left;"><span style="font-size: 14pt;"><span style="font-size: 12pt;">If you'd like to make folders, click the 📁&nbsp;<strong>New Folder</strong> button at the top of the sidebar.&nbsp; </span></span></div>
+<div style="text-align: left;"><span style="font-size: 14pt;"><span style="font-size: 12pt;">If you would like to make folders, click the 📁&nbsp;<strong>New Folder</strong> button at the top of the sidebar.&nbsp; </span></span></div>
 <div style="text-align: left;">&nbsp;</div>
 <div style="text-align: left;"><span style="font-size: 14pt;"><span style="font-size: 12pt;">Folders can be nested to any depth.&nbsp; For an example of how this might look, you could have a "Travel" folder, which contains more folders like "Trip to Mexico", "Places to visit", etc.<br></span></span></div>
 <div style="text-align: left;">&nbsp;</div>
