@@ -8,8 +8,8 @@ const MobileView = () => {
         `}
       >
         <div className="text-center text-lg underline pb-4">Feature not yet added</div>
-        This project works exclusively on desktop. It is not yet optimized for small screens or
-        mobile devices.
+        This project works on desktop only. It is not yet optimized for small screens or mobile
+        devices.
       </div>
     </div>
   )
