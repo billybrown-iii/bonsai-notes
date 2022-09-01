@@ -32,9 +32,9 @@ const HelpModal = ({ setShowModal }: Props) => {
         {/* <div>[overview of features ?]</div> */}
         {/* <br /> */}
         <div>
-          It's a software development project, created mainly for the sake of learning and practice.
-          It should only be used for temporary and minor applications. The app creator assumes no
-          responsibility for lost notes.
+          It's a software development project, created for fun and practice. It should only be used
+          for temporary and minor applications. The app creator assumes no responsibility for lost
+          notes.
         </div>
 
         <div className="my-5 border-b border-slate-700 dark:border-slate-300 rounded-2xl" />
