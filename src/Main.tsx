@@ -1,7 +1,7 @@
-import { Dispatch, SetStateAction, useState } from 'react'
-import { Folder } from './Classes/Folder'
-import Editor from './UI/Editor'
-import Sidebar from './UI/Sidebar'
+import { Dispatch, SetStateAction, useState } from "react"
+import { Folder } from "./Classes/Folder"
+import Editor from "./UI/Editor"
+import Sidebar from "./UI/Sidebar"
 
 // TODO create mobile notif view
 

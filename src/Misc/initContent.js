@@ -1,6 +1,6 @@
 const initContent = `
 <div style="text-align: center;">&nbsp;</div>
-<div style="text-align: center;"><span style="font-size: 18pt;">Welcome to Bonsai notes!</span></div>
+<div style="text-align: center;"><span style="font-size: 18pt;">Welcome to Bonsai Notes!</span></div>
 <div style="text-align: center;">&nbsp;</div>
 <div style="text-align: center;"><hr></div>
 <div style="text-align: left;">&nbsp;</div>
