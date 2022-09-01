@@ -36,31 +36,36 @@ export default function PrimaryEditor({
     setKey((prev) => prev + 1)
   }
 
+  // editorRef.current doesn't exist yet
+  //
+
   // don't show editor until content is loaded
   const [showEditor, setShowEditor] = useState(false)
   // if user selects a different page, switch to that page's content
   useEffect(() => {
-    if (editorRef.current && currentPage === undefined) {
+    if (currentPage === undefined) {
       setShowEditor(false)
-      editorRef.current.setContent("")
-    }
-    if (editorRef.current && currentPage) {
+      editorRef?.current?.setContent("")
+    } else {
       setPageTitle(currentPage.title)
       // TODO fix any
       // do so by changing to async/await
+
+      // if editor exists, update its content
+      // else, update initialContent
       parent.fetchPageContent(currentPage.title).then((content: any) => {
-        if (content !== null && editorRef.current) {
+        if (content === null) throw new Error("Editor.tsx effect failed: page content not found")
+        if (editorRef.current) {
           editorRef.current.setContent(content)
           editorRef.current.undoManager.clear()
           // auto-focus on empty page
           if (content.length === 0) editorRef.current.focus()
           setShowEditor(true)
         } else {
-          throw new Error(`effect failed: Page "${currentPage.title}" not found`)
+          initialValue = content
+          setShowEditor(true)
         }
       })
-    } else {
-      console.log("else condition Editor.tsx line 63")
     }
   }, [currentPage, parent])
 

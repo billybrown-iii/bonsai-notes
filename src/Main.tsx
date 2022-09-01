@@ -29,15 +29,8 @@ const Main = ({ parent, path, setPath, saveNoteTree }: Props) => {
     <div className="h-screen bg-gradient-to-r from-stone-300 via-stone-200 to-stone-300 dark:from-neutral-900 dark:via-neutral-900 dark:to-neutral-900">
       <div
         id="main"
-        className="relative flex flex-row-reverse justify-end flex-wrap h-full w-full max-w-screen-xl min-w-[768px] m-auto bg-neutral-100 dark:bg-gray-800 text-zinc-900 dark:text-zinc-50"
+        className="relative flex flex-wrap h-full w-full max-w-screen-xl min-w-[768px] m-auto bg-neutral-100 dark:bg-gray-800 text-zinc-900 dark:text-zinc-50"
       >
-        <Editor
-          selectedPage={selectedPage}
-          setSelectedPage={setSelectedPage}
-          parent={parent}
-          setPageRefs={setPageRefs}
-          saveNoteTree={saveNoteTree}
-        />
         <Sidebar
           path={path}
           setPath={setPath}
@@ -49,7 +42,13 @@ const Main = ({ parent, path, setPath, saveNoteTree }: Props) => {
           deletePage={deletePage}
           saveNoteTree={saveNoteTree}
         />
-
+        <Editor
+          selectedPage={selectedPage}
+          setSelectedPage={setSelectedPage}
+          parent={parent}
+          setPageRefs={setPageRefs}
+          saveNoteTree={saveNoteTree}
+        />
         <MobileView />
       </div>
     </div>
