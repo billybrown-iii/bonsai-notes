@@ -10,7 +10,7 @@ This is a note taking web app. It's designed to be exceptionally user-friendly a
 
 It features the ability to organize notes into a branching tree of folders and pages.
 
-Folders can be nested to any depth. They can hold pages and/or more folders.
+Folders can hold pages and/or more folders. They can be nested to any depth.
 
 Current features (As of 09/01/22):
 
