@@ -1,4 +1,5 @@
 const initContent = `
+<div>
 <div style="text-align: center;">&nbsp;</div>
 <div style="text-align: center;"><span style="font-size: 18pt;">Welcome to Bonsai Notes!</span></div>
 <div style="text-align: center;">&nbsp;</div>
@@ -7,6 +8,8 @@ const initContent = `
 <div style="text-align: left;"><span style="text-decoration: underline;"><span style="font-size: 14pt;">Getting Started</span></span><span style="font-size: 14pt;">&nbsp;</span></div>
 <div style="text-align: left;">&nbsp;</div>
 <div style="text-align: left;"><span style="font-size: 14pt;"><span style="font-size: 12pt;">To start taking notes, use the <span style="font-size: 14pt;"><span style="font-size: 12pt;">✏️ <strong>New </strong><strong>Page</strong></span></span> button in the sidebar.&nbsp;</span></span></div>
+<div style="text-align: left;">&nbsp;</div>
+<div style="text-align: left;"><span style="font-size: 14pt;"><span style="font-size: 12pt;"><span style="font-size: 14pt;"><span style="font-size: 12pt;">If you'd like to make folders, use the 📁 <strong>New Folder</strong> button. </span></span></span></span></div>
 <div style="text-align: left;">&nbsp;</div>
 <div style="text-align: left;">
 <div style="text-align: left;"><span style="text-decoration: underline;"><span style="font-size: 14pt;">How it Works</span></span><span style="font-size: 14pt;">&nbsp;</span></div>
@@ -21,9 +24,9 @@ const initContent = `
 <div style="text-align: left;">&nbsp;</div>
 <div style="text-align: left;"><span style="text-decoration: underline;"><span style="font-size: 14pt;">Folders</span></span></div>
 <div style="text-align: left;">&nbsp;</div>
-<div style="text-align: left;"><span style="font-size: 14pt;"><span style="font-size: 12pt;">If you would like to make folders, click the 📁&nbsp;<strong>New Folder</strong> button at the top of the sidebar.&nbsp; </span></span></div>
+<div style="text-align: left;"><span style="font-size: 14pt;"><span style="font-size: 12pt;">Folders can contain pages and/or more folders.&nbsp; They can be nested to any depth.&nbsp; </span></span></div>
 <div style="text-align: left;">&nbsp;</div>
-<div style="text-align: left;"><span style="font-size: 14pt;"><span style="font-size: 12pt;">Folders can be nested to any depth.&nbsp; For an example of how this might look, you could have a "Travel" folder, which contains more folders like "Trip to Mexico", "Places to visit", etc.<br></span></span></div>
+<div style="text-align: left;"><span style="font-size: 14pt;"><span style="font-size: 12pt;">For an example of how this might look, you could have a "Travel" folder, which contains more folders like "Trip to Mexico", "Places to visit", etc.<br></span></span></div>
 <div style="text-align: left;">&nbsp;</div>
 <div style="text-align: left;"><span style="text-decoration: underline;"><span style="font-size: 14pt;">More Info</span></span><span style="font-size: 14pt;">&nbsp;</span></div>
 <div style="text-align: left;">&nbsp;</div>
@@ -31,5 +34,6 @@ const initContent = `
 <div style="text-align: left;">&nbsp;</div>
 <div style="text-align: left;"><span style="font-size: 14pt;"><span style="font-size: 12pt;">Feel free to delete this intro page when finished reading!&nbsp; You can delete it by going to the sidebar on the left, and hovering over the page title to reveal the settings button.<br></span></span></div>
 <div style="text-align: left;">&nbsp;</div>
+</div>
 `
 export default initContent
