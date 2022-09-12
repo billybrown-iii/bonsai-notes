@@ -26,7 +26,7 @@ const HelpModal = ({ setShowModal }: Props) => {
         <br />
         <div>
           This is a note-taking web app that is designed to be quick and useful. It doesn't support
-          online saving of notes, though this feature may be added at some point in the future.
+          online syncing of notes, though this feature may be added at some point in the future.
         </div>
         <br />
         {/* <div>[overview of features ?]</div> */}

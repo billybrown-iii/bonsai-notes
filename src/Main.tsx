@@ -11,10 +11,11 @@ type Props = {
   path: string[]
   setPath: Dispatch<SetStateAction<string[]>>
   saveNoteTree: () => void
+  homeFolder: Folder
 }
 
 // in order to avoid redeclaring parent every time there's a change to pages, separate Main from App component
-const Main = ({ parent, path, setPath, saveNoteTree }: Props) => {
+const Main = ({ parent, path, setPath, saveNoteTree, homeFolder }: Props) => {
   const [pageRefs, setPageRefs] = useState(parent.pageRefGen())
   const [selectedPage, setSelectedPage] = useState<string | null>(null)
 
@@ -48,6 +49,7 @@ const Main = ({ parent, path, setPath, saveNoteTree }: Props) => {
           parent={parent}
           setPageRefs={setPageRefs}
           saveNoteTree={saveNoteTree}
+          homeFolder={homeFolder}
         />
         <MobileView />
       </div>

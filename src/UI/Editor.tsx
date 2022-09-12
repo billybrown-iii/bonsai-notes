@@ -15,6 +15,7 @@ type Props = {
   parent: Folder
   setPageRefs: Dispatch<SetStateAction<PageRef[]>>
   saveNoteTree: () => void
+  homeFolder: Folder
 }
 
 export default function PrimaryEditor({
@@ -23,6 +24,7 @@ export default function PrimaryEditor({
   parent,
   setPageRefs,
   saveNoteTree,
+  homeFolder,
 }: Props) {
   const editorRef = useRef<TinyMCEEditor>()
   const currentPage = parent.findPage(selectedPage)
@@ -69,15 +71,28 @@ export default function PrimaryEditor({
     }
   }, [currentPage, parent])
 
-  // autofocus on welcome page for new users
+  // autofocus on welcome page for new users, or first page if exists
   useEffect(() => {
     if (localStorage.getItem("homeFolder") === null) {
       initialValue = initContent
       setSelectedPage("Welcome!")
       setPageTitle("Welcome!")
       setShowEditor(true)
+    } else {
+      if (homeFolder.pages.length > 0) {
+        const title: string = homeFolder.pages[0].title
+        homeFolder.fetchPageContent(title).then((result: any) => {
+          editorRef.current ? editorRef.current.setContent(result) : (initialValue = result)
+          setSelectedPage(title)
+          setPageTitle(title)
+          setShowEditor(true)
+        })
+      }
+      // setInitialValue?.then(value: any => {
+
+      // })
     }
-  }, [setSelectedPage])
+  }, [setSelectedPage, homeFolder])
 
   /**
    * Handles user changing the title text for a page.

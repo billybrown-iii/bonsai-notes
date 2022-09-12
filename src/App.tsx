@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { createHomeFolder } from "./Classes/Folder"
-import "./App.css"
 import Main from "./Main"
 
 const storedNotes = localStorage.getItem("homeFolder")
@@ -20,7 +19,15 @@ function App() {
     localStorage.setItem("homeFolder", JSON.stringify(homeFolder))
   }
 
-  return <Main parent={parent} path={path} setPath={setPath} saveNoteTree={saveNoteTree} />
+  return (
+    <Main
+      parent={parent}
+      path={path}
+      setPath={setPath}
+      saveNoteTree={saveNoteTree}
+      homeFolder={homeFolder}
+    />
+  )
 }
 
 export default App
