@@ -1,26 +1,26 @@
-import feather from 'feather-icons'
-import { useState } from 'react'
-import HelpModal from './InfoModal'
-import MiniButton from './MiniButton'
+import { useState } from "react"
+import InfoModal from "./InfoModal"
+import MiniButton from "./MiniButton"
+import feather from "feather-icons"
 
-const darkIcon = feather.icons['moon'].toSvg({ 'stroke-width': 2 })
-const lightIcon = feather.icons['sun'].toSvg({ 'stroke-width': 2 })
-const helpIcon = feather.icons['help-circle'].toSvg({ 'stroke-width': 2 })
+const darkIcon = feather.icons["moon"].toSvg({ "stroke-width": 2 })
+const lightIcon = feather.icons["sun"].toSvg({ "stroke-width": 2 })
+const helpIcon = feather.icons["help-circle"].toSvg({ "stroke-width": 2 })
 
 type Props = {
   refreshEditor: () => void
 }
 const Nav = ({ refreshEditor }: Props) => {
-  const element = document.getElementById('html')
-  const isDark = element!.classList.contains('dark')
+  const element = document.getElementById("html")
+  const isDark = element!.classList.contains("dark")
 
   const [showModal, setShowModal] = useState(false)
 
   const toggleDarkTheme = () => {
-    window.localStorage.getItem('theme') === 'dark'
-      ? window.localStorage.setItem('theme', 'light')
-      : window.localStorage.setItem('theme', 'dark')
-    isDark ? element!.classList.remove('dark') : element!.classList.add('dark')
+    window.localStorage.getItem("theme") === "dark"
+      ? window.localStorage.setItem("theme", "light")
+      : window.localStorage.setItem("theme", "dark")
+    isDark ? element!.classList.remove("dark") : element!.classList.add("dark")
     refreshEditor()
   }
 
@@ -29,7 +29,7 @@ const Nav = ({ refreshEditor }: Props) => {
     <div className="absolute flex justify-end w-[22.22%] right-0 py-1.5 px-2">
       <MiniButton icon={helpIcon} func={() => setShowModal((prev) => !prev)} />
       <MiniButton icon={isDark ? lightIcon : darkIcon} func={toggleDarkTheme} />
-      {showModal ? <HelpModal setShowModal={setShowModal} /> : null}
+      {showModal ? <InfoModal setShowModal={setShowModal} /> : null}
     </div>
   )
 }

@@ -8,6 +8,7 @@ const xIcon = feather.icons["x-circle"].toSvg({ "stroke-width": 2 })
 type Props = {
   setShowModal: Dispatch<SetStateAction<boolean>>
 }
+
 const HelpModal = ({ setShowModal }: Props) => {
   return (
     <div className="fixed z-30 top-0 left-0 w-full h-full bg-black/75">
@@ -55,7 +56,6 @@ const HelpModal = ({ setShowModal }: Props) => {
             rel="noreferrer"
             className="flex w-fit mx-auto my-1 py-2 text-gray-700 dark:text-gray-300 underline decoration-2 hover:decoration-sky-500 hover:text-gray-900 dark:hover:text-gray-100"
           >
-            {/* coffee external-link */}
             <span className="mr-2" dangerouslySetInnerHTML={{ __html: coffeeIcon }} />
             View portfolio
           </a>

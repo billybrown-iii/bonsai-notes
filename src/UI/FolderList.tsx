@@ -1,13 +1,13 @@
-import { MenuItem } from '@szhsin/react-menu'
-import feather from 'feather-icons'
-import { Dispatch, SetStateAction } from 'react'
-import FolderRef from '../Classes/FolderRef'
-import PageRef from '../Classes/PageRef'
-import SettingsButton from './SettingsButton'
+import { Dispatch, SetStateAction } from "react"
+import FolderRef from "../Classes/FolderRef"
+import PageRef from "../Classes/PageRef"
+import SettingsButton from "./SettingsButton"
+import { MenuItem } from "@szhsin/react-menu"
+import feather from "feather-icons"
 
-const icon = feather.icons['folder'].toSvg({
-  'stroke-width': 1,
-  width: '20px',
+const icon = feather.icons["folder"].toSvg({
+  "stroke-width": 1,
+  width: "20px",
 })
 
 type Props = {
@@ -39,14 +39,14 @@ export default function FolderList({
      rounded-xl bg-zinc-200 hover:bg-zinc-300 dark:bg-gray-700 dark:hover:bg-gray-600`
 
   const folders = folderRefs.map((item, index) => {
-    if (item.code === 'new') {
+    if (item.code === "new") {
       return (
         <div className="group flex items-center w-full" key={index}>
           <div
             id="line"
             className={
-              'relative z-0 -my-8 bottom-10 left-5 right-3 w-4 h-20 border-l-2 border-b-2 border-neutral-400 dark:border-gray-500' +
-              (pageRefs.length === 0 && index === folderRefs.length - 1 ? ' rounded-bl-lg' : '')
+              "relative z-0 -my-8 bottom-10 left-5 right-3 w-4 h-20 border-l-2 border-b-2 border-neutral-400 dark:border-gray-500" +
+              (pageRefs.length === 0 && index === folderRefs.length - 1 ? " rounded-bl-lg" : "")
             }
           />
           <div className={folderStyles}>
@@ -60,20 +60,20 @@ export default function FolderList({
                 addFolder(e.target.value)
               }}
               onKeyPress={(e) => {
-                if (e.key === 'Enter') addFolder(e.target.value)
+                if (e.key === "Enter") addFolder(e.target.value)
               }}
             />
           </div>
         </div>
       )
-    } else if (item.code === 'edit') {
+    } else if (item.code === "edit") {
       return (
         <div className="group flex items-center w-full" key={index}>
           <div
             id="line"
             className={
-              'relative z-0 -my-8 bottom-10 left-5 right-3 w-4 h-20 border-l-2 border-b-2 border-neutral-400 dark:border-gray-500' +
-              (pageRefs.length === 0 && index === folderRefs.length - 1 ? ' rounded-bl-lg' : '')
+              "relative z-0 -my-8 bottom-10 left-5 right-3 w-4 h-20 border-l-2 border-b-2 border-neutral-400 dark:border-gray-500" +
+              (pageRefs.length === 0 && index === folderRefs.length - 1 ? " rounded-bl-lg" : "")
             }
           />
           <div className={folderStyles}>
@@ -88,7 +88,7 @@ export default function FolderList({
                 saveFolderRename(item.title, e.target.value)
               }}
               onKeyPress={(e) => {
-                if (e.key === 'Enter') saveFolderRename(item.title, e.target.value)
+                if (e.key === "Enter") saveFolderRename(item.title, e.target.value)
               }}
             />
           </div>
@@ -100,8 +100,8 @@ export default function FolderList({
           <div
             id="line"
             className={
-              'relative z-0 -my-8 bottom-10 left-5 right-3 w-4 h-20 border-l-2 border-b-2 border-neutral-400 dark:border-gray-500' +
-              (pageRefs.length === 0 && index === folderRefs.length - 1 ? ' rounded-bl-lg' : '')
+              "relative z-0 -my-8 bottom-10 left-5 right-3 w-4 h-20 border-l-2 border-b-2 border-neutral-400 dark:border-gray-500" +
+              (pageRefs.length === 0 && index === folderRefs.length - 1 ? " rounded-bl-lg" : "")
             }
           />
           <div
@@ -110,7 +110,7 @@ export default function FolderList({
               setPath(item.path)
             }}
             className={folderStyles}
-            id={'folderref-' + index}
+            id={"folderref-" + index}
           >
             <div className="mr-2 -mt-0.5" dangerouslySetInnerHTML={{ __html: icon }} />
             <div className="overflow-hidden">{item.title}</div>

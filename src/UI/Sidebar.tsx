@@ -1,23 +1,23 @@
-import { useState, useEffect, SetStateAction, Dispatch } from 'react'
-import FolderRef from '../Classes/FolderRef'
-import PageRef from '../Classes/PageRef'
-import FolderList from './FolderList'
-import PageList from './PageList'
-import feather from 'feather-icons'
-import { Folder } from '../Classes/Folder'
-import ResponsiveButton from './ResponsiveButton'
-import ParentFolder from './ParentFolder'
-import FullButton from './FullButton'
+import { useState, useEffect, SetStateAction, Dispatch } from "react"
+import { Folder } from "../Classes/Folder"
+import FolderRef from "../Classes/FolderRef"
+import PageRef from "../Classes/PageRef"
+import FolderList from "./FolderList"
+import PageList from "./PageList"
+import ResponsiveButton from "./ResponsiveButton"
+import ParentFolder from "./ParentFolder"
+import FullButton from "./FullButton"
+import feather from "feather-icons"
 
 // TODO handle errors in axios calls
 
-const newFolderIcon = feather.icons['folder-plus'].toSvg({
-  'stroke-width': 2,
-  width: '24px',
+const newFolderIcon = feather.icons["folder-plus"].toSvg({
+  "stroke-width": 2,
+  width: "24px",
 })
-const newPageIcon = feather.icons['edit'].toSvg({
-  'stroke-width': 2,
-  width: '24px',
+const newPageIcon = feather.icons["edit"].toSvg({
+  "stroke-width": 2,
+  width: "24px",
 })
 
 type Props = {
@@ -55,7 +55,7 @@ export default function Sidebar({
 
   /** Adds a temporary placeholder folderRef, pending naming and confirmation */
   const newFolder = () => {
-    const newFolderRef = new FolderRef('New Folder', path, 'new')
+    const newFolderRef = new FolderRef("New Folder", path, "new")
     setFolderRefs([...folderRefs, newFolderRef])
     saveNoteTree()
   }
@@ -65,8 +65,8 @@ export default function Sidebar({
     const result = parent.createChildFolder(title)
     setFolderRefs(parent.folderRefGen())
 
-    if (result === 'duplicate') {
-      alert('A folder with this name already exists.  Please use a different name.')
+    if (result === "duplicate") {
+      alert("A folder with this name already exists.  Please use a different name.")
     }
     saveNoteTree()
   }
@@ -79,7 +79,7 @@ export default function Sidebar({
     setFolderRefs((prev) =>
       prev.map((ref) => {
         if (ref.title === title) {
-          ref.code = 'edit'
+          ref.code = "edit"
         }
         return ref
       })
@@ -90,11 +90,11 @@ export default function Sidebar({
     const result = parent.renameChildFolder(prevName, newName)
     setFolderRefs(parent.folderRefGen())
     switch (result) {
-      case 'success':
+      case "success":
         return saveNoteTree()
-      case 'empty':
-        return alert('A name is required.')
-      case 'duplicate':
+      case "empty":
+        return alert("A name is required.")
+      case "duplicate":
         return alert("There's already a folder with this title.  Please use a different name.")
     }
   }
@@ -107,7 +107,7 @@ export default function Sidebar({
 
   /** Adds a temporary placeholder pageRef. */
   const newPage = () => {
-    const newPageRef = new PageRef('New Page', null)
+    const newPageRef = new PageRef("New Page", null)
     setPageRefs([...pageRefs, newPageRef])
   }
 
@@ -116,8 +116,8 @@ export default function Sidebar({
     const result = parent.createPage(title)
     setPageRefs(parent.pageRefGen())
 
-    if (result === 'duplicate') {
-      return alert('A page with this title already exists.  Please use a different name.')
+    if (result === "duplicate") {
+      return alert("A page with this title already exists.  Please use a different name.")
     }
 
     saveNoteTree()
@@ -145,8 +145,8 @@ export default function Sidebar({
       </div>
       <div
         className={
-          'relative z-10 flex justify-end w-full -mb-12 pr-3 pt-4 ' +
-          (pageRefs.length > 0 ? 'hidden' : 'visible')
+          "relative z-10 flex justify-end w-full -mb-12 pr-3 pt-4 " +
+          (pageRefs.length > 0 ? "hidden" : "visible")
         }
       >
         {folderRefs.length > 0 ? (
@@ -168,11 +168,11 @@ export default function Sidebar({
           saveFolderRename={saveFolderRename}
         />
 
-        <div className={'flex ml-8 mr-auto ' + (pageRefs.length > 0 ? 'visible' : 'hidden')}>
+        <div className={"flex ml-8 mr-auto " + (pageRefs.length > 0 ? "visible" : "hidden")}>
           <div
             id="connecting-line"
             className={
-              'relative z-0 -mb-40 bottom-32 right-3 w-3.5 h-40 border-l-2 border-b-2 rounded-bl-xl border-neutral-400 dark:border-gray-500 '
+              "relative z-0 -mb-40 bottom-32 right-3 w-3.5 h-40 border-l-2 border-b-2 rounded-bl-xl border-neutral-400 dark:border-gray-500 "
             }
           ></div>
           <div className="relative top-4 text-lg -ml-1 text-gray-900 dark:text-gray-300">Pages</div>
@@ -182,8 +182,8 @@ export default function Sidebar({
         </div>
         <hr
           className={
-            'w-11/12 m-auto mt-3 mb-4 border-t border-gray-600 ' +
-            (pageRefs.length > 0 ? 'visible' : 'hidden')
+            "w-11/12 m-auto mt-3 mb-4 border-t border-gray-600 " +
+            (pageRefs.length > 0 ? "visible" : "hidden")
           }
         />
         <div className="flex justify-around">

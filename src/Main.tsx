@@ -1,10 +1,8 @@
 import { Dispatch, SetStateAction, useState } from "react"
 import { Folder } from "./Classes/Folder"
 import Editor from "./UI/Editor"
-import MobileView from "./UI/MobileView"
 import Sidebar from "./UI/Sidebar"
-
-// TODO create mobile notif view
+import MobileView from "./UI/MobileView"
 
 type Props = {
   parent: Folder
@@ -14,7 +12,7 @@ type Props = {
   homeFolder: Folder
 }
 
-// in order to avoid redeclaring parent every time there's a change to pages, separate Main from App component
+// to avoid redeclaring parent every time there's a change to pages, separate Main from App component
 const Main = ({ parent, path, setPath, saveNoteTree, homeFolder }: Props) => {
   const [pageRefs, setPageRefs] = useState(parent.pageRefGen())
   const [selectedPage, setSelectedPage] = useState<string | null>(null)

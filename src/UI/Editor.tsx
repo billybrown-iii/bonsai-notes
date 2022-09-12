@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef, Dispatch, SetStateAction, ChangeEventHandler } from "react"
-import TitleBar from "./TitleBar"
-import { Editor } from "@tinymce/tinymce-react"
-import { Editor as TinyMCEEditor } from "tinymce"
 import { Folder } from "../Classes/Folder"
+import initContent from "../Misc/initContent"
+import TitleBar from "./TitleBar"
 import PageRef from "../Classes/PageRef"
 import Nav from "./Nav"
-import initContent from "../Misc/initContent"
+import { Editor } from "@tinymce/tinymce-react"
+import { Editor as TinyMCEEditor } from "tinymce"
 
 let initialValue: string | undefined = ""
 
@@ -38,16 +38,14 @@ export default function PrimaryEditor({
     setKey((prev) => prev + 1)
   }
 
-  // editorRef.current doesn't exist yet
-  //
-
   // don't show editor until content is loaded
   const [showEditor, setShowEditor] = useState(false)
+
   // if user selects a different page, switch to that page's content
   useEffect(() => {
     if (currentPage === undefined) {
       setShowEditor(false)
-      editorRef?.current?.setContent("")
+      editorRef.current?.setContent("")
     } else {
       setPageTitle(currentPage.title)
       // TODO fix any
@@ -88,23 +86,16 @@ export default function PrimaryEditor({
           setShowEditor(true)
         })
       }
-      // setInitialValue?.then(value: any => {
-
-      // })
     }
   }, [setSelectedPage, homeFolder])
 
-  /**
-   * Handles user changing the title text for a page.
-   */
+  /** Handles user changing the title text for a page. */
   const titleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const newTitle = e.target.value
     setPageTitle(newTitle)
   }
 
-  /**
-   * When user blurs or hits enter, save updated page title
-   */
+  /** When user blurs or hits enter, save updated page title. */
   const saveTitleChange = () => {
     if (!selectedPage) return
 
@@ -165,9 +156,6 @@ export default function PrimaryEditor({
           onInit={(evt, editor) => (editorRef.current = editor)}
           onEditorChange={save}
         />
-        {/* <div className="w-full text-2xl">
-          <div className="w-fit ml-5 mr-5 pt-2">Bonsai Notes</div>
-        </div> */}
         {/* <button
           onClick={() => {
             console.log(editorRef?.current?.getContent())

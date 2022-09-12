@@ -12,7 +12,7 @@ It features the ability to organize notes into a branching tree of folders and p
 
 Folders can hold pages and/or more folders. They can be nested to any depth.
 
-Current features (As of 09/01/22):
+Current features:
 
 - Creation and navigation of folders and pages to any depth.
 - Autosaving of all content to the local browser. It uses IndexedDB, so there is no limit to filesize.

@@ -1,12 +1,12 @@
-import feather from 'feather-icons'
-import { Menu } from '@szhsin/react-menu'
-import React, { ReactNode } from 'react'
-import '@szhsin/react-menu/dist/index.css'
-import '@szhsin/react-menu/dist/transitions/slide.css'
+import { ReactNode } from "react"
+import { Menu } from "@szhsin/react-menu"
+import "@szhsin/react-menu/dist/index.css"
+import "@szhsin/react-menu/dist/transitions/slide.css"
+import feather from "feather-icons"
 
-const settingsIcon = feather.icons['settings'].toSvg({
-  'stroke-width': 2,
-  width: '20px',
+const settingsIcon = feather.icons["settings"].toSvg({
+  "stroke-width": 2,
+  width: "20px",
 })
 
 /**

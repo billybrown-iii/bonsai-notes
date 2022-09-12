@@ -1,19 +1,18 @@
-import feather from 'feather-icons'
-import SettingsButton from './SettingsButton'
-import { MenuItem } from '@szhsin/react-menu'
-import PageRef from '../Classes/PageRef'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction } from "react"
+import PageRef from "../Classes/PageRef"
+import SettingsButton from "./SettingsButton"
+import { MenuItem } from "@szhsin/react-menu"
+import feather from "feather-icons"
 
-const pageIcon = feather.icons['file'].toSvg({
-  'stroke-width': 2,
-  width: '20px',
+const pageIcon = feather.icons["file"].toSvg({
+  "stroke-width": 2,
+  width: "20px",
 })
 
 type Props = {
   pageRefs: PageRef[]
   addPage: (title: string) => void
   selectedPage: string | null
-  // TODO generic
   setSelectedPage: Dispatch<SetStateAction<string | null>>
   deletePage: (title: string) => void
 }
@@ -45,8 +44,7 @@ export default function PageList({
               addPage(e.target.value)
             }}
             onKeyPress={(e) => {
-              // @ts-ignore
-              if (e.key === 'Enter') addPage(e.target.value)
+              if (e.key === "Enter") addPage(e.target.value)
             }}
           />
         </div>
@@ -61,12 +59,12 @@ export default function PageList({
             onClick={() => {
               setSelectedPage(item.title)
             }}
-            className={pageStyles + (selectedPage === item.title ? ' -ml-0.5 -mr-1' : '')}
+            className={pageStyles + (selectedPage === item.title ? " -ml-0.5 -mr-1" : "")}
           >
             <span className="mr-2" dangerouslySetInnerHTML={{ __html: pageIcon }} />
             <div className="overflow-hidden">{item.title}</div>
           </div>
-          <div className={selectedPage === item.title ? 'ml-1 -mr-1' : ''}>
+          <div className={selectedPage === item.title ? "ml-1 -mr-1" : ""}>
             <SettingsButton>
               <MenuItem onClick={() => deletePage(item.title)}>Delete</MenuItem>
             </SettingsButton>
